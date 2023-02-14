@@ -175,6 +175,7 @@
 .event-thumb{
   min-width: 220px;
   padding-bottom: 1rem;
+  text-decoration: none;
 }
 
 .event-thumb-img{
