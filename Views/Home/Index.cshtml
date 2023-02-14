@@ -1,0 +1,211 @@
+﻿@{
+  ViewData["Title"] = "Bem vindo";
+}
+<div class="header container pb-4">
+  <div class="info-container">
+    <div>
+      <span class="info-container-title">Festas e Shows</span>
+      <p class="info-container-description">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vitae
+        doloribus dolores tempora corrupti maiores illum laboriosam nu
+      </p>
+      <button id="info-container-button" class="btn btn-white">Saber mais</button>
+    </div>
+    <div class="search-container">
+      <span class="search-container-title">Pesquise mais</span>
+      <form class="d-flex justify-content-center align-items-center gap-1">
+        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Localização" />
+        <datalist id="datalistOptions">
+          <option value="San Francisco"></option>
+          <option value="New York"></option>
+          <option value="Seattle"></option>
+          <option value="Los Angeles"></option>
+          <option value="Chicago"></option>
+        </datalist>
+        <select class="form-select">
+          <option hidden selected>Tipo de Evento</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+        <select class="form-select">
+          <option hidden selected>Preço</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </form>
+    </div>
+  </div>
+  <div class="info-container-banner">
+    <div class="info-banner">
+      <img class="banner"
+        src="https://lamenteesmaravillosa.com/wp-content/uploads/2022/10/personas-haciendo-teatro-despidiendose-1024x683.jpg" />
+    </div>
+    <img class="back-banner-1" src="~/assets/imgs/Points.svg" />
+    <img class="back-banner-2" src="~/assets/imgs/Points2.svg" />
+  </div>
+</div>
+<div class="bg-secondary pt-5">
+  <div class="container">
+    <header class="list-thumb-title">
+      <h6>Destaques</h6>
+    </header>
+    <div id="list-thumb-content" class="list-thumb-content hidden-scroll">
+      <article class="event-thumb">
+        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
+        <content class="event-thumb-info">
+          <span class="event-thumb-info-title">Baile da favorita</span>
+          <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
+          <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
+        </content>
+      </article>
+      <article class="event-thumb">
+        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
+        <content class="event-thumb-info">
+          <span class="event-thumb-info-title">Baile da favorita</span>
+          <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
+          <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
+        </content>
+      </article>
+      <article class="event-thumb">
+        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
+        <content class="event-thumb-info">
+          <span class="event-thumb-info-title">Baile da favorita</span>
+          <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
+          <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
+        </content>
+      </article>
+      <article class="event-thumb">
+        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
+        <content class="event-thumb-info">
+          <span class="event-thumb-info-title">Baile da favorita</span>
+          <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
+          <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
+        </content>
+      </article>
+      <article class="event-thumb">
+        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
+        <content class="event-thumb-info">
+          <span class="event-thumb-info-title">Baile da favorita</span>
+          <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
+          <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
+        </content>
+      </article>
+      <article class="event-thumb">
+        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
+        <content class="event-thumb-info">
+          <span class="event-thumb-info-title">Baile da favorita</span>
+          <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
+          <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
+        </content>
+      </article>
+      <article class="event-thumb">
+        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
+        <content class="event-thumb-info">
+          <span class="event-thumb-info-title">Baile da favorita</span>
+          <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
+          <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
+        </content>
+      </article>
+      <article class="event-thumb">
+        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
+        <content class="event-thumb-info">
+          <span class="event-thumb-info-title">Baile da favorita</span>
+          <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
+          <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
+        </content>
+      </article>
+
+    </div>
+  </div>
+</div>
+
+@section Scripts{
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+
+  <script>
+    jQuery(function ($) {
+      $.fn.hScroll = function (amount) {
+        amount = amount || 120;
+        $(this).bind("DOMMouseScroll mousewheel", function (event) {
+          var oEvent = event.originalEvent,
+            direction = oEvent.detail ? oEvent.detail * -amount : oEvent.wheelDelta,
+            position = $(this).scrollLeft();
+          position += direction > 0 ? -amount : amount;
+          $(this).scrollLeft(position);
+          event.preventDefault();
+        })
+      };
+    });
+
+    $(document).ready(function () {
+      $('#list-thumb-content').hScroll(40); // You can pass (optionally) scrolling amount
+      // Create array for setTimeouts
+    });
+
+    var timeouts = [];
+    $("#list-thumb-content").mousemove(function () {
+
+      $(this).addClass("show-scroll");
+
+      // Clear all setTimeouts
+      for (var i = 0; i < timeouts.length; i++) {
+        clearTimeout(timeouts[i]);
+      }
+
+      // Start a new setTimeout to disable scoll after 3 seconds
+      timeouts.push(setTimeout(hideScroll, 5000));
+
+    });
+
+
+    function hideScroll() {
+
+      // Disable scroll in ALL divs with .hover-scroll
+      $("#list-thumb-content.show-scroll").removeClass("show-scroll");
+
+    }
+  </script>
+  <script>
+    //Trocar Topo da pagina
+
+    $('body').ready(function () {
+      let count = 0;
+      let images = [
+        'https://blog.123milhas.com/wp-content/uploads/2022/09/campanhas-de-popularizacao-do-teatro-no-brasil-conexao123.jpg',
+        'https://lamenteesmaravillosa.com/wp-content/uploads/2022/10/personas-haciendo-teatro-despidiendose-1024x683.jpg',
+        'https://s2.glbimg.com/3-PDyAblZszWdzdVoCl3JO0SyBY=/0x0:1100x733/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2022/5/M/zLDBYsSdmwofDENHrGOw/whatsapp-image-2022-10-06-at-13.38.11.jpeg']
+
+      let titles = [
+        'Festas e Shows', 'Teatros e Espetáculos', 'Cursos e Workshops']
+
+      let banner = $('.banner');
+      let title = $('.info-container-title');
+      let description = $('.info-container-description');
+      let button = $('#info-container-button');
+      setInterval(() => {
+
+        title.animate({opacity: '0', left: '-200px'}, 500, () => { });
+        description.animate({opacity: '0', left: '-200px'}, 510, () => { });
+        button.animate({opacity: '0', left: '-200px'}, 500, () => { });
+        $('.info-banner').animate({opacity: '0', right: '-200px'}, 500, () => {
+
+          if (count >= images.length)
+            count = 0;
+
+          banner.attr('src', images[count]);
+          title.text(titles[count])
+
+          title.animate({opacity: '1', left: '0px'}, 500, () => { });
+          description.animate({opacity: '1', left: '0px'}, 500, () => { });
+          button.animate({opacity: '1', left: '0px'}, 500, () => { });
+          $('.info-banner').animate({opacity: '1',right: '0px'}, 1000, () => { });
+
+          count++;
+        });
+      }, 3000);
+    });
+  </script>
+
+}

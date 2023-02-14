@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Moment</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/components.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Moment.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="nav navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-black mb-3">
+            <div class="container-fluid pv-5 w-100">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="logo" src="~/assets/imgs/LOGO.svg"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <div class="flex-grow-1">
+                    </div>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div>
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="container footer-list-container mb-5">
+           <div class="footer-list">
+                <span class="footer-list-title">Encontre Eventos</span>
+                <a href="#" class="footer-list-item">Hoje</a>
+                <a href="#" class="footer-list-item">Amanhã</a>
+                <a href="#" class="footer-list-item">Está Semana</a>
+                <a href="#" class="footer-list-item">Este Fim de Semana</a>
+                <a href="#" class="footer-list-item">Este Mês</a>
+           </div>
+           <div class="footer-list">
+                <span class="footer-list-title">Cidades</span>
+                <a href="#" class="footer-list-item">São Paulo</a>
+                <a href="#" class="footer-list-item">Macatuba</a>
+                <a href="#" class="footer-list-item">Bauru</a>
+                <a href="#" class="footer-list-item">Lençois Paulista</a>
+                <a href="#" class="footer-list-item">Jau</a>
+                <a href="#" class="footer-list-item">Barra Bonita</a>
+                <a href="#" class="footer-list-item">São Manuel</a>
+                <a href="#" class="footer-list-item">Igaraçu do Tiête</a>
+                <a href="#" class="footer-list-item">Itapui</a>
+                <a href="#" class="footer-list-item">Pederneiras</a>
+                <a href="#" class="footer-list-item">Botucatu</a>
+                <a href="#" class="footer-list-item">Agudos</a>
+           </div>
+            <div class="footer-list">
+                <span class="footer-list-title">Categorias</span>
+                <a href="#" class="footer-list-item">Festas e Shows</a>
+                <a href="#" class="footer-list-item">Teatros e Espetáculos</a>
+                <a href="#" class="footer-list-item">Cursos e Workshops</a>
+                <a href="#" class="footer-list-item">Congressos e Palestras</a>
+                <a href="#" class="footer-list-item">Governamentais</a>
+                <a href="#" class="footer-list-item">Passeios e Excursões</a>
+                <a href="#" class="footer-list-item">Esporte</a>
+                <a href="#" class="footer-list-item">Grátis</a>
+                <a href="#" class="footer-list-item">Infántil</a>
+                <a href="#" class="footer-list-item">Religião e Espiritualidade</a>
+                <a href="#" class="footer-list-item">Games e Geek</a>
+                <a href="#" class="footer-list-item">Moda e Beleza</a>
+                <a href="#" class="footer-list-item">Gastronomia</a>
+           </div>
+            <div class="footer-list">
+                <span class="footer-list-title">Para Criadores</span>
+                <a href="#" class="footer-list-item">Soluções</a>
+                <a href="#" class="footer-list-item">Cursos Online</a>
+                <a href="#" class="footer-list-item">Preço</a>
+                <a href="#" class="footer-list-item">Integrações</a>
+                <a href="#" class="footer-list-item">Cases de Sucesso</a>
+                <a href="#" class="footer-list-item">Consultor de Vendas</a>
+                <a href="#" class="footer-list-item">Homologados</a>
+                <a href="#" class="footer-list-item">API</a>
+           </div>
+            <div class="footer-list">
+                <span class="footer-list-title">Planeje sue Evento</span>
+                <a href="#" class="footer-list-item">Musica e Festa</a>
+                <a href="#" class="footer-list-item">Cursos e Workshops</a>
+                <a href="#" class="footer-list-item">Congresso e Seminário</a>
+                <a href="#" class="footer-list-item">Gastronômico</a>
+                <a href="#" class="footer-list-item">Networking</a>
+                <a href="#" class="footer-list-item">Religioso</a>
+           </div>
+            <div class="footer-list">
+                <span class="footer-list-title">Ajuda</span>
+                <a href="#" class="footer-list-item">Central de Ajuda</a>
+                <a href="#" class="footer-list-item">Participantes</a>
+                <a href="#" class="footer-list-item">Criadores</a>
+           </div>
+        </div>
+        <div class="container d-flex align-items-center bg-sucess">
+                <span>Moment Internet S.A &copy; Corpyright 2022</span>
+                <div class="flex-grow-1"></div>
+            
+            <div class="footer-nav">
+                <a href="" class="footer-nav-item">Inicio</a>
+                <a href="" class="footer-nav-item">Sobre</a>
+                <a href="" class="footer-nav-item">Carreiras</a>
+                <a href="" class="footer-nav-item">Termos e politica</a>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
