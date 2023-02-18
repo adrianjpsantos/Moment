@@ -4,7 +4,7 @@
 <div class="header container pb-4">
   <div class="info-container">
     <div>
-      <span class="info-container-title">Festas e Shows</span>
+      <span class="big-title">Festas e Shows</span>
       <p class="info-container-description">
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vitae
         doloribus dolores tempora corrupti maiores illum laboriosam nu
@@ -181,15 +181,15 @@
         'Festas e Shows', 'Teatros e Espetáculos', 'Cursos e Workshops']
 
       let banner = $('.banner');
-      let title = $('.info-container-title');
+      let title = $('.big-title');
       let description = $('.info-container-description');
       let button = $('#info-container-button');
       setInterval(() => {
 
-        title.animate({opacity: '0', left: '-200px'}, 500, () => { });
-        description.animate({opacity: '0', left: '-200px'}, 510, () => { });
-        button.animate({opacity: '0', left: '-200px'}, 500, () => { });
-        $('.info-banner').animate({opacity: '0', right: '-200px'}, 500, () => {
+        title.animate({opacity: '0', left: '-80px'}, 500, () => { });
+        description.animate({opacity: '0', left: '-80px'}, 510, () => { });
+        button.animate({opacity: '0', left: '-80px'}, 500, () => { });
+        $('.info-banner').animate({opacity: '0', right: '-80px'}, 500, () => {
 
           if (count >= images.length)
             count = 0;
@@ -204,7 +204,7 @@
 
           count++;
         });
-      }, 3000);
+      }, 8000);
     });
   </script>
 
