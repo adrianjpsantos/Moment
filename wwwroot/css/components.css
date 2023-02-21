@@ -1,5 +1,10 @@
+:root {
+  --cor-principal: rgb(255, 199, 0);
+  --cor-secundaria: rgb(19, 19, 19);
+  --cor-terciaria: rgb(32, 32, 32);
+}
 /* BIG TITLE */
-.big-title{
+.big-title {
   position: relative;
   font-size: 2.5rem;
   font-weight: 900;
@@ -17,7 +22,7 @@
   margin-bottom: 2rem;
 }
 
-.event-timer{
+.event-timer {
   font-size: 2.2rem;
   color: rgb(0, 0, 0);
   font-weight: 900;
@@ -27,7 +32,7 @@
   height: 55px;
 }
 
-.event-shop{
+.event-shop {
   color: rgb(255, 255, 255);
   font-size: 0.5rem;
   text-decoration: none;
@@ -37,13 +42,14 @@
   background: rgb(0, 184, 18);
   border-radius: 10px;
 }
-.event-shop:hover{
+
+.event-shop:hover {
   cursor: pointer;
   color: rgb(0, 184, 18);
   background: rgb(255, 255, 255);
 }
 
-.event-local{
+.event-local {
   text-transform: uppercase;
   color: rgb(255, 199, 0);
   font-size: 0.8rem;
@@ -51,14 +57,14 @@
   margin-top: .2rem;
 }
 
-.event-date{
+.event-date {
   text-transform: uppercase;
   color: rgb(255, 255, 255);
   font-size: 0.8rem;
   font-weight: 300;
 }
 
-.event-info{
+.event-info {
   background-color: blueviolet;
   color: rgb(255, 255, 255);
 }
@@ -77,7 +83,7 @@
 }
 
 .btn-white:hover {
-  background-color: rgb(255, 199, 0);
+  background-color: var(--cor-principal);
   color: rgb(0, 0, 0);
 }
 
@@ -114,10 +120,12 @@
 /* FOOTER */
 
 .footer {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
   width: 100%;
-  white-space: nowrap;
   line-height: 60px;
-  background-color: rgb(255, 199, 0);
+  background-color: var(--cor-principal);
 
 }
 
@@ -141,11 +149,6 @@
 
 
 /*Footer List */
-
-.footer-list-container {
-  display: flex;
-  justify-content: space-between;
-}
 
 .footer-list {
   display: flex;
@@ -234,7 +237,7 @@
 }
 
 .show-scroll::-webkit-scrollbar-thumb {
-  background-color: rgb(255, 199, 0);
+  background-color: var(--cor-principal);
   border-radius: 10px;
 }
 
@@ -286,33 +289,141 @@
 }
 
 .login-footer>a {
-  color: rgb(255, 199, 0);
+  color: var(--cor-principal);
   text-decoration: none;
+}
+
+.help-login>a {
+  text-decoration: none;
+  color: rgb(255, 0, 0);
+}
+
+.help-login>a:hover {
+  text-decoration: underline;
+  color: rgb(255, 0, 0);
 }
 
 /*Title Identity*/
 .title-identity {
-  width: 157px;
-  height: 60px;
-
-  font-family: 'Inter';
-  font-style: normal;
+  padding: 0;
+  margin: 0;
   font-weight: bolder;
   font-size: 3rem;
   color: #000000;
 }
 
-.input-identity{
+.subtitle-identity {
+  padding: 0;
+  margin: 0;
+  font-weight: bolder;
+  font-size: 1rem;
+  color: #000000;
+}
+
+.form-identity {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #DBDBDB;
+  padding: 0rem 0.5rem;
+  color: #DBDBDB;
+  font-size: 1.2rem;
+}
+
+.form-identity:disabled {
+  display: flex;
+  align-items: center;
+  background: rgb(19, 19, 19) !important;
+  border-bottom: 1px solid #DBDBDB;
+  color: #DBDBDB;
+  font-size: 1.2rem;
+}
+
+.input-identity {
   background-color: transparent;
   border: 0;
   border-radius: 0;
-  border-bottom: 1px solid #DBDBDB ;
 }
 
-.banner-identity{
+.input-identity:disabled{
+  background-color: transparent;
+  border-radius: 0;
+  border-radius: 0;
+}
+
+.text-validation {
+  background-color: rgba(255, 0, 0, 0.1);
+  border-radius: 10px 0px;
+  font-size: 0.8rem;
+}
+
+.input-identity-terms {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.input-identity-terms>a {
+  text-decoration: none;
+  color: rgb(255, 94, 0);
+}
+
+.banner-identity {
   position: absolute;
   object-fit: cover;
-  border-radius: 10px;
+  opacity: 0.7;
+  top: 0;
+  left: 4rem;
   height: 100%;
   width: 100%;
+}
+
+.text-accent {
+  color: rgb(255, 94, 0) !important;
+}
+
+.link-accent {
+  color: rgb(255, 94, 0) !important;
+  text-decoration: none;
+}
+
+.link-accent:hover {
+  color: rgb(255, 94, 0) !important;
+  text-decoration: underline;
+}
+
+.nav-manager {
+  list-style-type: none;
+  padding: 0;
+}
+
+.nav-item-manager {
+  width: 100%;
+  background-color: transparent !important;
+}
+
+
+.nav-link-manager{
+  background-color: var(--cor-secundaria);
+    color: #FFF;
+    padding: 1rem;
+    display: block;
+    text-decoration: none;
+    transition: .3s;
+}
+.nav-link-manager:hover {
+  background-color: var(--cor-terciaria);
+  color: var(--cor-principal);
+}
+
+.btn-primary{
+  padding: 0.4rem;
+  background-color: var(--cor-principal) !important;
+  color: rgb(0, 0, 0);
+  border: 0;
+}
+
+.btn-primary:hover{
+  background-color: var(--cor-secundaria) !important;
+  color: var(--cor-principal);
 }

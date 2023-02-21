@@ -1,26 +1,29 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = "Perfil";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-<h3>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
-        <form id="profile-form" method="post">
+<div class="row w-100 p-0 m-0 pb-sm-5">
+    <div class="col-12 p-0 m-0">
+        <form class="bg-light p-4" id="profile-form" method="post">
+            <h1 class="title-identity mb-4">@ViewData["Title"]</h1>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating">
-                <input asp-for="Username" class="form-control" disabled />
-                <label asp-for="Username" class="form-label"></label>
-            </div>
-            <div class="form-floating">
-                <input asp-for="Input.PhoneNumber" class="form-control" />
-                <label asp-for="Input.PhoneNumber" class="form-label"></label>
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-            </div>
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+            <div class="form">
+                    <div class="form-identity ">
+                        <i class="bi bi-person-fill"></i>
+                        <input asp-for="Username" class="form-control input-identity " disabled/>
+                    </div>
+                </div>
+            <div class="form">
+                    <div class="form-identity ">
+                        <i class="bi bi-phone"></i>
+                        <input asp-for="Input.PhoneNumber" class="form-control input-identity " />
+                    </div>
+                </div>
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Salvar</button>
         </form>
     </div>
 </div>

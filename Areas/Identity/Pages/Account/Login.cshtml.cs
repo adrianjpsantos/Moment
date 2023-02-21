@@ -66,6 +66,7 @@ namespace Moment.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [EmailAddress]
+            [Display(Prompt = "E-mail")]
             public string Email { get; set; }
 
             /// <summary>
@@ -73,6 +74,7 @@ namespace Moment.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
+            [Display(Prompt = "Senha")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
