@@ -8,12 +8,19 @@
   position: relative;
   font-size: 2.5rem;
   font-weight: 900;
-  color: rgb(255, 200, 0);
+  color: var(--cor-principal);
   height: 50px;
 }
 
 /* Event Page */
-
+.header-event-photo{
+  position: absolute;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+}
 .event-sinopse {
   position: relative;
   font-size: 0.8rem;
@@ -51,7 +58,7 @@
 
 .event-local {
   text-transform: uppercase;
-  color: rgb(255, 199, 0);
+  color: var(--cor-principal);
   font-size: 0.8rem;
   font-weight: 300;
   margin-top: .2rem;
@@ -65,10 +72,93 @@
 }
 
 .event-info {
-  background-color: blueviolet;
+  background: linear-gradient(90deg, rgba(255,255,255,0.48783263305322133) 0%, rgba(0,0,0,1) 100%);
   color: rgb(255, 255, 255);
 }
 
+.event-description>h6{
+  text-transform: uppercase;
+  font-weight: bolder;
+}
+
+.event-description>p{
+  font-weight: 300;
+}
+
+.event-service-link{
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+}
+
+.event-service-link:hover{
+  color: var(--cor-principal);
+}
+.event-card{
+  padding: 1.5rem;
+  background-color: rgb(255,255,255);
+  border-radius: 10px;
+  align-items: center;
+}
+
+.event-promoter{
+  display: flex;
+  flex-flow: column;
+  text-align: center;
+  justify-content: center;
+}
+.event-card>h6,.event-promoter>h6{
+  color: var(--cor-principal);
+  margin-bottom: 1rem;
+}
+
+.event-promoter>a{
+  display: block;
+  color: rgb(0, 0, 0);
+  font-weight: 300;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.event-promoter>a:hover{
+  display: block;
+  color: rgb(0, 0, 0);
+  font-weight: 300;
+  border-bottom: 1px solid var(--cor-principal);
+}
+
+.event-promoter-photo{
+  object-fit: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+.event-link-card{
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  color: rgb(0, 0, 0);
+  font-weight: 300;
+  text-decoration: none;
+  font-size: 0.8rem;
+  height: 180px;
+  border-bottom: 1px solid transparent;
+}
+
+.event-link-card:hover{
+  border-bottom: 1px solid var(--cor-principal);
+  color: rgb(0, 0, 0);
+}
+
+.event-link-card-photo{
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+}
 /* Botões */
 .btn {
   min-width: 120px;
