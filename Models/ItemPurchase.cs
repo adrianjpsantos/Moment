@@ -3,16 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Moment.Models;
 
-[Table("purchase")]
-public class Purchase
+public class ItemPurchase
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
-
-    public string IdUser { get; set; }
+    public string IdPurchase { get; set; }
+    public string IdTicket { get; set; }
 
     public DateTime Date { get; set; }
-    public int Total { get; set; }
-    public string IdPayment { get; set; }
 }
