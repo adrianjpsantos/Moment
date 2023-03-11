@@ -1,3 +1,4 @@
+@model Moment.Models.ModelsView.EventPageView
 @{
     ViewData["Title"] = "Pagina do Evento";
 }
@@ -8,11 +9,9 @@
             src="https://media-blog.keeperformaturas.com.br/wp-content/uploads/2019/07/O-que-observar-ao-visitar-uma-festa-de-formatura.jpg"
             alt="" srcset="">
         <div class="container py-5">
-            <span class="big-title">Baile da Favorita</span>
+            <span class="big-title">@Model.Name</span>
             <p class="event-sinopse w-50">
-                A espera acabou!, nova temporada no TANTRAROSA está lançada e é logico que o baile da favorita nao ia
-                ficar
-                de fora,ne?
+                @Model.Resume
             </p>
             <div class="d-flex gap-2">
                 <div class="event-timer">
@@ -24,8 +23,8 @@
                 </a>
             </div>
             <div class="d-flex flex-column mt-3">
-                <span class="event-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
-                <span class="event-local">Tantrarosa, Garopada - SC</span>
+                <span class="event-date">@Model.Date</span>
+                <span class="event-local">@Model.Address</span>
             </div>
         </div>
     </header>
@@ -34,27 +33,7 @@
             <div class="event-description">
                 <h6>Descrição</h6>
                 <p class="m-0">
-                    Então, desenrola…bate! Descola o ingressinho…
-                    porque O MELHOR BAILE FUNK DO BRASIL está de volta ao final de ano da Praia do Rosa - SC!
-
-                    // LINE ::NIACK
-                    BIEL DO FURDUNCINHO
-                    KHALIFF
-                    CRIS HOEFLING
-
-                    // HORÁRIO DE ABERTURA ::23h
-
-                    // RESERVA CAMAROTES E MESAS ::(51) 98060 7008
-
-                    // ACESSOS:
-                    PASS: Acesso a todas áreas do evento. Exceto camarotes / bangalôs.
-                    PASS CONSUMÍVEL: Pass onde o valor pago é revertido em consumo para uso no evento (exceto taxa).
-
-                    Para clientes MEIA ENTRADA é necessário solicitar o código de desconto para nossa central de
-                    atendimento: (51) 98060-7008.
-                    Somente será aceito para meia entrada o DNE (Documento Nacional do Estudante).
-                    O QR code dela será lido na entrada do evento para validação do ingresso meia entrada.
-                    Nos siga no Instagram: @@tantrarosa e FIQUE POR DENTRO DE TUDO!
+                    @Html.Display(Model.Description)
                 </p>
             </div>
             <div>
@@ -68,17 +47,16 @@
     <footer class="">
         <div class="container py-3 d-flex gap-4">
             <a class="event-service-link" href="#">Denunciar Evento</a>
-            <a class="event-service-link" href="#"> Termos do Evento</a>
+            <a class="event-service-link" href="#">Termos do Evento</a>
         </div>
         <div class="bg-primary">
             <div class="container d-flex py-4 gap-3">
                 <article class="col-2 event-card event-promoter">
                     <h6>Organizador</h6>
                     <a class="w-100" href="#">
-                        <img class="event-promoter-photo"
-                            src="https://wikiofthrones.com/wp-content/uploads/2022/10/daemon-targaryen-house-of-the-dragon-3687708-e1666726536939.jpg"
-                            alt="" srcset="">
-                        <p>Dammon Event</p>
+                        <img class="event-promoter-photo" src="@Model.UserInfo?.ProfilePicture"
+                            alt="Foto de Perfil do Promoter" srcset="">
+                        <p>@Model.UserInfo?.GetFullName()</p>
                     </a>
                 </article>
                 <article class="event-card col-10">

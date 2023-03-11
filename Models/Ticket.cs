@@ -14,7 +14,7 @@ namespace Moment.Models
         public Guid Id { get; set; }
 
         [Required]
-        public string IdConvention { get; set; }
+        public Guid IdConvention { get; set; }
 
         [Required]
         public int Lot { get; set; }
@@ -26,7 +26,11 @@ namespace Moment.Models
 
         [Required]
         public DateTime LaunchDay { get; set; }
+
         [Required]
         public DateTime ClosingDay { get; set; }
+
+        [ForeignKey("IdConvention")]
+        public Convention? Convention { get; set; }
     }
 }
