@@ -1,3 +1,5 @@
+using Moment.Models.Entity;
+
 namespace Moment.Models.ModelsView
 {
     public class EventPageView
@@ -8,7 +10,7 @@ namespace Moment.Models.ModelsView
         public string? Resume;
         public string? Description;
         public string? Image;
-
+        public string? Terms;
         public string? Date;
 
         public UserInfo? UserInfo;

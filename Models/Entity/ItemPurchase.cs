@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Moment.Models;
+namespace Moment.Models.Entity;
 
+[Table("itempurchase")]
 public class ItemPurchase
 {
     [Key]

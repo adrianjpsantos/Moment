@@ -1,0 +1,24 @@
+@model Moment.Models.ModelsView.EventCreateView
+@{
+    ViewData["Title"] = "CreateEvent";
+}
+
+<div>
+    <form>
+        <div class="form-group">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Resume" class="form-label"></label>
+            <input asp-for="Resume" class="form-control">
+            <span asp-validation-for="Resume" class="text-danger"></span>
+        </div>
+                <div class="form-group">
+            <label asp-for="Description" class="form-label"></label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    </form>
+</div>

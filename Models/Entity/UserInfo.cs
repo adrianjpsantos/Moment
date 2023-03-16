@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
-namespace Moment.Models;
+namespace Moment.Models.Entity;
 
 [Table("userinfo")]
 public class UserInfo
