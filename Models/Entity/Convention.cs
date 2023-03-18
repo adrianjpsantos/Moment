@@ -28,7 +28,7 @@ public class Convention
     public string? Terms { get; set; }
 
     [Required]
-    public Guid IdUserPromoter { get; set; }
+    public string IdUserPromoter { get; set; }
 
     [Required]
     [StringLength(40)]
@@ -38,15 +38,28 @@ public class Convention
     public string? BackgroundPath { get; set; }
 
     [Required]
-    [Column(TypeName = "decimal(8, 6)")]
-    public decimal LatitudeAdress { get; set; }
+    [StringLength(9)]
+    public string? CepAddress { get; set; }
+    [Required]
+    [StringLength(50)]
+    public string? StreetAddress { get; set; }
 
     [Required]
-    [Column(TypeName = "decimal(9, 6)")]
-    public string? LongitudeAdress { get; set; }
+    public int NumberAddress { get; set; }
+    
+    [Required]
+    [StringLength(50)]
+    public string? ComplementAddress { get; set; }
+    [Required]
+    [StringLength(50)]
+    public string? DistrictAddress { get; set; }
+    [Required]
+    [StringLength(50)]
+    public string? CityAddress { get; set; }
 
     [Required]
-    public string? Address { get; set; }
+    [StringLength(2)]
+    public string? UFAddress { get; set; }
 
     [Required]
     public DateTime StartDate { get; set; }

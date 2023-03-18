@@ -12,7 +12,7 @@ public class Purchase
     public Guid Id { get; set; }
 
     [Required]
-    public Guid IdUser { get; set; }
+    public string IdUser { get; set; }
 
     [Required]
     public DateTime Date { get; set; } = DateTime.Now;

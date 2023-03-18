@@ -15,7 +15,7 @@ public class Voucher
     public Guid IdConvention { get; set; }
 
     [Required]
-    public Guid IdUser { get; set; }
+    public string IdUser { get; set; }
 
     [Required]
     public Guid IdPurchase { get; set; }

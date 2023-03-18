@@ -5,20 +5,86 @@
 
 <div>
     <form>
-        <div class="form-group">
-            <label asp-for="Name" class="form-label"></label>
-            <input asp-for="Name" class="form-control">
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Resume" class="form-label"></label>
-            <input asp-for="Resume" class="form-control">
-            <span asp-validation-for="Resume" class="text-danger"></span>
-        </div>
-                <div class="form-group">
-            <label asp-for="Description" class="form-label"></label>
-            <textarea asp-for="Description" class="form-control"></textarea>
-            <span asp-validation-for="Description" class="text-danger"></span>
+        <div class="px-4 pt-4 pb-2 bg-light">
+            <h1 class="title-identity mb-4">@ViewData["Title"]</h1>
+            <div class="form-group">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Resume" class="form-label"></label>
+                <input asp-for="Resume" class="form-control">
+                <span asp-validation-for="Resume" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Terms" class="form-label"></label>
+                <textarea asp-for="Terms" class="form-control"></textarea>
+                <span asp-validation-for="Terms" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-3 form-group">
+                    <label asp-for="CepAddress" class="form-label"></label>
+                    <input asp-for="CepAddress" class="form-control"></input>
+                    <span asp-validation-for="CepAddress" class="text-danger"></span>
+                </div>
+                <div class="col form-group">
+                    <label asp-for="StreetAddress" class="form-label"></label>
+                    <input asp-for="StreetAddress" class="form-control" disabled></input>
+                    <span asp-validation-for="StreetAddress" class="text-danger"></span>
+                </div>
+                <div class="col-2 form-group">
+                    <label asp-for="NumberAddress" class="form-label"></label>
+                    <input asp-for="NumberAddress" class="form-control"></input>
+                    <span asp-validation-for="NumberAddress" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col form-group">
+                    <label asp-for="DistrictAddress" class="form-label"></label>
+                    <input asp-for="DistrictAddress" class="form-control" disabled></input>
+                    <span asp-validation-for="DistrictAddress" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col form-group">
+                    <label asp-for="CityAddress" class="form-label"></label>
+                    <input asp-for="CityAddress" class="form-control" disabled></input>
+                    <span asp-validation-for="CityAddress" class="text-danger"></span>
+                </div>
+                <div class="col form-group">
+                    <label asp-for="UFAddress" class="form-label"></label>
+                    <input asp-for="UFAddress" class="form-control" disabled></input>
+                    <span asp-validation-for="UFAddress" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ComplementAddress" class="form-label"></label>
+                <input asp-for="ComplementAddress" class="form-control"></input>
+                <span asp-validation-for="ComplementAddress" class="text-danger"></span>
+            </div>
         </div>
     </form>
 </div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+<script>
+    $('#CepAddress').focusout(event => {
+        let cep = $('#CepAddress').text;
+        $.ajax({
+            url: `viacep.com.br/ws/${text}/json/`,
+            context: document.body
+        }).done(function () {
+            alert(context)
+        });
+    })
+</script>
+}
