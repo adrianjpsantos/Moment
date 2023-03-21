@@ -17,4 +17,8 @@ public class EventController : Controller
     public IActionResult Create(){
         return View();
     }
+
+    public IActionResult Created(){
+        return View();
+    }
 }
