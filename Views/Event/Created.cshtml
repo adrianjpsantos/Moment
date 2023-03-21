@@ -1,0 +1,24 @@
+@{
+    ViewData["Title"] = "Evento Criado";
+}
+
+<div class="row px-4 pt-4 pb-2 bg-white justify-content-center">
+    <div class="col-4">
+        <div class="d-flex align-items-center gap-4">
+            <div>
+                <i class="bi bi-patch-check-fill" style="font-size: 4rem"></i>
+            </div>
+            <div>
+                <h1 class="m-0">Parabéns</h1>
+                <p class="m-0">"Nome do Evento" foi criado com sucesso</p>
+            </div>
+        </div>
+        <div class="alert alert-success" role="alert">
+            Foi enviado ao seu e-mail , e mais algumas dicas pra voce bombar essa festa!!
+        </div>
+        <a class="btn btn-secondary bottom-0" asp-controller="Home" asp-action="Index">Ver Evento</a>
+    </div>
+    <div class="col-4">
+        <img class="img-fluid" style="opacity: 0.5; !important" src="~/assets/imgs/Congrations.jpg" alt="" srcset="">
+    </div>
+</div>
