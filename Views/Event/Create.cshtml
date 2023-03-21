@@ -1,10 +1,10 @@
-@model Moment.Models.ModelsView.EventCreateView
+@model Moment.Models.Dto.EventCreateView
 @{
     ViewData["Title"] = "CreateEvent";
 }
 
 <div>
-    <form>
+    <form onsubmit="HandleSubmit()" class="m-4">
         <div class="px-4 pt-4 pb-2 bg-light">
             <h1 class="title-identity mb-4">@ViewData["Title"]</h1>
             <div class="form-group">
@@ -17,21 +17,30 @@
                 <input asp-for="Resume" class="form-control">
                 <span asp-validation-for="Resume" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="form-label"></label>
-                <textarea asp-for="Description" class="form-control"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
+            <div class="row">
+                <div class="col form-group">
+                    <label asp-for="StartDate" class="form-label"></label>
+                    <input asp-for="StartDate" class="form-control"></input>
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+                <div class="col form-group">
+                    <label asp-for="EndDate" class="form-label"></label>
+                    <input asp-for="EndDate" class="form-control"></input>
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group">
-                <label asp-for="Terms" class="form-label"></label>
-                <textarea asp-for="Terms" class="form-control"></textarea>
-                <span asp-validation-for="Terms" class="text-danger"></span>
+                <label asp-for="Description" class="form-label"></label>
+                <input asp-for="Description" class="form-control" hidden>
+                <div id="Description" asp-for="Description" class="" style="min-height: 2rem;">
+                </div>
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
             <div class="row">
                 <div class="col-3 form-group">
                     <label asp-for="CepAddress" class="form-label"></label>
-                    <input asp-for="CepAddress" class="form-control"></input>
+                    <input asp-for="CepAddress" class="form-control cep"></input>
                     <span asp-validation-for="CepAddress" class="text-danger"></span>
                 </div>
                 <div class="col form-group">
@@ -70,21 +79,129 @@
                 <input asp-for="ComplementAddress" class="form-control"></input>
                 <span asp-validation-for="ComplementAddress" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="ComplementAddress" class="form-label"></label>
+                <input asp-for="ComplementAddress" class="form-control"></input>
+                <span asp-validation-for="ComplementAddress" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col form-group">
+                    <label for="formFile" class="form-label">Default file input example</label>
+                    <input class="form-control" type="file" id="formFile" onchange="readImg(this,'Thumbnail-Preview')">
+                    <img id="Thumbnail-Preview" src="" alt="" srcset="">
+                </div>
+                <div class="col form-group">
+                    <label for="formFile" class="form-label">Default file input example</label>
+                    <input class="form-control" type="file" id="formFile" onchange="readImg(this,'Background-Preview')">
+                    <img id="Background-Preview" src="" alt="" srcset="">
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Terms" class="form-label"></label>
+                <textarea asp-for="Terms" class="form-control"></textarea>
+                <span asp-validation-for="Terms" class="text-danger"></span>
+            </div>
+
+
         </div>
+
+        <input class="col-10 btn btn-primary btn-lg btn-block w-100 rounded-0" type="submit" value="Criar Evento">
+
     </form>
 </div>
 
+<div class="modal fade" id="loading-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content col-1 border-0 p-3 modal-dialog-centered">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
 @section Scripts {
-<partial name="_ValidationScriptsPartial" />
-<script>
-    $('#CepAddress').focusout(event => {
-        let cep = $('#CepAddress').text;
-        $.ajax({
-            url: `viacep.com.br/ws/${text}/json/`,
-            context: document.body
-        }).done(function () {
-            alert(context)
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+        $('input#CepAddress').blur(() => {
+            let cep = $('input#CepAddress').val().replace('-', '');
+            if (cep != '') {
+
+                $('#loading-modal').modal('show');
+
+                $.getJSON(`https://viacep.com.br/ws/${cep}/json/?callback=?`, dados => {
+
+                    if (!('erro' in dados)) {
+
+                        setTimeout(() => {
+                            $('#StreetAddress').val(dados.logradouro);
+                            $('#DistrictAddress').val(dados.bairro);
+                            $('#CityAddress').val(dados.localidade);
+                            $('#UFAddress').val(dados.uf);
+                            $('#loading-modal').modal('hide');
+                        }, 1000);
+
+                    }
+                    else {
+                        alert('CEP não encontrado.');
+                    }
+                });
+            }
+            else {
+
+                $('#StreetAddress').val('');
+                $('#DistrictAddress').val('');
+                $('#CityAddress').val('');
+                $('#UFAddress').val('');
+            }
         });
-    })
-</script>
+
+        $(document).ready(() => {
+            let quill = new Quill('div#Description', {
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline', 'strike'],
+                        ['blockquote'],
+                        [{ 'header': 1 }, { 'header': 2 }],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                        [{ 'indent': '-1' }, { 'indent': '+1' }],
+                        [{ 'direction': 'rtl' }],
+                        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                        [{ 'color': [] }, { 'background': [] }],
+                        [{ 'font': [] }],
+                        [{ 'align': [] }],
+                        ['clean']
+                    ],
+                },
+                theme: 'snow'
+            });
+        })
+
+        function HandleSubmit() {
+            let inputDescription = $('input#Description');
+            inputDescription.text = JSON.stringify($('div#Description .ql-editor').html());
+            alert(inputDescription.text);
+        }
+
+        function readImg(input, id) {
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $(id)
+                        .attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 }

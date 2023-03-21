@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Moment.Models;
+using Moment.Models.Dto;
 
 namespace Moment.Controllers;
 
@@ -30,6 +31,7 @@ public class HomeController : Controller
     }
 
     public IActionResult EventPage(){
-        return View();
+        var convention=new EventPageView();
+        return View(convention);
     }
 }

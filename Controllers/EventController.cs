@@ -13,6 +13,7 @@ public class EventController : Controller
         return View();
     }
 
+    [Route("Eventos/Criar")]
     public IActionResult Create(){
         return View();
     }

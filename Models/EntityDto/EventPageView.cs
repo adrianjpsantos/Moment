@@ -1,6 +1,6 @@
 using Moment.Models.Entity;
 
-namespace Moment.Models.ModelsView
+namespace Moment.Models.Dto
 {
     public class EventPageView
     {

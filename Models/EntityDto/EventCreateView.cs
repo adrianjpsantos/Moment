@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Moment.Models.ModelsView;
+namespace Moment.Models.Dto;
 
 public class EventCreateView
 {
