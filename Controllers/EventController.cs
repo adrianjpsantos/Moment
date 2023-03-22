@@ -14,11 +14,19 @@ public class EventController : Controller
     }
 
     [Route("Eventos/Criar")]
-    public IActionResult Create(){
+    public IActionResult Create()
+    {
         return View();
     }
 
-    public IActionResult Created(){
+    public IActionResult Created()
+    {
+        return View();
+    }
+
+    [Route("Pesquisa/{word}")]
+    public IActionResult Search(string word)
+    {
         return View();
     }
 }

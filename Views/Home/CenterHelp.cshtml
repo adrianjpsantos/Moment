@@ -1,8 +1,14 @@
-<div class="container d-flex p-4 bg-white mb-3">
-    <div class="col-4">
-        <img class="img-fluid" src="~/assets/imgs/congrations.jpg" alt="">
+@{
+    ViewData["Title"] = "Ajuda";
+}
+<header class="container mb-2">
+    <h1 class="title-page text-white">@ViewBag.Title</h1>
+</header>
+<div class="container d-flex mb-3 gap-3">
+    <div class="col-6">
+        <img class="img-fluid" src="~/assets/illustrations/faq.svg" alt="">
     </div>
-    <div class="accordion col-8" id="accordionPanelsStayOpenExample">
+    <div class="accordion col-6" id="accordionPanelsStayOpenExample">
         <div class="accordion-item">
             <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
