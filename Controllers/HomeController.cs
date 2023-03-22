@@ -19,6 +19,7 @@ public class HomeController : Controller
         return View();
     }
 
+    [Route("Privacidade")]
     public IActionResult Privacy()
     {
         return View();
@@ -30,8 +31,15 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
-    public IActionResult EventPage(){
-        var convention=new EventPageView();
+    public IActionResult EventPage()
+    {
+        var convention = new EventPageView();
         return View(convention);
+    }
+
+[Route("Ajuda")]
+    public IActionResult CenterHelp()
+    {
+        return View();
     }
 }

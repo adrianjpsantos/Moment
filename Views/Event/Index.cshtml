@@ -1,9 +1,9 @@
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Seja Produtor";
 }
 
 <header class="position-relative">
-    <div class="position-absolute start-50 top-50 translate-middle col text-center text-light">
+    <div class="position-absolute start-50 top-50 translate-middle col text-center text-light" style="z-index: 2;">
         <h1>Produza eventos e conteúdos.</h1>
         <h1>Crie um Agora!</h1>
         <p>Junte-se à maior plataforma do Brasil para criar diferentes jeitos de viver.</p>
@@ -15,21 +15,32 @@
 
 </header>
 
-<div class="text-center bg-white content-index pt-4">
-    <h1>Quanto custa?</h1>
+<div class="text-center bg-black content-index p-4">
+    <h1 class="text-white fw-bold mb-5">Quanto custa?</h1>
     <div class="d-flex justify-content-center gap-3">
-        <div class="card ">
-            <p class="badge">Criações gratuitas</p>
-            <h1>Gratuito</h1>
-            <p>Para produtores com eventos gratuitos</p>
-            <button>Comece Agora</button>
+        <div class="card card-moment">
+            <div class="content">
+                <p class="badge badge-moment-free ">Criações gratuitas</p>
+                <h1 class="title">Gratuito</h1>
+                <p class="info"></p>
+                <p class="subtitle">Para produtores com eventos gratuitos</p>
+            </div>
+            <div>
+                <button class="btn btn-primary">Comece Agora</button>
+            </div>
+
         </div>
-        <div class="card">
-            <p class="badge">Criações pagas</p>
-            <h1>Taxa de 10%</h1>
-            <p>Minimo de R$1,50 sobre a venda</p>
-            <p>Para produtores com eventos gratuitos</p>
-            <button>Comece Agora</button>
+        <div class="card card-moment">
+            <div class="content">
+                <p class="badge badge-moment-paid">Criações pagas</p>
+                <h1 class="title">Taxa de 10%</h1>
+                <p class="info">Minimo de R$1,50 sobre a venda</p>
+                <p class="subtitle">Para produtores com eventos gratuitos</p>
+            </div>
+            <div>
+                <button class="btn btn-primary">Comece Agora</button>
+            </div>
+
         </div>
     </div>
 </div>
