@@ -24,9 +24,21 @@ public class EventController : Controller
         return View();
     }
 
-    [Route("Pesquisa/{word}")]
-    public IActionResult Search(string word)
+    [Route("P/{texto}")]
+    public IActionResult Search(string texto,string cidade)
     {
+        ViewData["Pesquisa"] = texto;
+        ViewData["Title"] = $"Pesquisa - {texto}";
         return View();
     }
+
+    [Route("C/{texto}")]
+    public IActionResult SearchCategory(string texto)
+    {
+        ViewData["Pesquisa"] = texto;
+        ViewData["Title"] = texto;
+        return View();
+    }
+
+    
 }

@@ -31,6 +31,9 @@ public class Convention
     public string IdUserPromoter { get; set; }
 
     [Required]
+    public Guid IdCategory { get; set; }
+
+    [Required]
     [StringLength(40)]
     public string? ThumbnailPath { get; set; }
 
@@ -46,7 +49,7 @@ public class Convention
 
     [Required]
     public int NumberAddress { get; set; }
-    
+
     [Required]
     [StringLength(50)]
     public string? ComplementAddress { get; set; }
@@ -70,5 +73,8 @@ public class Convention
 
     [ForeignKey("IdUserPromoter")]
     public IdentityUser? UserPromoter { get; set; }
+
+    [ForeignKey("IdCategory")]
+    public ConventionCategory? Category { get; set; }
 
 }
