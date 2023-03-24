@@ -655,3 +655,30 @@
   max-height: 300px;
   object-fit: cover;
 }
+
+.form-select{
+  color: rgb(128, 128, 128);
+  opacity: 1; /* Firefox */
+}
+
+.form-control::placeholder {
+  color: rgb(128, 128, 128);
+  opacity: 1; /* Firefox */
+}
+.form-control:-ms-input-placeholder {
+  color: rgb(128, 128, 128);
+}
+
+.form-control::-ms-input-placeholder {
+  color: rgb(128, 128, 128);
+}
+
+.input-group{
+
+}
+
+.input-group-text{
+  background: var(--cor-principal);
+  border: 0;
+  color: rgb(0, 0, 0);
+}

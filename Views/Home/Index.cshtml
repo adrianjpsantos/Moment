@@ -13,27 +13,36 @@
     </div>
     <div class="search-container">
       <span class="search-container-title">Pesquise mais</span>
-      <form class="d-flex justify-content-center align-items-center gap-1">
-        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Localização" />
-        <datalist id="datalistOptions">
-          <option value="San Francisco"></option>
-          <option value="New York"></option>
-          <option value="Seattle"></option>
-          <option value="Los Angeles"></option>
-          <option value="Chicago"></option>
-        </datalist>
-        <select class="form-select">
-          <option hidden selected>Tipo de Evento</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-        <select class="form-select">
-          <option hidden selected>Preço</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
+      <form class="">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Ex. 'Festa do Peão'" aria-label="Username"
+            aria-describedby="basic-addon1">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center gap-1 mt-1">
+          <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Localização" />
+          <datalist id="datalistOptions">
+            <option value="San Francisco"></option>
+            <option value="New York"></option>
+            <option value="Seattle"></option>
+            <option value="Los Angeles"></option>
+            <option value="Chicago"></option>
+          </datalist>
+          <select class="form-select">
+            <option hidden selected>Tipo de Evento</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+          <select class="form-select">
+            <option hidden selected>Preço</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
       </form>
     </div>
   </div>
@@ -186,10 +195,10 @@
       let button = $('#info-container-button');
       setInterval(() => {
 
-        title.animate({opacity: '0', left: '-80px'}, 500, () => { });
-        description.animate({opacity: '0', left: '-80px'}, 510, () => { });
-        button.animate({opacity: '0', left: '-80px'}, 500, () => { });
-        $('.info-banner').animate({opacity: '0', right: '-80px'}, 500, () => {
+        title.animate({ opacity: '0', left: '-80px' }, 500, () => { });
+        description.animate({ opacity: '0', left: '-80px' }, 510, () => { });
+        button.animate({ opacity: '0', left: '-80px' }, 500, () => { });
+        $('.info-banner').animate({ opacity: '0', right: '-80px' }, 500, () => {
 
           if (count >= images.length)
             count = 0;
@@ -197,10 +206,10 @@
           banner.attr('src', images[count]);
           title.text(titles[count])
 
-          title.animate({opacity: '1', left: '0px'}, 500, () => { });
-          description.animate({opacity: '1', left: '0px'}, 500, () => { });
-          button.animate({opacity: '1', left: '0px'}, 500, () => { });
-          $('.info-banner').animate({opacity: '1',right: '0px'}, 1000, () => { });
+          title.animate({ opacity: '1', left: '0px' }, 500, () => { });
+          description.animate({ opacity: '1', left: '0px' }, 500, () => { });
+          button.animate({ opacity: '1', left: '0px' }, 500, () => { });
+          $('.info-banner').animate({ opacity: '1', right: '0px' }, 1000, () => { });
 
           count++;
         });
