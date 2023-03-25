@@ -1,27 +1,125 @@
-<div class="bg-white">
+<div class="bg-black">
     <header class="container">
-        <h2>"Festa do peao"</h2>
-        <div class="d-flex">
-            //Menu
+        <div class="input-group mb-4">
+            <input type="text" class="form-control" placeholder="Ex. 'Festa do Peão'" aria-label="Username"
+                aria-describedby="basic-addon1">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+            </div>
         </div>
+        <h2 class="title-page text-white">"Festa do peao"</h2>
+        <a class="subtitle-page text-white" data-bs-toggle="modal" data-bs-target="#modal-localization">
+            em <span> Qualquer Lugar <i class="bi bi-geo-alt-fill text-primary"></i> </span>
+        </a>
     </header>
 </div>
 <div class="bg-dark text-white">
     <div class="container">
-        <header class="row align-items-center">
-            <p class="col-8 m-0 p-0">0 Eventos Encontrados</p>
-            <div class="col-4 d-flex">
-                <label class="form-label"for="inputGroupSelect01">Ordenar por:</label>
-                <select class="form-select form-select-sm" id="inputGroupSelect01">
-                    <option hidden selected>Choose...</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
+        <header class="d-flex align-items-center">
+            <p class="m-0 p-0">0 Eventos Encontrados</p>
+            <div class="flex-grow-1"></div>
+            <div class="form-group row">
+                <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm px-0">Ordernar por:</label>
+                <div class="col-sm-8">
+                    <select type="email" class="form-control form-control-sm" id="colFormLabelSm"
+                        placeholder="col-form-label-sm">
+                        <option>DGdgg</option>
+                        <option>DGdgg</option>
+                        <option>DGdgg</option>
+                        <option>DGdgg</option>
+
+                    </select>
+                </div>
             </div>
         </header>
         <div class="content">
+            <div>
+                <header class="list-thumb-title">
+                    <h6></h6>
+                </header>
+                <div id="list-thumb-content" class="list-thumb-content hidden-scroll">
+                    <a class="event-thumb">
+                        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
+                        <content class="event-thumb-info">
+                            <span class="event-thumb-info-title">Baile da favorita</span>
+                            <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
+                            <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
+                        </content>
+                    </a>
+                    <a class="event-thumb" asp-controller="Home" asp-action="EventPage">
+                        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
+                        <content class="event-thumb-info">
+                            <span class="event-thumb-info-title">Baile da favorita</span>
+                            <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
+                            <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
+                        </content>
+                    </a>
+                    <a class="event-thumb">
+                        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
+                        <content class="event-thumb-info">
+                            <span class="event-thumb-info-title">Baile da favorita</span>
+                            <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
+                            <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
+                        </content>
+                    </a>
+                    <a class="event-thumb">
+                        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
+                        <content class="event-thumb-info">
+                            <span class="event-thumb-info-title">Baile da favorita</span>
+                            <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
+                            <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
+                        </content>
+                    </a>
+                    <a class="event-thumb">
+                        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
+                        <content class="event-thumb-info">
+                            <span class="event-thumb-info-title">Baile da favorita</span>
+                            <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
+                            <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
+                        </content>
+                    </a>
+                    <a class="event-thumb">
+                        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
+                        <content class="event-thumb-info">
+                            <span class="event-thumb-info-title">Baile da favorita</span>
+                            <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
+                            <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
+                        </content>
+                    </a>
+                    <a class="event-thumb">
+                        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
+                        <content class="event-thumb-info">
+                            <span class="event-thumb-info-title">Baile da favorita</span>
+                            <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
+                            <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
+                        </content>
+                    </a>
+                    <a class="event-thumb">
+                        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
+                        <content class="event-thumb-info">
+                            <span class="event-thumb-info-title">Baile da favorita</span>
+                            <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
+                            <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
+                        </content>
+                    </a>
 
+                </div>
+            </div>
         </div>
     </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-localization" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Localização</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          ...
+      </div>
+    </div>
+  </div>
 </div>

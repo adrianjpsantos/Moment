@@ -1,6 +1,6 @@
 
 :root {
-  --cor-principal: rgb(255, 199, 0);
+  --cor-principal: rgb(132, 204, 160);
   --cor-secundaria: rgb(19, 19, 19);
   --cor-terciaria: rgb(32, 32, 32);
 }
@@ -656,9 +656,17 @@
   object-fit: cover;
 }
 
-.form-select{
+.form-control {
+  font-size: 0.8rem;
   color: rgb(128, 128, 128);
-  opacity: 1; /* Firefox */
+  background-color: rgb(18, 18, 18);
+  border: 0;
+}
+.form-select {
+  font-size: 0.8rem;
+  color: rgb(128, 128, 128);
+  background-color: rgb(18, 18, 18);
+  border: 0;
 }
 
 .form-control::placeholder {
@@ -681,4 +689,8 @@
   background: var(--cor-principal);
   border: 0;
   color: rgb(0, 0, 0);
+}
+
+.text-primary{
+  color: var(--cor-principal) !important;
 }
