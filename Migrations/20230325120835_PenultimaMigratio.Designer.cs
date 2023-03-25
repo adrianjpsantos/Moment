@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Moment.Data;
 
@@ -10,9 +11,10 @@ using Moment.Data;
 namespace Moment.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230325120835_PenultimaMigratio")]
+    partial class PenultimaMigratio
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -339,43 +341,6 @@ namespace Moment.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("conventioncategory");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("4abb0ff8-098d-4989-abf7-e12a2d1af5c3"),
-                            Description = "Encontrar os amigos na balada, curtir música boa em um festival ou ver o show do seu artista favorito na sua cidade: escolha sua festa na Moment e aproveite!",
-                            ImagePath = "\\img\\conventionCategory\\festaseshows.jpg",
-                            Name = "Festas e Shows"
-                        },
-                        new
-                        {
-                            Id = new Guid("5d55ec93-b606-4e79-a2fb-81390e54c6da"),
-                            Description = "Apreciar uma peça de teatro, admirar um espetáculo em um teatro histórico ou conhecer uma cultura diferente da sua. Descubra os melhores eventos culturais da sua cidade e viva novas experiências.",
-                            ImagePath = "\\img\\conventionCategory\\teatroseespetaculos.jpg",
-                            Name = "Teatros e Espetáculos"
-                        },
-                        new
-                        {
-                            Id = new Guid("4e4dc372-43e3-47fe-84be-24f777a4d054"),
-                            Description = "Encontre a programação dos melhores shows de stand up comedy que estão em cartaz na sua cidade e se divirta com a Sympla. Aproveite com os amigos essa experiência!",
-                            ImagePath = "\\img\\conventionCategory\\standupcomedy.jpg",
-                            Name = "Stand up Comedy"
-                        },
-                        new
-                        {
-                            Id = new Guid("97e8f3a7-be05-45b6-9fd4-69ad0aaae6aa"),
-                            Description = "Do básico ao avançado, da informática à programação. Encontre aqui cursos, palestras, treinamentos, hackathon e diversos eventos de tecnologia.",
-                            ImagePath = "\\img\\conventionCategory\\tecnologia.jpg",
-                            Name = "Tecnologia"
-                        },
-                        new
-                        {
-                            Id = new Guid("bfcab34a-074f-4696-b79d-b9acbad9fe5e"),
-                            Description = "Viva algo novo! Confira as opções de passeios turísticos, atividades ao ar livre, tours, museus, exposições... Experiências culturais para todos os gostos.",
-                            ImagePath = "\\img\\conventionCategory\\passeiosetours.jpg",
-                            Name = "Passeios e Tours"
-                        });
                 });
 
             modelBuilder.Entity("Moment.Models.Entity.ItemPurchase", b =>
@@ -440,6 +405,9 @@ namespace Moment.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<Guid>("IdPayment")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("IdUser")
                         .IsRequired()
                         .HasColumnType("varchar(255)");
@@ -448,6 +416,8 @@ namespace Moment.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdPayment");
 
                     b.HasIndex("IdUser");
 
@@ -684,11 +654,19 @@ namespace Moment.Migrations
 
             modelBuilder.Entity("Moment.Models.Entity.Purchase", b =>
                 {
+                    b.HasOne("Moment.Models.Entity.Payment", "Payment")
+                        .WithMany()
+                        .HasForeignKey("IdPayment")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Payment");
 
                     b.Navigation("User");
                 });

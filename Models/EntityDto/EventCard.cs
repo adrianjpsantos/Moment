@@ -4,12 +4,12 @@ namespace Moment.Models.EntityDto;
 
 public class EventCard
 {
-    public string? Name { get; }
-    public string? Address { get; }
-    public string? Date { get; }
-    public Guid Id { get; }
+    public string? Name { get; set; }
+    public string? Address { get; set; }
+    public string? Date { get; set; }
+    public Guid Id { get; set; }
 
-    public EventCard(string name,string address,string date, Guid id)
+    public EventCard(string name, string address, string date, Guid id)
     {
         this.Name = name;
         this.Address = address;

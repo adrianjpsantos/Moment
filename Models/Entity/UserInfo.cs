@@ -13,7 +13,7 @@ public class UserInfo
     public Guid Id { get; set; }
 
     [Required]
-    public Guid IdUser { get; set; }
+    public string? IdUser { get; set; }
 
     [Required]
     [StringLength(25)]

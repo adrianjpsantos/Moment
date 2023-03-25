@@ -1,14 +1,18 @@
+@model Moment.Models.EntityDto.CategoryView
+@{
+    ViewData["Title"] = Model.Name;
+}
 <div class="bg-black">
     <div class="mb-3 position-relative">
         <div class="container position-absolute" style="z-index: 2; left:100px; top:25%;">
             <div class="col col-sm-6">
-                <h1 class="title-page text-white">@ViewBag.Pesquisa</h1>
+                <h1 class="title-page text-white">@Model.Name</h1>
                 <p class="subtitle-search-page">em, Macatuba-SP</p>
-                <p class="resume-search-page mt-3">Encontrar os amigos na balada, curtir música boa em um festival ou ver o show do seu artista favorito na sua cidade: escolha sua festa na Moment e aproveite!</p>
+                <p class="resume-search-page mt-3">@Model.Description</p>
             </div>
         </div>
         <div class="opacity-5">
-            <img class="col image-header" src="~/assets/imgs/festaeshows.jpg">
+            <img class="col image-header" src="@Model.ImagePath">
         </div>
     </div>
     <div class="container">

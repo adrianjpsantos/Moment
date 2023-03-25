@@ -28,7 +28,7 @@ public class Convention
     public string? Terms { get; set; }
 
     [Required]
-    public string IdUserPromoter { get; set; }
+    public string? IdUserPromoter { get; set; }
 
     [Required]
     public Guid IdCategory { get; set; }
@@ -42,7 +42,7 @@ public class Convention
 
     [Required]
     [StringLength(9)]
-    public string? CepAddress { get; set; }
+    public string? ZipCodeAddress { get; set; }
     [Required]
     [StringLength(50)]
     public string? StreetAddress { get; set; }
@@ -62,10 +62,11 @@ public class Convention
 
     [Required]
     [StringLength(2)]
-    public string? UFAddress { get; set; }
+    public string? StateAddress { get; set; }
 
     [Required]
     public DateTime StartDate { get; set; }
+
 
     [Required]
     public DateTime EndDate { get; set; }
@@ -77,4 +78,9 @@ public class Convention
     [ForeignKey("IdCategory")]
     public ConventionCategory? Category { get; set; }
 
+    
+    public string CityAndState()
+    {
+        return $"{this.CityAddress},{this.StateAddress}";
+    }
 }

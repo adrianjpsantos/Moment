@@ -4,7 +4,7 @@
 }
 
 <div>
-    <form onsubmit="HandleSubmit()" class="m-4">
+    <form onsubmit="HandleSubmit()" class="m-4" enctype="multipart/form-data">
         <div class="px-4 pt-4 pb-2 bg-light">
             <h1 class="title-identity mb-4">@ViewData["Title"]</h1>
             <div class="form-group">
@@ -88,13 +88,13 @@
 
             <div class="row">
                 <div class="col form-group">
-                    <label for="formFile" class="form-label">Default file input example</label>
-                    <input class="form-control" type="file" id="formFile" onchange="readImg(this,'Thumbnail-Preview')">
+                    <label asp-for="ThumbnailPath" class="form-label"></label>
+                    <input class="form-control" type="file" asp-for="ThumbnailPath" onchange="readImg(this,'Thumbnail-Preview')" accept=".jpg,.jpeg,.png,.gif,.jfif">
                     <img id="Thumbnail-Preview" src="" alt="" srcset="">
                 </div>
                 <div class="col form-group">
-                    <label for="formFile" class="form-label">Default file input example</label>
-                    <input class="form-control" type="file" id="formFile" onchange="readImg(this,'Background-Preview')">
+                    <label asp-for="BackgroundPath"class="form-label"></label>
+                    <input class="form-control" type="file" asp-for="BackgroundPath" onchange="readImg(this,'Background-Preview')" accept=".jpg,.jpeg,.png,.gif,.jfif">
                     <img id="Background-Preview" src="" alt="" srcset="">
                 </div>
             </div>

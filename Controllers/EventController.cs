@@ -1,25 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Moment.Data;
+using Moment.Models.Entity;
+using Moment.Models.EntityDto;
 
 namespace Moment.Controllers;
 
 public class EventController : Controller
 {
+    private readonly ApplicationDbContext _context;
+    public EventController(ApplicationDbContext context)
+    {
+        _context = context;
+    }
     public IActionResult Index()
-    {
-        return View();
-    }
-
-    [Route("Eventos/Criar")]
-    public IActionResult Create()
-    {
-        return View();
-    }
-
-    public IActionResult Created()
     {
         return View();
     }
@@ -32,13 +26,29 @@ public class EventController : Controller
         return View();
     }
 
+
+    [HttpGet]
     [Route("C/{category}")]
-    public IActionResult SearchCategory(string category)
+    public async Task<IActionResult> SearchCategory(string category)
     {
-        ViewData["Pesquisa"] = category;
-        ViewData["Title"] = category;
-        return View();
+        ConventionCategory? conventionCategory = await _context.ConventionCategories.Where(cc => cc.Name.ToLower() == category.ToLower()).FirstOrDefaultAsync();
+
+        if (conventionCategory != null)
+        {
+            var conventions = await _context.Conventions.Where(c => c.IdCategory == conventionCategory.Id).ToListAsync();
+            var eventCards = new List<EventCard>();
+
+            foreach (var convention in conventions)
+            {
+                eventCards.Add(new EventCard(convention));
+            }
+
+            CategoryView categoryView = new CategoryView(new CategoryDto(conventionCategory), eventCards);
+
+            return View(categoryView);
+        }
+
+        return NotFound();
     }
 
-    
 }

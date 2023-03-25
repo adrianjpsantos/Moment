@@ -11,8 +11,8 @@ using Moment.Data;
 namespace Moment.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230318001938_EntitysMigration")]
-    partial class EntitysMigration
+    [Migration("20230325120618_PenultimaMigration")]
+    partial class PenultimaMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -217,41 +217,74 @@ namespace Moment.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Moment.Models.Entity.City", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("State")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("city");
+                });
+
             modelBuilder.Entity("Moment.Models.Entity.Convention", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("BackgroundPath")
                         .HasMaxLength(40)
                         .HasColumnType("varchar(40)");
+
+                    b.Property<string>("CepAddress")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("varchar(9)");
+
+                    b.Property<string>("CityAddress")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("ComplementAddress")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("DistrictAddress")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("IdCategory")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("IdUserPromoter")
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
-                    b.Property<decimal>("LatitudeAdress")
-                        .HasColumnType("decimal(8,6)");
-
-                    b.Property<decimal>("LongitudeAdress")
-                        .HasColumnType("decimal(9,6)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("varchar(40)");
+
+                    b.Property<int>("NumberAddress")
+                        .HasColumnType("int");
 
                     b.Property<string>("Resume")
                         .IsRequired()
@@ -260,6 +293,16 @@ namespace Moment.Migrations
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("StateAddress")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("varchar(2)");
+
+                    b.Property<string>("StreetAddress")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Terms")
                         .IsRequired()
@@ -272,9 +315,32 @@ namespace Moment.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IdCategory");
+
                     b.HasIndex("IdUserPromoter");
 
                     b.ToTable("Convention");
+                });
+
+            modelBuilder.Entity("Moment.Models.Entity.ConventionCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("conventioncategory");
                 });
 
             modelBuilder.Entity("Moment.Models.Entity.ItemPurchase", b =>
@@ -389,6 +455,73 @@ namespace Moment.Migrations
                     b.ToTable("ticket");
                 });
 
+            modelBuilder.Entity("Moment.Models.Entity.UserInfo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("CNPJ")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CPF")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CityAddress")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ComplementAddress")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("DistrictAddress")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)");
+
+                    b.Property<string>("IdUser")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)");
+
+                    b.Property<int>("NumberAddress")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProfilePicture")
+                        .HasMaxLength(400)
+                        .HasColumnType("varchar(400)");
+
+                    b.Property<bool>("Promoter")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("StateAddress")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("StreetAddress")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int>("ZipCodeAddress")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdUser");
+
+                    b.ToTable("userinfo");
+                });
+
             modelBuilder.Entity("Moment.Models.Entity.Voucher", b =>
                 {
                     b.Property<Guid>("Id")
@@ -472,11 +605,19 @@ namespace Moment.Migrations
 
             modelBuilder.Entity("Moment.Models.Entity.Convention", b =>
                 {
+                    b.HasOne("Moment.Models.Entity.ConventionCategory", "Category")
+                        .WithMany()
+                        .HasForeignKey("IdCategory")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "UserPromoter")
                         .WithMany()
                         .HasForeignKey("IdUserPromoter")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Category");
 
                     b.Navigation("UserPromoter");
                 });
@@ -539,6 +680,17 @@ namespace Moment.Migrations
                         .IsRequired();
 
                     b.Navigation("Convention");
+                });
+
+            modelBuilder.Entity("Moment.Models.Entity.UserInfo", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Moment.Models.Entity.Voucher", b =>

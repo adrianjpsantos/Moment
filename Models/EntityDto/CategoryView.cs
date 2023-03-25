@@ -1,22 +1,39 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Moment.Models.Entity;
 
 namespace Moment.Models.EntityDto;
 
 public class CategoryView
 {
-    public ConventionCategory Category;
+    private CategoryDto _category;
+    private List<EventCard> _conventions;
 
-    public CategoryView(ConventionCategory category,List<EventCard> hotEvents,List<EventCard> endWeekEvents)
+    public CategoryView(CategoryDto category, List<EventCard> conventions)
     {
-        this.Category = category;
-        this.HotEvents = hotEvents;
-        this.EndWeekEvents = endWeekEvents;
+        this._category = category;
+        this._conventions = conventions;
     }
 
-    public List<EventCard> HotEvents = new();
-    public List<EventCard> EndWeekEvents = new();
+    public string? Name
+    {
+        get
+        {
+            return _category?.Name;
+        }
+    }
+
+    public string? Description
+    {
+        get
+        {
+            return _category?.Description;
+        }
+    }
+
+    public string ImagePath
+    {
+        get
+        {
+            return _category?.ImagePath;
+        }
+    }
 }

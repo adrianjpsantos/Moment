@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Moment.Models.EntityDto.HomeIndexView
+@{
   ViewData["Title"] = "Bem vindo";
 }
 <div class="header container pb-4">
@@ -9,7 +10,7 @@
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vitae
         doloribus dolores tempora corrupti maiores illum laboriosam nu
       </p>
-      <button id="info-container-button" class="btn btn-white">Saber mais</button>
+      <a id="info-container-button" class="btn btn-white">Saber mais</a>
     </div>
     <div class="search-container">
       <span class="search-container-title">Pesquise mais</span>
@@ -17,9 +18,7 @@
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Ex. 'Festa do Peão'" aria-label="Username"
             aria-describedby="basic-addon1">
-          <div class="input-group-append">
-            <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
-          </div>
+          <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
         </div>
         <div class="d-flex justify-content-center align-items-center gap-1 mt-1">
           <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Localização" />
@@ -49,7 +48,7 @@
   <div class="info-container-banner">
     <div class="info-banner">
       <img class="banner"
-        src="https://lamenteesmaravillosa.com/wp-content/uploads/2022/10/personas-haciendo-teatro-despidiendose-1024x683.jpg" />
+        src="" />
     </div>
     <img class="back-banner-1" src="~/assets/imgs/Points.svg" />
     <img class="back-banner-2" src="~/assets/imgs/Points2.svg" />
@@ -179,15 +178,14 @@
   <script>
     //Trocar Topo da pagina
 
-    $('body').ready(function () {
+    $(document).ready(function () {
       let count = 0;
-      let images = [
-        'https://blog.123milhas.com/wp-content/uploads/2022/09/campanhas-de-popularizacao-do-teatro-no-brasil-conexao123.jpg',
-        'https://lamenteesmaravillosa.com/wp-content/uploads/2022/10/personas-haciendo-teatro-despidiendose-1024x683.jpg',
-        'https://s2.glbimg.com/3-PDyAblZszWdzdVoCl3JO0SyBY=/0x0:1100x733/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2022/5/M/zLDBYsSdmwofDENHrGOw/whatsapp-image-2022-10-06-at-13.38.11.jpeg']
+      let jsonString = '@Html.Raw(Model.CategoriesJson())';
+            console.log(jsonString);
+      let categories = $.parseJSON(jsonString);
 
-      let titles = [
-        'Festas e Shows', 'Teatros e Espetáculos', 'Cursos e Workshops']
+
+
 
       let banner = $('.banner');
       let title = $('.big-title');
@@ -200,11 +198,13 @@
         button.animate({ opacity: '0', left: '-80px' }, 500, () => { });
         $('.info-banner').animate({ opacity: '0', right: '-80px' }, 500, () => {
 
-          if (count >= images.length)
+          if (count >= categories.length)
             count = 0;
 
-          banner.attr('src', images[count]);
-          title.text(titles[count])
+          banner.attr('src', categories[count].imagePath);
+          title.text(categories[count].name);
+          description.text(categories[0].description)
+          button.attr('href', `/c/${categories[count].name}`);
 
           title.animate({ opacity: '1', left: '0px' }, 500, () => { });
           description.animate({ opacity: '1', left: '0px' }, 500, () => { });
