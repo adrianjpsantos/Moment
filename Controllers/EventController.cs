@@ -51,4 +51,19 @@ public class EventController : Controller
         return NotFound();
     }
 
+    //API GET'S
+    [HttpGet]
+    [Route("api/categories")]
+    public async Task<IActionResult> Categories()
+    {
+        var conventionCategories = await _context.ConventionCategories.ToListAsync();
+        var response = new List<CategoryDto>();
+        foreach (var cc in conventionCategories)
+        {
+            response.Add(new CategoryDto(cc));
+        }
+
+        return Json(response);
+    }
+
 }

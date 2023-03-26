@@ -318,9 +318,13 @@
   display: flex;
   flex-wrap: nowrap;
   overflow: auto;
-  gap: 1rem;
 }
 
+.list-thumb-content-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
+}
 
 /* list thumb scrollbar */
 
@@ -341,10 +345,12 @@
 
 /* Event THUMB */
 .event-thumb {
+  width: calc(100%/ 5);
   min-width: 220px;
   text-decoration: none;
   border-radius: 10px;
   margin-bottom: 1rem;
+  padding: 5px;
 }
 
 .event-thumb:hover{
@@ -377,7 +383,7 @@
 
 .event-thumb-info-local {
   text-transform: uppercase;
-  color: rgb(255, 199, 0);
+  color: var(--cor-principal);
   font-size: 0.8rem;
   font-weight: 300;
   margin-top: .2rem;

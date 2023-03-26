@@ -36,6 +36,7 @@ public class AdminController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Route("Eventos/Criar")]
     public async Task<IActionResult> Create(EventCreateView eventCreate, IFormFile thumbnailFile, IFormFile backgroundFile)
     {
         ViewData["CategoryId"] = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id), "Id", "Name");
