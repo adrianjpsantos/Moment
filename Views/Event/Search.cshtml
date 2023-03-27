@@ -1,3 +1,5 @@
+@model Moment.Models.EntityDto.EventSearchView
+
 <div class="bg-black">
     <header class="container">
         <div class="input-group mb-4">
@@ -38,7 +40,16 @@
                     <h6></h6>
                 </header>
                 <div id="list-thumb-content" class="list-thumb-content-wrap hidden-scroll">
-                    <a class="event-thumb">
+                        <img class="event-thumb-img"  src="~/assets/imgs/event.jpg" />
+                    <a class="event-thumb" city-event="Macatuba,SC" >
+                        <img class="event-thumb-img"  src="~/assets/imgs/event.jpg" />
+                        <content class="event-thumb-info">
+                            <span class="event-thumb-info-title">Baile da favorita</span>
+                            <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
+                            <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
+                        </content>
+                    </a>
+                    <a class="event-thumb" city-event="Macatuba,SC" asp-controller="Home" asp-action="EventPage">
                         <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
                         <content class="event-thumb-info">
                             <span class="event-thumb-info-title">Baile da favorita</span>
@@ -46,7 +57,7 @@
                             <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
                         </content>
                     </a>
-                    <a class="event-thumb" asp-controller="Home" asp-action="EventPage">
+                    <a class="event-thumb" city-event="Macatuba,SC">
                         <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
                         <content class="event-thumb-info">
                             <span class="event-thumb-info-title">Baile da favorita</span>
@@ -54,7 +65,7 @@
                             <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
                         </content>
                     </a>
-                    <a class="event-thumb">
+                    <a class="event-thumb" city-event="Macatuba,SC">
                         <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
                         <content class="event-thumb-info">
                             <span class="event-thumb-info-title">Baile da favorita</span>
@@ -62,7 +73,7 @@
                             <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
                         </content>
                     </a>
-                    <a class="event-thumb">
+                    <a class="event-thumb" city-event="Macatuba,SC">
                         <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
                         <content class="event-thumb-info">
                             <span class="event-thumb-info-title">Baile da favorita</span>
@@ -70,7 +81,7 @@
                             <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
                         </content>
                     </a>
-                    <a class="event-thumb">
+                    <a class="event-thumb" city-event="Macatuba,SC" >
                         <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
                         <content class="event-thumb-info">
                             <span class="event-thumb-info-title">Baile da favorita</span>
@@ -78,7 +89,7 @@
                             <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
                         </content>
                     </a>
-                    <a class="event-thumb">
+                    <a class="event-thumb" city-event="Macatuba,SC" >
                         <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
                         <content class="event-thumb-info">
                             <span class="event-thumb-info-title">Baile da favorita</span>
@@ -86,15 +97,7 @@
                             <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
                         </content>
                     </a>
-                    <a class="event-thumb">
-                        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
-                        <content class="event-thumb-info">
-                            <span class="event-thumb-info-title">Baile da favorita</span>
-                            <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
-                            <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
-                        </content>
-                    </a>
-                    <a class="event-thumb">
+                    <a class="event-thumb" city-event="Macatuba,SC" >
                         <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
                         <content class="event-thumb-info">
                             <span class="event-thumb-info-title">Baile da favorita</span>
@@ -111,15 +114,48 @@
 
 <!-- Modal -->
 <div class="modal fade" id="modal-localization" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Localização</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-          ...
-      </div>
+    <div class="modal-dialog text-white">
+        <div class="modal-content  bg-dark">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 " id="exampleModalLabel">Escolha Localização</h1>
+                <button type="button" class="btn-close bi bi-x-square-fill fs-5" data-bs-dismiss="modal"
+                    aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-4">
+                    <input type="text" class="form-control" placeholder="Ex. 'São Paulo'" aria-label="Username"
+                        aria-describedby="basic-addon1">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+
+                <div id="modal-cities" class="list-group">
+                    @foreach (var city in Model.Cities)
+                    {
+                        <button onclick="filterCity(this.value)" value="@city.CityAndState()"class="list-group-item list-group-item-action" data-bs-dismiss="modal">
+                            @city.CityAndState();
+                        </button>
+                    }
+
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
+
+@section Scripts{
+    <script>
+        function filterCity(city){
+            console.log(city);
+            let thumbs = $('#list-thumb-content').children().toArray();
+            for(i =0; i< thumbs.count;i++){
+                let t = $(thumbs[i]);
+                if(t.attr('city-event') === city){
+                    console.log(t.attr('city-event'))
+                }
+            }
+        }
+    </script>
+}

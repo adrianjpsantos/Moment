@@ -23,39 +23,79 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Voucher> Vouchers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
-    { 
+    {
         base.OnModelCreating(builder);
+        #region Inject Data City
+        builder.Entity<City>().HasData(new City
+        {
+            Id = Guid.NewGuid(),
+            Name = "Macatuba",
+            State = "SP"
+        }, new City
+        {
+            Id = Guid.NewGuid(),
+            Name = "Barra Bonita",
+            State = "SP"
+        }, new City
+        {
+            Id = Guid.NewGuid(),
+            Name = "Igaraçu do Tiête",
+            State = "SP"
+        }, new City
+        {
+            Id = Guid.NewGuid(),
+            Name = "Jau",
+            State = "SP"
+        }
+        , new City
+        {
+            Id = Guid.NewGuid(),
+            Name = "Pederneiras",
+            State = "SP"
+        }, new City
+        {
+            Id = Guid.NewGuid(),
+            Name = "Lençois Paulista",
+            State = "SP"
+        });
+        #endregion
+        
         #region Inject Data Categories
         builder.Entity<ConventionCategory>().HasData(
-            new ConventionCategory{
+            new ConventionCategory
+            {
                 Id = Guid.NewGuid(),
                 Name = "Festas e Shows",
                 Description = "Encontrar os amigos na balada, curtir música boa em um festival ou ver o show do seu artista favorito na sua cidade: escolha sua festa na Moment e aproveite!",
-                ImagePath =  @"\img\conventionCategory\festaseshows.jpg"
+                ImagePath = @"\img\conventionCategory\festaseshows.jpg"
             },
-            new ConventionCategory{
+            new ConventionCategory
+            {
                 Id = Guid.NewGuid(),
                 Name = "Teatros e Espetáculos",
                 Description = "Apreciar uma peça de teatro, admirar um espetáculo em um teatro histórico ou conhecer uma cultura diferente da sua. Descubra os melhores eventos culturais da sua cidade e viva novas experiências.",
-                ImagePath =  @"\img\conventionCategory\tours.jpg"
+                ImagePath = @"\img\conventionCategory\tours.jpg"
             },
-            new ConventionCategory{
+            new ConventionCategory
+            {
                 Id = Guid.NewGuid(),
                 Name = "Stand up Comedy",
                 Description = "Encontre a programação dos melhores shows de stand up comedy que estão em cartaz na sua cidade e se divirta com a Sympla. Aproveite com os amigos essa experiência!",
-                ImagePath =  @"\img\conventionCategory\standupcomedy.jpg"
+                ImagePath = @"\img\conventionCategory\standupcomedy.jpg"
             },
-            new ConventionCategory{
+            new ConventionCategory
+            {
                 Id = Guid.NewGuid(),
                 Name = "Tecnologia",
                 Description = "Do básico ao avançado, da informática à programação. Encontre aqui cursos, palestras, treinamentos, hackathon e diversos eventos de tecnologia.",
-                ImagePath =  @"\img\conventionCategory\tecnologia.jpg"
+                ImagePath = @"\img\conventionCategory\tecnologia.jpg"
             },
-            new ConventionCategory{
+            new ConventionCategory
+            {
                 Id = Guid.NewGuid(),
                 Name = "Passeios e Tours",
                 Description = "Viva algo novo! Confira as opções de passeios turísticos, atividades ao ar livre, tours, museus, exposições... Experiências culturais para todos os gostos.",
-                ImagePath =  @"\img\conventionCategory\passeiosetours.jpg"
+                ImagePath = @"\img\conventionCategory\passeiosetours.jpg"
             }
         );
 

@@ -19,11 +19,13 @@ public class EventController : Controller
     }
 
     [Route("P/{texto}")]
-    public IActionResult Search(string texto)
+    public async Task<IActionResult> Search(string texto)
     {
         ViewData["Pesquisa"] = texto;
         ViewData["Title"] = $"Pesquisa - {texto}";
-        return View();
+        var cities = await _context.Cities.ToListAsync();
+        var searchView = new EventSearchView(cities);
+        return View(searchView);
     }
 
 

@@ -14,7 +14,12 @@ public class City
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
 
+    [Required]
+    [StringLength(50)]
     public string? Name { get; set; }
+
+    [Required]
+    [StringLength(2)]
     public string? State { get; set; }
 
     public string CityAndState()

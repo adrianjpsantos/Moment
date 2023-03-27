@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Moment.Migrations
 {
-    public partial class PenultimaMigration : Migration
+    public partial class _3migration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -72,9 +72,9 @@ namespace Moment.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
+                    Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    State = table.Column<string>(type: "longtext", nullable: true)
+                    State = table.Column<string>(type: "varchar(2)", maxLength: 2, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -229,6 +229,28 @@ namespace Moment.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "purchase",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    IdUser = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Total = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_purchase", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_purchase_AspNetUsers_IdUser",
+                        column: x => x.IdUser,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "userinfo",
                 columns: table => new
                 {
@@ -289,7 +311,7 @@ namespace Moment.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     BackgroundPath = table.Column<string>(type: "varchar(40)", maxLength: 40, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CepAddress = table.Column<string>(type: "varchar(9)", maxLength: 9, nullable: false)
+                    ZipCodeAddress = table.Column<string>(type: "varchar(9)", maxLength: 9, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     StreetAddress = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -324,6 +346,30 @@ namespace Moment.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "payment",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    IdPurchase = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Amount = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Provider = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Paid = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_payment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_payment_purchase_IdPurchase",
+                        column: x => x.IdPurchase,
+                        principalTable: "purchase",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "ticket",
                 columns: table => new
                 {
@@ -342,74 +388,6 @@ namespace Moment.Migrations
                         name: "FK_ticket_Convention_IdConvention",
                         column: x => x.IdConvention,
                         principalTable: "Convention",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "itempurchase",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    IdPurchase = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    IdTicket = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Date = table.Column<DateTime>(type: "datetime(6)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_itempurchase", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_itempurchase_ticket_IdTicket",
-                        column: x => x.IdTicket,
-                        principalTable: "ticket",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "payment",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    IdPurchase = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Amount = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    Provider = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Paid = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime(6)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_payment", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "purchase",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    IdUser = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Total = table.Column<int>(type: "int", nullable: false),
-                    IdPayment = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_purchase", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_purchase_AspNetUsers_IdUser",
-                        column: x => x.IdUser,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_purchase_payment_IdPayment",
-                        column: x => x.IdPayment,
-                        principalTable: "payment",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -449,6 +427,58 @@ namespace Moment.Migrations
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "itempurchase",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    IdPurchase = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    IdTicket = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Date = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_itempurchase", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_itempurchase_purchase_IdPurchase",
+                        column: x => x.IdPurchase,
+                        principalTable: "purchase",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_itempurchase_ticket_IdTicket",
+                        column: x => x.IdTicket,
+                        principalTable: "ticket",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.InsertData(
+                table: "city",
+                columns: new[] { "Id", "Name", "State" },
+                values: new object[,]
+                {
+                    { new Guid("5dc2c6bd-c839-46e2-b3a7-62482fe0dc8f"), "Pederneiras", "SP" },
+                    { new Guid("a0049caa-5295-471a-97af-1da241a98546"), "Igaraçu do Tiête", "SP" },
+                    { new Guid("d217e29f-db93-435f-9d90-32feaea214f3"), "Lençois Paulista", "SP" },
+                    { new Guid("e918d7b4-72a5-4c61-b39a-c101c05f543c"), "Jau", "SP" },
+                    { new Guid("e953941b-5c83-46a5-a5af-94139b239520"), "Barra Bonita", "SP" },
+                    { new Guid("f570b096-05f7-444d-861f-e53347cc4ead"), "Macatuba", "SP" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "conventioncategory",
+                columns: new[] { "Id", "Description", "ImagePath", "Name" },
+                values: new object[,]
+                {
+                    { new Guid("37ece9cc-a279-4da0-9c4e-18a1d69560ef"), "Encontre a programação dos melhores shows de stand up comedy que estão em cartaz na sua cidade e se divirta com a Sympla. Aproveite com os amigos essa experiência!", "\\img\\conventionCategory\\standupcomedy.jpg", "Stand up Comedy" },
+                    { new Guid("52047528-f8e7-4529-a305-573bcf6f73a8"), "Apreciar uma peça de teatro, admirar um espetáculo em um teatro histórico ou conhecer uma cultura diferente da sua. Descubra os melhores eventos culturais da sua cidade e viva novas experiências.", "\\img\\conventionCategory\\tours.jpg", "Teatros e Espetáculos" },
+                    { new Guid("8237795d-d0a4-42cd-aee3-9a2b74e1fac8"), "Viva algo novo! Confira as opções de passeios turísticos, atividades ao ar livre, tours, museus, exposições... Experiências culturais para todos os gostos.", "\\img\\conventionCategory\\passeiosetours.jpg", "Passeios e Tours" },
+                    { new Guid("898252b1-2b48-4b07-86c8-59a63d6c7e67"), "Do básico ao avançado, da informática à programação. Encontre aqui cursos, palestras, treinamentos, hackathon e diversos eventos de tecnologia.", "\\img\\conventionCategory\\tecnologia.jpg", "Tecnologia" },
+                    { new Guid("9926a0da-898c-437b-9fdb-d5f53b8c99f1"), "Encontrar os amigos na balada, curtir música boa em um festival ou ver o show do seu artista favorito na sua cidade: escolha sua festa na Moment e aproveite!", "\\img\\conventionCategory\\festaseshows.jpg", "Festas e Shows" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -513,11 +543,6 @@ namespace Moment.Migrations
                 column: "IdPurchase");
 
             migrationBuilder.CreateIndex(
-                name: "IX_purchase_IdPayment",
-                table: "purchase",
-                column: "IdPayment");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_purchase_IdUser",
                 table: "purchase",
                 column: "IdUser");
@@ -546,34 +571,10 @@ namespace Moment.Migrations
                 name: "IX_voucher_IdUser",
                 table: "voucher",
                 column: "IdUser");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_itempurchase_purchase_IdPurchase",
-                table: "itempurchase",
-                column: "IdPurchase",
-                principalTable: "purchase",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_payment_purchase_IdPurchase",
-                table: "payment",
-                column: "IdPurchase",
-                principalTable: "purchase",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_purchase_AspNetUsers_IdUser",
-                table: "purchase");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_payment_purchase_IdPurchase",
-                table: "payment");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -596,6 +597,9 @@ namespace Moment.Migrations
                 name: "itempurchase");
 
             migrationBuilder.DropTable(
+                name: "payment");
+
+            migrationBuilder.DropTable(
                 name: "userinfo");
 
             migrationBuilder.DropTable(
@@ -608,19 +612,16 @@ namespace Moment.Migrations
                 name: "ticket");
 
             migrationBuilder.DropTable(
-                name: "Convention");
+                name: "purchase");
 
             migrationBuilder.DropTable(
-                name: "conventioncategory");
+                name: "Convention");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "purchase");
-
-            migrationBuilder.DropTable(
-                name: "payment");
+                name: "conventioncategory");
         }
     }
 }
