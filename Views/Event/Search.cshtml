@@ -40,9 +40,9 @@
                     <h6></h6>
                 </header>
                 <div id="list-thumb-content" class="list-thumb-content-wrap hidden-scroll">
-                        <img class="event-thumb-img"  src="~/assets/imgs/event.jpg" />
-                    <a class="event-thumb" city-event="Macatuba,SC" >
-                        <img class="event-thumb-img"  src="~/assets/imgs/event.jpg" />
+
+                    <a class="event-thumb" city-event="Macatuba,SC">
+                        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
                         <content class="event-thumb-info">
                             <span class="event-thumb-info-title">Baile da favorita</span>
                             <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
@@ -81,7 +81,7 @@
                             <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
                         </content>
                     </a>
-                    <a class="event-thumb" city-event="Macatuba,SC" >
+                    <a class="event-thumb" city-event="Macatuba,SC">
                         <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
                         <content class="event-thumb-info">
                             <span class="event-thumb-info-title">Baile da favorita</span>
@@ -89,7 +89,7 @@
                             <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
                         </content>
                     </a>
-                    <a class="event-thumb" city-event="Macatuba,SC" >
+                    <a class="event-thumb" city-event="Macatuba,SC">
                         <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
                         <content class="event-thumb-info">
                             <span class="event-thumb-info-title">Baile da favorita</span>
@@ -97,7 +97,7 @@
                             <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
                         </content>
                     </a>
-                    <a class="event-thumb" city-event="Macatuba,SC" >
+                    <a class="event-thumb" city-event="Macatuba,SP">
                         <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
                         <content class="event-thumb-info">
                             <span class="event-thumb-info-title">Baile da favorita</span>
@@ -134,8 +134,9 @@
                 <div id="modal-cities" class="list-group">
                     @foreach (var city in Model.Cities)
                     {
-                        <button onclick="filterCity(this.value)" value="@city.CityAndState()"class="list-group-item list-group-item-action" data-bs-dismiss="modal">
-                            @city.CityAndState();
+                        <button onclick="filterCity(this.value)" value="@city.CityAndState()"
+                        class="list-group-item list-group-item-action" data-bs-dismiss="modal">
+                            @city.CityAndState()
                         </button>
                     }
 
@@ -146,16 +147,19 @@
 </div>
 
 @section Scripts{
-    <script>
-        function filterCity(city){
-            console.log(city);
-            let thumbs = $('#list-thumb-content').children().toArray();
-            for(i =0; i< thumbs.count;i++){
-                let t = $(thumbs[i]);
-                if(t.attr('city-event') === city){
-                    console.log(t.attr('city-event'))
-                }
+<script>
+    function filterCity(city) {
+        console.log(city);
+        let thumbs = $('#list-thumb-content').children('a').toArray();
+        thumbs.forEach( item =>{
+            
+            if(item.getAttribute('city-event') === city){
+                console.log(item.getAttribute('city-event'));
+                item.style.display = 'block';
+            }else{
+                item.style.display = 'none';
             }
-        }
-    </script>
+        });
+    }
+</script>
 }
