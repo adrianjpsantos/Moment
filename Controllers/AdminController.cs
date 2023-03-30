@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Moment.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Moment.Models.Dto;
+using Microsoft.AspNetCore.Identity;
 
 namespace Moment.Controllers;
 
@@ -15,14 +16,23 @@ public class AdminController : Controller
 {
     private readonly ApplicationDbContext _context;
     private readonly IWebHostEnvironment _hostEnvironment;
+    private UserManager<IdentityUser> _userManager;
 
-    public AdminController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
+    public AdminController(UserManager<IdentityUser> userManager, ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
     {
         this._context = context;
         this._hostEnvironment = hostEnvironment;
+        this._userManager = userManager;
     }
 
     public IActionResult Index()
+    {
+        return View();
+    }
+
+    [Route("Identity/Account/NeedMoreInfos")]
+    [Authorize]
+    public IActionResult CreateUserInfo()
     {
         return View();
     }
@@ -31,7 +41,10 @@ public class AdminController : Controller
     [Authorize]
     public IActionResult Create()
     {
-        return View();
+        if (UserIsPromoter())
+            return View();
+        else
+            return NotFound();
     }
 
     [HttpPost]
@@ -80,6 +93,17 @@ public class AdminController : Controller
     public IActionResult Created()
     {
         return View();
+    }
+
+    public bool UserIsPromoter()
+    {
+        var id = _userManager.GetUserId(User);
+        var user = _context.UserInfos.Where(ui => ui.IdUser == id).FirstOrDefault();
+
+        if (user != null && user.Promoter)
+            return true;
+
+        return false;
     }
 }
 

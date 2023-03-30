@@ -13,18 +13,30 @@ public class EventController : Controller
     {
         _context = context;
     }
-    public IActionResult Index()
+    [Route("SejaUmProdutor")]
+    public IActionResult BecomeAProducer()
     {
         return View();
     }
 
     [Route("P/{texto}")]
-    public async Task<IActionResult> Search(string texto)
+    public async Task<IActionResult> Search(string texto, string city)
     {
         ViewData["Pesquisa"] = texto;
         ViewData["Title"] = $"Pesquisa - {texto}";
+        var conventions = new List<Convention>();
+
+        if (city != string.Empty && city != null) 
+            conventions = await _context.Conventions.Where(c => c.CityAndState() == city).ToListAsync();
+        else
+            conventions = await _context.Conventions.ToListAsync();
+
+
         var cities = await _context.Cities.ToListAsync();
-        var searchView = new EventSearchView(cities);
+
+        var searchView = new EventSearchView();
+        searchView.AddCities(cities);
+        searchView.CreateEventCards(conventions);
         return View(searchView);
     }
 

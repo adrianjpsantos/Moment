@@ -5,7 +5,7 @@
 <ul class="navbar-nav align-items-center gap-2">
     @if (ViewBag.Title != "Seja Produtor")
     {
-        <li class="nav-item"><a class="nav-link text-light" asp-controller="Event" asp-action="Index">Seja Produtor</a></li>
+        <li class="nav-item"><a class="nav-link text-light" asp-controller="Event" asp-action="BecomeAProducer">Seja Produtor</a></li>
     }
     @if (SignInManager.IsSignedIn(User))
     {
