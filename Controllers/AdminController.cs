@@ -30,9 +30,9 @@ public class AdminController : Controller
         return View();
     }
 
-    [Route("Identity/Account/NeedMoreInfos")]
+    [Route("/Conta/CompletarRegistro")]
     [Authorize]
-    public IActionResult CreateUserInfo()
+    public IActionResult CompleteRegister()
     {
         return View();
     }
@@ -41,10 +41,7 @@ public class AdminController : Controller
     [Authorize]
     public IActionResult Create()
     {
-        if (UserIsPromoter())
-            return View();
-        else
-            return NotFound();
+        return View();
     }
 
     [HttpPost]

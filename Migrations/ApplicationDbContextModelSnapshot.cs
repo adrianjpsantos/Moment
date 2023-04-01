@@ -238,37 +238,37 @@ namespace Moment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f570b096-05f7-444d-861f-e53347cc4ead"),
+                            Id = new Guid("cfca3e02-76bd-4add-8ef5-d981ea911b7a"),
                             Name = "Macatuba",
                             State = "SP"
                         },
                         new
                         {
-                            Id = new Guid("e953941b-5c83-46a5-a5af-94139b239520"),
+                            Id = new Guid("3f5c5146-ac1f-428a-aa8a-bdae229aa925"),
                             Name = "Barra Bonita",
                             State = "SP"
                         },
                         new
                         {
-                            Id = new Guid("a0049caa-5295-471a-97af-1da241a98546"),
+                            Id = new Guid("e9282395-20e9-44d9-be61-eea8c2763945"),
                             Name = "Igaraçu do Tiête",
                             State = "SP"
                         },
                         new
                         {
-                            Id = new Guid("e918d7b4-72a5-4c61-b39a-c101c05f543c"),
+                            Id = new Guid("5b87ae48-e2a3-45e3-9bce-0a4deced1bd7"),
                             Name = "Jau",
                             State = "SP"
                         },
                         new
                         {
-                            Id = new Guid("5dc2c6bd-c839-46e2-b3a7-62482fe0dc8f"),
+                            Id = new Guid("688e8c28-bedf-44f4-b376-4c420434d855"),
                             Name = "Pederneiras",
                             State = "SP"
                         },
                         new
                         {
-                            Id = new Guid("d217e29f-db93-435f-9d90-32feaea214f3"),
+                            Id = new Guid("fe0f66f7-df55-4222-831c-369c7c3f431c"),
                             Name = "Lençois Paulista",
                             State = "SP"
                         });
@@ -385,35 +385,35 @@ namespace Moment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9926a0da-898c-437b-9fdb-d5f53b8c99f1"),
+                            Id = new Guid("6a3f8969-8441-4c26-823d-c0ed896f39d5"),
                             Description = "Encontrar os amigos na balada, curtir música boa em um festival ou ver o show do seu artista favorito na sua cidade: escolha sua festa na Moment e aproveite!",
                             ImagePath = "\\img\\conventionCategory\\festaseshows.jpg",
                             Name = "Festas e Shows"
                         },
                         new
                         {
-                            Id = new Guid("52047528-f8e7-4529-a305-573bcf6f73a8"),
+                            Id = new Guid("77e64fb9-44d2-4ada-975a-0a9aebe27222"),
                             Description = "Apreciar uma peça de teatro, admirar um espetáculo em um teatro histórico ou conhecer uma cultura diferente da sua. Descubra os melhores eventos culturais da sua cidade e viva novas experiências.",
                             ImagePath = "\\img\\conventionCategory\\tours.jpg",
                             Name = "Teatros e Espetáculos"
                         },
                         new
                         {
-                            Id = new Guid("37ece9cc-a279-4da0-9c4e-18a1d69560ef"),
+                            Id = new Guid("66536762-fae5-4063-9dfb-9a6735ef547c"),
                             Description = "Encontre a programação dos melhores shows de stand up comedy que estão em cartaz na sua cidade e se divirta com a Sympla. Aproveite com os amigos essa experiência!",
                             ImagePath = "\\img\\conventionCategory\\standupcomedy.jpg",
                             Name = "Stand up Comedy"
                         },
                         new
                         {
-                            Id = new Guid("898252b1-2b48-4b07-86c8-59a63d6c7e67"),
+                            Id = new Guid("3cb7558b-dfcf-47a3-aaf6-c69f1b1a7fc6"),
                             Description = "Do básico ao avançado, da informática à programação. Encontre aqui cursos, palestras, treinamentos, hackathon e diversos eventos de tecnologia.",
                             ImagePath = "\\img\\conventionCategory\\tecnologia.jpg",
                             Name = "Tecnologia"
                         },
                         new
                         {
-                            Id = new Guid("8237795d-d0a4-42cd-aee3-9a2b74e1fac8"),
+                            Id = new Guid("b5ce44da-6872-418b-ab6f-c5774e328569"),
                             Description = "Viva algo novo! Confira as opções de passeios turísticos, atividades ao ar livre, tours, museus, exposições... Experiências culturais para todos os gostos.",
                             ImagePath = "\\img\\conventionCategory\\passeiosetours.jpg",
                             Name = "Passeios e Tours"

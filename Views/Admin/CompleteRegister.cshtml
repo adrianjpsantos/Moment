@@ -1,0 +1,144 @@
+@model Moment.Models.EntityDto.UserInfoDto
+<div>
+    <form onsubmit="HandleSubmit()" class="m-4" enctype="multipart/form-data">
+        <div class="px-4 pt-4 pb-2 bg-light">
+            <h1 class="title-identity mb-4">@ViewData["Title"]</h1>
+            <div class="form-group">
+                <label asp-for="FirstName" class="form-label"></label>
+                <input asp-for="FirstName" class="form-control">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="form-label"></label>
+                <input asp-for="LastName" class="form-control">
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-3 form-group">
+                    <label asp-for="ZipCodeAddress" class="form-label"></label>
+                    <input asp-for="ZipCodeAddress" class="form-control cep"></input>
+                    <span asp-validation-for="ZipCodeAddress" class="text-danger"></span>
+                </div>
+                <div class="col form-group">
+                    <label asp-for="StreetAddress" class="form-label"></label>
+                    <input asp-for="StreetAddress" class="form-control" disabled></input>
+                    <span asp-validation-for="StreetAddress" class="text-danger"></span>
+                </div>
+                <div class="col-2 form-group">
+                    <label asp-for="NumberAddress" class="form-label"></label>
+                    <input asp-for="NumberAddress" class="form-control"></input>
+                    <span asp-validation-for="NumberAddress" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col form-group">
+                    <label asp-for="DistrictAddress" class="form-label"></label>
+                    <input asp-for="DistrictAddress" class="form-control" disabled></input>
+                    <span asp-validation-for="DistrictAddress" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col form-group">
+                    <label asp-for="CityAddress" class="form-label"></label>
+                    <input asp-for="CityAddress" class="form-control" disabled></input>
+                    <span asp-validation-for="CityAddress" class="text-danger"></span>
+                </div>
+                <div class="col form-group">
+                    <label asp-for="StateAddress" class="form-label"></label>
+                    <input asp-for="StateAddress" class="form-control" disabled></input>
+                    <span asp-validation-for="StateAddress" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ComplementAddress" class="form-label"></label>
+                <input asp-for="ComplementAddress" class="form-control"></input>
+                <span asp-validation-for="ComplementAddress" class="text-danger"></span>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                <label class="form-check-label" for="flexCheckChecked">
+                    Checked checkbox
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="CPF" class="form-label"></label>
+                <input asp-for="CPF" class="form-control"></input>
+                <span asp-validation-for="CPF" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CNPJ" class="form-label"></label>
+                <input asp-for="CNPJ" class="form-control"></input>
+                <span asp-validation-for="CNPJ" class="text-danger"></span>
+            </div>
+        </div>
+
+        <input class="col-10 btn btn-primary btn-lg btn-block w-100 rounded-0" type="submit" value="Criar Evento">
+
+    </form>
+</div>
+
+<div class="modal fade" id="loading-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content col-1 border-0 p-3 modal-dialog-centered">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="loading-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content col-1 border-0 p-3 modal-dialog-centered">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script>
+    $('input#ZipCodeAddress').blur(() => {
+        let cep = $('input#ZipCodeAddress').val().replace('-', '');
+        if (cep != '') {
+
+            $('#loading-modal').modal('show');
+
+            $.getJSON(`https://viacep.com.br/ws/${cep}/json/?callback=?`, dados => {
+
+                if (!('erro' in dados)) {
+
+                    setTimeout(() => {
+                        $('#StreetAddress').val(dados.logradouro);
+                        $('#DistrictAddress').val(dados.bairro);
+                        $('#CityAddress').val(dados.localidade);
+                        $('#UFAddress').val(dados.uf);
+                        $('#loading-modal').modal('hide');
+                    }, 1000);
+
+                }
+                else {
+                    alert('CEP não encontrado.');
+                }
+            });
+        }
+        else {
+
+            $('#StreetAddress').val('');
+            $('#DistrictAddress').val('');
+            $('#CityAddress').val('');
+            $('#UFAddress').val('');
+        }
+    });
+</script>
+}

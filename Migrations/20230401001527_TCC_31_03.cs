@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Moment.Migrations
 {
-    public partial class _3migration : Migration
+    public partial class TCC_31_03 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -460,12 +460,12 @@ namespace Moment.Migrations
                 columns: new[] { "Id", "Name", "State" },
                 values: new object[,]
                 {
-                    { new Guid("5dc2c6bd-c839-46e2-b3a7-62482fe0dc8f"), "Pederneiras", "SP" },
-                    { new Guid("a0049caa-5295-471a-97af-1da241a98546"), "Igaraçu do Tiête", "SP" },
-                    { new Guid("d217e29f-db93-435f-9d90-32feaea214f3"), "Lençois Paulista", "SP" },
-                    { new Guid("e918d7b4-72a5-4c61-b39a-c101c05f543c"), "Jau", "SP" },
-                    { new Guid("e953941b-5c83-46a5-a5af-94139b239520"), "Barra Bonita", "SP" },
-                    { new Guid("f570b096-05f7-444d-861f-e53347cc4ead"), "Macatuba", "SP" }
+                    { new Guid("3f5c5146-ac1f-428a-aa8a-bdae229aa925"), "Barra Bonita", "SP" },
+                    { new Guid("5b87ae48-e2a3-45e3-9bce-0a4deced1bd7"), "Jau", "SP" },
+                    { new Guid("688e8c28-bedf-44f4-b376-4c420434d855"), "Pederneiras", "SP" },
+                    { new Guid("cfca3e02-76bd-4add-8ef5-d981ea911b7a"), "Macatuba", "SP" },
+                    { new Guid("e9282395-20e9-44d9-be61-eea8c2763945"), "Igaraçu do Tiête", "SP" },
+                    { new Guid("fe0f66f7-df55-4222-831c-369c7c3f431c"), "Lençois Paulista", "SP" }
                 });
 
             migrationBuilder.InsertData(
@@ -473,11 +473,11 @@ namespace Moment.Migrations
                 columns: new[] { "Id", "Description", "ImagePath", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("37ece9cc-a279-4da0-9c4e-18a1d69560ef"), "Encontre a programação dos melhores shows de stand up comedy que estão em cartaz na sua cidade e se divirta com a Sympla. Aproveite com os amigos essa experiência!", "\\img\\conventionCategory\\standupcomedy.jpg", "Stand up Comedy" },
-                    { new Guid("52047528-f8e7-4529-a305-573bcf6f73a8"), "Apreciar uma peça de teatro, admirar um espetáculo em um teatro histórico ou conhecer uma cultura diferente da sua. Descubra os melhores eventos culturais da sua cidade e viva novas experiências.", "\\img\\conventionCategory\\tours.jpg", "Teatros e Espetáculos" },
-                    { new Guid("8237795d-d0a4-42cd-aee3-9a2b74e1fac8"), "Viva algo novo! Confira as opções de passeios turísticos, atividades ao ar livre, tours, museus, exposições... Experiências culturais para todos os gostos.", "\\img\\conventionCategory\\passeiosetours.jpg", "Passeios e Tours" },
-                    { new Guid("898252b1-2b48-4b07-86c8-59a63d6c7e67"), "Do básico ao avançado, da informática à programação. Encontre aqui cursos, palestras, treinamentos, hackathon e diversos eventos de tecnologia.", "\\img\\conventionCategory\\tecnologia.jpg", "Tecnologia" },
-                    { new Guid("9926a0da-898c-437b-9fdb-d5f53b8c99f1"), "Encontrar os amigos na balada, curtir música boa em um festival ou ver o show do seu artista favorito na sua cidade: escolha sua festa na Moment e aproveite!", "\\img\\conventionCategory\\festaseshows.jpg", "Festas e Shows" }
+                    { new Guid("3cb7558b-dfcf-47a3-aaf6-c69f1b1a7fc6"), "Do básico ao avançado, da informática à programação. Encontre aqui cursos, palestras, treinamentos, hackathon e diversos eventos de tecnologia.", "\\img\\conventionCategory\\tecnologia.jpg", "Tecnologia" },
+                    { new Guid("66536762-fae5-4063-9dfb-9a6735ef547c"), "Encontre a programação dos melhores shows de stand up comedy que estão em cartaz na sua cidade e se divirta com a Sympla. Aproveite com os amigos essa experiência!", "\\img\\conventionCategory\\standupcomedy.jpg", "Stand up Comedy" },
+                    { new Guid("6a3f8969-8441-4c26-823d-c0ed896f39d5"), "Encontrar os amigos na balada, curtir música boa em um festival ou ver o show do seu artista favorito na sua cidade: escolha sua festa na Moment e aproveite!", "\\img\\conventionCategory\\festaseshows.jpg", "Festas e Shows" },
+                    { new Guid("77e64fb9-44d2-4ada-975a-0a9aebe27222"), "Apreciar uma peça de teatro, admirar um espetáculo em um teatro histórico ou conhecer uma cultura diferente da sua. Descubra os melhores eventos culturais da sua cidade e viva novas experiências.", "\\img\\conventionCategory\\tours.jpg", "Teatros e Espetáculos" },
+                    { new Guid("b5ce44da-6872-418b-ab6f-c5774e328569"), "Viva algo novo! Confira as opções de passeios turísticos, atividades ao ar livre, tours, museus, exposições... Experiências culturais para todos os gostos.", "\\img\\conventionCategory\\passeiosetours.jpg", "Passeios e Tours" }
                 });
 
             migrationBuilder.CreateIndex(

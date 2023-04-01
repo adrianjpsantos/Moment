@@ -1,4 +1,4 @@
-@model Moment.Models.Dto.EventPageView
+@model Moment.Models.Entity.Convention
 @{
     ViewData["Title"] = "Pagina do Evento";
 }
@@ -23,8 +23,8 @@
                 </a>
             </div>
             <div class="d-flex flex-column mt-3">
-                <span class="event-date">@Model.Date</span>
-                <span class="event-local">@Model.Address</span>
+                <span class="event-date">@Model.StartDate</span>
+                <span class="event-local">@Model.CityAddress</span>
             </div>
         </div>
     </header>
@@ -54,9 +54,9 @@
                 <article class="col-2 event-card event-promoter">
                     <h6>Organizador</h6>
                     <a class="w-100" href="#">
-                        <img class="event-promoter-photo" src="@Model.UserInfo?.ProfilePicture"
+                        <img class="event-promoter-photo" src=""
                             alt="Foto de Perfil do Promoter" srcset="">
-                        <p>@Model.UserInfo?.GetFullName()</p>
+                        <p>fdgfdgfdg</p>
                     </a>
                 </article>
                 <article class="event-card col-10">

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Moment.Data;
+using Moment.Models.Dto;
 using Moment.Models.Entity;
 using Moment.Models.EntityDto;
 
@@ -26,7 +27,7 @@ public class EventController : Controller
         ViewData["Title"] = $"Pesquisa - {texto}";
         var conventions = new List<Convention>();
 
-        if (city != string.Empty && city != null) 
+        if (city != string.Empty && city != null)
             conventions = await _context.Conventions.Where(c => c.CityAndState() == city).ToListAsync();
         else
             conventions = await _context.Conventions.ToListAsync();
@@ -63,6 +64,13 @@ public class EventController : Controller
         }
 
         return NotFound();
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> EventPage()
+    {
+        var convention = await _context.Conventions.FirstAsync();
+        return View(convention);
     }
 
     //API GET'S

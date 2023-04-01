@@ -4,7 +4,7 @@
 }
 
 <div>
-    <form onsubmit="HandleSubmit()" class="m-4" enctype="multipart/form-data">
+    <form onsubmit="HandleSubmit()" class="m-4" enctype="multipart/form-data" asp-action="Create">
         <div class="px-4 pt-4 pb-2 bg-light">
             <h1 class="title-identity mb-4">@ViewData["Title"]</h1>
             <div class="form-group">
@@ -74,12 +74,6 @@
                     <span asp-validation-for="UFAddress" class="text-danger"></span>
                 </div>
             </div>
-            <div class="form-group">
-                <label asp-for="ComplementAddress" class="form-label"></label>
-                <input asp-for="ComplementAddress" class="form-control"></input>
-                <span asp-validation-for="ComplementAddress" class="text-danger"></span>
-            </div>
-
             <div class="form-group">
                 <label asp-for="ComplementAddress" class="form-label"></label>
                 <input asp-for="ComplementAddress" class="form-control"></input>
