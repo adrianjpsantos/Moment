@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
+using Moment.Models.EntityDto;
 
 namespace Moment.Models.Entity;
 
@@ -34,10 +35,10 @@ public class Convention
     public Guid IdCategory { get; set; }
 
     [Required]
-    [StringLength(40)]
+    [StringLength(60)]
     public string? ThumbnailPath { get; set; }
 
-    [StringLength(40)]
+    [StringLength(60)]
     public string? BackgroundPath { get; set; }
 
     [Required]
@@ -78,7 +79,13 @@ public class Convention
     [ForeignKey("IdCategory")]
     public ConventionCategory? Category { get; set; }
 
-    
+    public string Date()
+    {
+        var start = StartDate.ToString("dd/MMMM • HH:mm");
+        var end = EndDate.ToString("dd/MMMM • HH:mm");
+        return $"{start} até {end}";
+    }
+
     public string CityAndState()
     {
         return $"{this.CityAddress},{this.StateAddress}";

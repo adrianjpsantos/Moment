@@ -1,10 +1,10 @@
-@model Moment.Models.Dto.EventCreateView
+@model Moment.Models.EntityDto.EventCreateView
 @{
     ViewData["Title"] = "Criar Evento";
 }
 
 <div>
-    <form onsubmit="HandleSubmit()" class="m-4" enctype="multipart/form-data" asp-action="Create">
+    <form class="m-4" enctype="multipart/form-data" asp-controller="Admin" asp-action="CreateEvent">
         <div class="px-4 pt-4 pb-2 bg-light">
             <h1 class="title-identity mb-4">@ViewData["Title"]</h1>
             <div class="form-group">
@@ -16,6 +16,12 @@
                 <label asp-for="Resume" class="form-label"></label>
                 <input asp-for="Resume" class="form-control">
                 <span asp-validation-for="Resume" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdCategory" class="control-label"></label>
+                <select asp-for="IdCategory" class="form-control" asp-items="ViewBag.CategoryList">
+                    <form action=""></form>
+                </select>
             </div>
             <div class="row">
                 <div class="col form-group">
@@ -31,21 +37,21 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="form-label"></label>
-                <input asp-for="Description" class="form-control" hidden>
-                <div id="Description" asp-for="Description" class="" style="min-height: 2rem;">
+                <input asp-for="Description" class="form-control">
+                <div id="RichText" class="" style="min-height: 2rem;">
                 </div>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
             <div class="row">
                 <div class="col-3 form-group">
-                    <label asp-for="CepAddress" class="form-label"></label>
-                    <input asp-for="CepAddress" class="form-control cep"></input>
-                    <span asp-validation-for="CepAddress" class="text-danger"></span>
+                    <label asp-for="ZipCodeAddress" class="form-label"></label>
+                    <input asp-for="ZipCodeAddress" class="form-control cep"></input>
+                    <span asp-validation-for="ZipCodeAddress" class="text-danger"></span>
                 </div>
                 <div class="col form-group">
                     <label asp-for="StreetAddress" class="form-label"></label>
-                    <input asp-for="StreetAddress" class="form-control" disabled></input>
+                    <input asp-for="StreetAddress" class="form-control"></input>
                     <span asp-validation-for="StreetAddress" class="text-danger"></span>
                 </div>
                 <div class="col-2 form-group">
@@ -58,20 +64,20 @@
             <div class="row">
                 <div class="col form-group">
                     <label asp-for="DistrictAddress" class="form-label"></label>
-                    <input asp-for="DistrictAddress" class="form-control" disabled></input>
+                    <input asp-for="DistrictAddress" class="form-control"></input>
                     <span asp-validation-for="DistrictAddress" class="text-danger"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col form-group">
                     <label asp-for="CityAddress" class="form-label"></label>
-                    <input asp-for="CityAddress" class="form-control" disabled></input>
+                    <input asp-for="CityAddress" class="form-control"></input>
                     <span asp-validation-for="CityAddress" class="text-danger"></span>
                 </div>
                 <div class="col form-group">
-                    <label asp-for="UFAddress" class="form-label"></label>
-                    <input asp-for="UFAddress" class="form-control" disabled></input>
-                    <span asp-validation-for="UFAddress" class="text-danger"></span>
+                    <label asp-for="StateAddress" class="form-label"></label>
+                    <input asp-for="StateAddress" class="form-control"></input>
+                    <span asp-validation-for="StateAddress" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group">
@@ -83,12 +89,14 @@
             <div class="row">
                 <div class="col form-group">
                     <label asp-for="ThumbnailPath" class="form-label"></label>
-                    <input class="form-control" type="file" asp-for="ThumbnailPath" onchange="readImg(this,'Thumbnail-Preview')" accept=".jpg,.jpeg,.png,.gif,.jfif">
+                    <input class="form-control" type="file" asp-for="ThumbnailPath"
+                        onchange="readImg(this,'Thumbnail-Preview')" accept=".jpg,.jpeg,.png,.gif,.jfif">
                     <img id="Thumbnail-Preview" src="" alt="" srcset="">
                 </div>
                 <div class="col form-group">
-                    <label asp-for="BackgroundPath"class="form-label"></label>
-                    <input class="form-control" type="file" asp-for="BackgroundPath" onchange="readImg(this,'Background-Preview')" accept=".jpg,.jpeg,.png,.gif,.jfif">
+                    <label asp-for="BackgroundPath" class="form-label"></label>
+                    <input class="form-control" type="file" asp-for="BackgroundPath"
+                        onchange="readImg(this,'Background-Preview')" accept=".jpg,.jpeg,.png,.gif,.jfif">
                     <img id="Background-Preview" src="" alt="" srcset="">
                 </div>
             </div>
@@ -120,13 +128,16 @@
     </div>
 </div>
 
+@section Styles{
+    <link rel="stylesheet" href="trumbowyg/dist/ui/trumbowyg.min.css">
+}
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
-        $('input#CepAddress').blur(() => {
-            let cep = $('input#CepAddress').val().replace('-', '');
+        $('input#ZipCodeAddress').blur(() => {
+            let cep = $('input#ZipCodeAddress').val().replace('-', '');
+            console.log(cep);
             if (cep != '') {
 
                 $('#loading-modal').modal('show');
@@ -139,7 +150,7 @@
                             $('#StreetAddress').val(dados.logradouro);
                             $('#DistrictAddress').val(dados.bairro);
                             $('#CityAddress').val(dados.localidade);
-                            $('#UFAddress').val(dados.uf);
+                            $('#StateAddress').val(dados.uf);
                             $('#loading-modal').modal('hide');
                         }, 1000);
 
@@ -154,36 +165,9 @@
                 $('#StreetAddress').val('');
                 $('#DistrictAddress').val('');
                 $('#CityAddress').val('');
-                $('#UFAddress').val('');
+                $('#StateAdress').val('');
             }
         });
-
-        $(document).ready(() => {
-            let quill = new Quill('div#Description', {
-                modules: {
-                    toolbar: [
-                        ['bold', 'italic', 'underline', 'strike'],
-                        ['blockquote'],
-                        [{ 'header': 1 }, { 'header': 2 }],
-                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                        [{ 'indent': '-1' }, { 'indent': '+1' }],
-                        [{ 'direction': 'rtl' }],
-                        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-                        [{ 'color': [] }, { 'background': [] }],
-                        [{ 'font': [] }],
-                        [{ 'align': [] }],
-                        ['clean']
-                    ],
-                },
-                theme: 'snow'
-            });
-        })
-
-        function HandleSubmit() {
-            let inputDescription = $('input#Description');
-            inputDescription.text = JSON.stringify($('div#Description .ql-editor').html());
-            alert(inputDescription.text);
-        }
 
         function readImg(input, id) {
             if (input.files && input.files[0]) {

@@ -5,6 +5,17 @@
   --cor-terciaria: rgb(32, 32, 32);
 }
 
+.bg-primary{
+  background-color: var(--cor-principal) !important;
+}
+.bg-secondary{
+  background-color: var(--cor-secundaria) !important;
+}
+
+.bg-terciary{
+  background-color: var(--cor-terciaria) !important;
+}
+
 /* BIG TITLE */
 .big-title {
   position: relative;
@@ -75,13 +86,14 @@
 }
 
 .event-info {
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.48783263305322133) 0%, rgba(0, 0, 0, 1) 100%);
   color: rgb(255, 255, 255);
 }
 
-.event-description>h6 {
+.event-info>h6 {
   text-transform: uppercase;
-  font-weight: bolder;
+  color: var(--cor-principal);
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--cor-principal);
 }
 
 .event-description>p {
@@ -90,11 +102,18 @@
 
 .event-service-link {
   text-decoration: none;
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  background-color: var(--cor-principal);
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
 }
 
 .event-service-link:hover {
   color: var(--cor-principal);
+  background-color: rgb(0, 0, 0);
+  border: 1px solid var(--cor-principal);
 }
 
 .event-card {
@@ -224,7 +243,6 @@
   width: 100%;
   line-height: 60px;
   background-color: var(--cor-principal);
-
 }
 
 

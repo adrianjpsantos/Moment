@@ -1,7 +1,8 @@
+using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Moment.Data;
-using Moment.Models.Dto;
 using Moment.Models.Entity;
 using Moment.Models.EntityDto;
 
@@ -10,9 +11,16 @@ namespace Moment.Controllers;
 public class EventController : Controller
 {
     private readonly ApplicationDbContext _context;
-    public EventController(ApplicationDbContext context)
+    private readonly IWebHostEnvironment _hostEnvironment;
+    private readonly IMapper _mapper;
+    private UserManager<IdentityUser> _userManager;
+
+    public EventController(UserManager<IdentityUser> userManager, ApplicationDbContext context, IWebHostEnvironment hostEnvironment, IMapper mapper)
     {
-        _context = context;
+        this._context = context;
+        this._hostEnvironment = hostEnvironment;
+        this._userManager = userManager;
+        this._mapper = mapper;
     }
     [Route("SejaUmProdutor")]
     public IActionResult BecomeAProducer()
@@ -67,10 +75,20 @@ public class EventController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> EventPage()
+    [Route("Evento/{id}")]
+    public async Task<IActionResult> EventPage(string id)
     {
-        var convention = await _context.Conventions.FirstAsync();
-        return View(convention);
+        Convention convention;
+        if (id != "" || id != null)
+        {
+            convention = await _context.Conventions.Where(c => c.Id.ToString() == id).FirstAsync();
+        }
+        else convention = await _context.Conventions.FirstAsync();
+
+        EventPageView eventPage = new();
+        _mapper.Map(convention, eventPage);
+
+        return View(eventPage);
     }
 
     //API GET'S
@@ -79,11 +97,8 @@ public class EventController : Controller
     public async Task<IActionResult> Categories()
     {
         var conventionCategories = await _context.ConventionCategories.ToListAsync();
-        var response = new List<CategoryDto>();
-        foreach (var cc in conventionCategories)
-        {
-            response.Add(new CategoryDto(cc));
-        }
+
+        List<CategoryDto> response = _mapper.Map<List<ConventionCategory>, List<CategoryDto>>(conventionCategories);
 
         return Json(response);
     }

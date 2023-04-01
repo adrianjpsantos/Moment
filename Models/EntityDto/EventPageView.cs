@@ -1,6 +1,6 @@
 using Moment.Models.Entity;
 
-namespace Moment.Models.Dto
+namespace Moment.Models.EntityDto
 {
     public class EventPageView
     {
@@ -19,7 +19,7 @@ namespace Moment.Models.Dto
 
         public decimal Longitude { get; set; }
 
-        public string? Address { get; set; }
+        public string? CityAndState { get; set; }
 
         public List<Convention>? Conventions { get; set; }
     }

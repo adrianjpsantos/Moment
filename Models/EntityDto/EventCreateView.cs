@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Moment.Models.Dto;
+namespace Moment.Models.EntityDto;
 
 public class EventCreateView
 {
@@ -34,7 +35,7 @@ public class EventCreateView
     [Required]
     [Display(Name = "CEP")]
     [RegularExpression(@"^\d{5}-\d{3}$", ErrorMessage = "O Cep não é válido.")]
-    public string? CepAddress { get; set; }
+    public string? ZipCodeAddress { get; set; }
 
     [Required]
     [StringLength(50)]
@@ -62,7 +63,7 @@ public class EventCreateView
     [Required]
     [StringLength(2)]
     [Display(Name = "UF")]
-    public string? UFAddress { get; set; }
+    public string? StateAddress { get; set; }
 
     [Required(ErrorMessage = "Início do Evento é Obrigátorio.")]
     [Display(Name = "Início do Evento")]
@@ -71,4 +72,10 @@ public class EventCreateView
     [Required(ErrorMessage = "Fim do Evento é Obrigátorio.")]
     [Display(Name = "Fim do Evento")]
     public DateTime EndDate { get; set; }
+
+    [Required(ErrorMessage = "Escolha a Categoria do Evento.")]
+    [Display(Name = "Categoria")]
+    public string? IdCategory { get; set; }
+
+    List<SelectListItem> Categories { get; set; }
 }
