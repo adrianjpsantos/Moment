@@ -28,22 +28,22 @@ public class EventController : Controller
         return View();
     }
 
-    [Route("P/{texto}")]
-    public async Task<IActionResult> Search(string texto, string city)
+    [HttpGet]
+    [Route("Pesquisa")]
+    public async Task<IActionResult> Search(string texto, string local, string categoria, string valor)
     {
-        ViewData["Pesquisa"] = texto;
-        ViewData["Title"] = $"Pesquisa - {texto}";
-        var conventions = new List<Convention>();
-
-        if (city != string.Empty && city != null)
-            conventions = await _context.Conventions.Where(c => c.CityAndState() == city).ToListAsync();
-        else
-            conventions = await _context.Conventions.ToListAsync();
-
-
+        var conventions = await _context.Conventions.Where(c => c.Name.Contains(texto)).ToListAsync();
         var cities = await _context.Cities.ToListAsync();
+        var conventionCategories = await _context.ConventionCategories.ToListAsync();
 
-        var searchView = new EventSearchView();
+        var categories = new List<CategoryDto>();
+        foreach (var item in conventionCategories)
+        {
+            categories.Add(new CategoryDto(item));
+        }
+
+        var searchView = new EventSearchView(texto, local != null ? local : "");
+        searchView.Categories = categories;
         searchView.AddCities(cities);
         searchView.CreateEventCards(conventions);
         return View(searchView);
@@ -98,9 +98,45 @@ public class EventController : Controller
     {
         var conventionCategories = await _context.ConventionCategories.ToListAsync();
 
-        List<CategoryDto> response = _mapper.Map<List<ConventionCategory>, List<CategoryDto>>(conventionCategories);
+        List<CategoryDto> response = new List<CategoryDto>();
+        foreach (var cc in conventionCategories)
+        {
+            response.Add(new CategoryDto(cc));
+        }
 
         return Json(response);
+    }
+
+    [HttpGet]
+    [Route("api/Pesquisa")]
+    public async Task<IActionResult> SearchApi(string texto, string local, string categoria, string valor)
+    {
+        var conventions = await _context.Conventions.Where(c => c.Name.Contains(texto)).ToListAsync();
+        var cities = await _context.Cities.ToListAsync();
+        var conventionCategories = await _context.ConventionCategories.ToListAsync();
+
+        var categories = new List<CategoryDto>();
+        foreach (var item in conventionCategories)
+        {
+            categories.Add(new CategoryDto(item));
+        }
+
+        if (!String.IsNullOrEmpty(local))
+        {
+            conventions = conventions.Where(c => c.CityAndState() == local).ToList();
+        }
+
+        if (!String.IsNullOrEmpty(categoria))
+        {
+            var cat = await _context.ConventionCategories.Where(cc => cc.Name == categoria).FirstOrDefaultAsync();
+            conventions = conventions.Where(c => c.IdCategory == cat.Id).ToList();
+        }
+
+        var searchView = new EventSearchView(texto, local != null ? local : "");
+        searchView.Categories = categories;
+        searchView.AddCities(cities);
+        searchView.CreateEventCards(conventions);
+        return View(searchView);
     }
 
 }

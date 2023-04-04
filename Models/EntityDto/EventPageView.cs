@@ -12,6 +12,7 @@ namespace Moment.Models.EntityDto
         public string? Image;
         public string? Terms;
         public string? Date;
+        public string? StartDate;
 
         public UserInfo? UserInfo;
 

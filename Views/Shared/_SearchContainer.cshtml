@@ -1,0 +1,32 @@
+<div class="search-container">
+    <span class="search-container-title">Pesquise mais</span>
+    <div id="SearchForm">
+        <div class="input-group">
+            <input id="texto" type="text" class="form-control" placeholder="Ex. 'Festa do Peão'" aria-label="Username">
+            <button class="btn btn-primary" onclick="searchEvent()"><i class="bi bi-search"></i></button>
+        </div>
+        <div class="d-flex justify-content-center align-items-center gap-1 mt-1">
+            <input class="form-control" list="datalistOptions" id="local" placeholder="Localização">
+            <datalist id="datalistOptions">
+                <option value="San Francisco"></option>
+                <option value="New York"></option>
+                <option value="Seattle"></option>
+                <option value="Los Angeles"></option>
+                <option value="Chicago"></option>
+            </datalist>
+
+            <select id="categoria" class="form-select">
+                <option value="" hidden selected>Categoria</option>
+                @foreach (var c in Model.Categories)
+                {
+                    <option value="@c.Name">@c.Name</option>
+                }
+            </select>
+            <select id="valor" class="form-select">
+                <option value="null" hidden selected>Valor</option>
+                <option value="0">Grátis</option>
+                <option value="1">Pago</option>
+            </select>
+        </div>
+    </div>
+</div>

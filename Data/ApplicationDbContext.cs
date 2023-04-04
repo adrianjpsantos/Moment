@@ -74,7 +74,7 @@ public class ApplicationDbContext : IdentityDbContext
                 Id = Guid.NewGuid(),
                 Name = "Teatros e Espetáculos",
                 Description = "Apreciar uma peça de teatro, admirar um espetáculo em um teatro histórico ou conhecer uma cultura diferente da sua. Descubra os melhores eventos culturais da sua cidade e viva novas experiências.",
-                ImagePath = @"\img\conventionCategory\tours.jpg"
+                ImagePath = @"\img\conventionCategory\teatroseespetaculos.jpg"
             },
             new ConventionCategory
             {

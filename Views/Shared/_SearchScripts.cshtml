@@ -1,0 +1,27 @@
+<script>
+    //SEARCH EVENT
+    const url = '@Url.Action("Search","Event")';
+    let inputTexto = $('#texto');
+    let inputLocal = $('#local');
+    let inputCategoria = $('#categoria');
+    let inputValor = $('#valor');
+
+    function searchEvent() {
+        let newUrl = url + '?';
+        if (inputTexto != null && inputTexto.val() != '' && inputTexto.val() != null) {
+            newUrl += `texto=${inputTexto.val()}`;
+            console.log(url);
+            console.log(newUrl);
+            if (inputLocal != null && inputLocal.val() != '' && inputLocal.val() != null) {
+                newUrl += `&local=${inputLocal.val()}`;
+                console.log(newUrl);
+            }
+            if (inputCategoria != null && inputCategoria.val() != '' && inputCategoria.val() != null) {
+                newUrl += `&categoria=${inputCategoria.val()}`;
+                console.log(newUrl);
+            }
+
+            $(location).attr('href', newUrl);
+        }
+    }
+</script>

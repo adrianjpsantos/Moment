@@ -10,38 +10,7 @@
       </p>
       <a id="info-container-button" class="btn btn-white" href="/c/@Model.Categories[0].Name">Saber mais</a>
     </div>
-    <div class="search-container">
-      <span class="search-container-title">Pesquise mais</span>
-      <form class="">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Ex. 'Festa do Peão'" aria-label="Username"
-            aria-describedby="basic-addon1">
-          <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
-        </div>
-        <div class="d-flex justify-content-center align-items-center gap-1 mt-1">
-          <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Localização" />
-          <datalist id="datalistOptions">
-            <option value="San Francisco"></option>
-            <option value="New York"></option>
-            <option value="Seattle"></option>
-            <option value="Los Angeles"></option>
-            <option value="Chicago"></option>
-          </datalist>
-          <select class="form-select">
-            <option hidden selected>Tipo de Evento</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-          <select class="form-select">
-            <option hidden selected>Preço</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-        </div>
-      </form>
-    </div>
+    <partial name="../Shared/_SearchContainer.cshtml" />
   </div>
   <div class="info-container-banner">
     <div class="info-banner">
@@ -127,107 +96,105 @@
 </div>
 
 @section Scripts{
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+  <partial name="../Shared/_SearchScripts.cshtml" />
+  <script>
+    jQuery(function ($) {
+      $.fn.hScroll = function (amount) {
+        amount = amount || 120;
+        $(this).bind("DOMMouseScroll mousewheel", function (event) {
+          var oEvent = event.originalEvent,
+            direction = oEvent.detail ? oEvent.detail * -amount : oEvent.wheelDelta,
+            position = $(this).scrollLeft();
+          position += direction > 0 ? -amount : amount;
+          $(this).scrollLeft(position);
+          event.preventDefault();
+        })
+      };
+    });
 
-<script>
-  jQuery(function ($) {
-    $.fn.hScroll = function (amount) {
-      amount = amount || 120;
-      $(this).bind("DOMMouseScroll mousewheel", function (event) {
-        var oEvent = event.originalEvent,
-          direction = oEvent.detail ? oEvent.detail * -amount : oEvent.wheelDelta,
-          position = $(this).scrollLeft();
-        position += direction > 0 ? -amount : amount;
-        $(this).scrollLeft(position);
-        event.preventDefault();
-      })
-    };
-  });
+    $(document).ready(function () {
+      $('#list-thumb-content').hScroll(40); // You can pass (optionally) scrolling amount
+      // Create array for setTimeouts
+    });
 
-  $(document).ready(function () {
-    $('#list-thumb-content').hScroll(40); // You can pass (optionally) scrolling amount
-    // Create array for setTimeouts
-  });
+    var timeouts = [];
+    $("#list-thumb-content").mousemove(function () {
 
-  var timeouts = [];
-  $("#list-thumb-content").mousemove(function () {
+      $(this).addClass("show-scroll");
 
-    $(this).addClass("show-scroll");
+      // Clear all setTimeouts
+      for (var i = 0; i < timeouts.length; i++) {
+        clearTimeout(timeouts[i]);
+      }
 
-    // Clear all setTimeouts
-    for (var i = 0; i < timeouts.length; i++) {
-      clearTimeout(timeouts[i]);
+      // Start a new setTimeout to disable scoll after 3 seconds
+      timeouts.push(setTimeout(hideScroll, 5000));
+
+    });
+
+
+    function hideScroll() {
+
+      // Disable scroll in ALL divs with .hover-scroll
+      $("#list-thumb-content.show-scroll").removeClass("show-scroll");
+
+    }
+  </script>
+  <script>
+    //Trocar Topo da pagina
+    let count = 0;
+    let categories;
+
+    async function getCategories() {
+      await $.get('@Url.Action("Categories","Event")', result => {
+        if (result) {
+          categories = result;
+        }
+      });
     }
 
-    // Start a new setTimeout to disable scoll after 3 seconds
-    timeouts.push(setTimeout(hideScroll, 5000));
+    function setSlider() {
+      let banner = $('.banner');
+      let title = $('.big-title');
+      let description = $('.info-container-description');
+      let button = $('#info-container-button');
+      let category = categories[count];
+      banner.attr('src', category.imagePath);
+      title.text(category.name);
+      description.text(category.description)
+      button.attr('href', `/c/${category.name}`);
+      setInterval(() => {
 
-  });
+        title.animate({ opacity: '0', left: '-80px' }, 500, () => { });
+        description.animate({ opacity: '0', left: '-80px' }, 510, () => { });
+        button.animate({ opacity: '0', left: '-80px' }, 500, () => { });
+        $('.info-banner').animate({ opacity: '0', right: '-80px' }, 500, () => {
+          count++;
+          if (count >= categories.length)
+            count = 0;
 
+          category = categories[count];
+          banner.attr('src', category.imagePath);
+          title.text(category.name);
+          description.text(category.description)
+          button.attr('href', `/c/${category.name}`);
 
-  function hideScroll() {
+          title.animate({ opacity: '1', left: '0px' }, 500, () => { });
+          description.animate({ opacity: '1', left: '0px' }, 500, () => { });
+          button.animate({ opacity: '1', left: '0px' }, 500, () => { });
+          $('.info-banner').animate({ opacity: '1', right: '0px' }, 1000, () => { });
+        });
+      }, 8000);
+    };
 
-    // Disable scroll in ALL divs with .hover-scroll
-    $("#list-thumb-content.show-scroll").removeClass("show-scroll");
+    async function execucao() {
+      await getCategories();
+      setSlider();
+    }
 
-  }
-</script>
-<script>
-  //Trocar Topo da pagina
-  let count = 0;
-  let categories;
-
-  async function getCategories() {
-    $.get('@Url.Action("Categories","Event")', result => {
-      if (result) {
-        categories = result;
-      }
+    $(document).ready(function () {
+      execucao();
     });
-  }
-
-  function setSlider() {
-    let banner = $('.banner');
-    let title = $('.big-title');
-    let description = $('.info-container-description');
-    let button = $('#info-container-button');
-    let category = categories[count];
-    banner.attr('src', category.imagePath);
-    title.text(category.name);
-    description.text(category.description)
-    button.attr('href', `/c/${category.name}`);
-    setInterval(() => {
-
-      title.animate({ opacity: '0', left: '-80px' }, 500, () => { });
-      description.animate({ opacity: '0', left: '-80px' }, 510, () => { });
-      button.animate({ opacity: '0', left: '-80px' }, 500, () => { });
-      $('.info-banner').animate({ opacity: '0', right: '-80px' }, 500, () => {
-        count++;
-        if (count >= categories.length)
-          count = 0;
-
-        category = categories[count];
-        banner.attr('src', category.imagePath);
-        title.text(category.name);
-        description.text(category.description)
-        button.attr('href', `/c/${category.name}`);
-
-        title.animate({ opacity: '1', left: '0px' }, 500, () => { });
-        description.animate({ opacity: '1', left: '0px' }, 500, () => { });
-        button.animate({ opacity: '1', left: '0px' }, 500, () => { });
-        $('.info-banner').animate({ opacity: '1', right: '0px' }, 1000, () => { });
-      });
-    }, 8000);
-  };
-
-  async function execucao()
-  {
-    await getCategories();
-    await setSlider();
-  }
-
-  $(document).ready(function () {
-    execucao();
-  });
-</script>
-
+  </script>
 }

@@ -15,7 +15,7 @@
             </p>
             <div class="d-flex gap-2">
                 <div class="event-timer">
-                    <span>20D : 15H : 30M</span>
+                    <span id="clock">20D : 15H : 30M</span>
                 </div>
                 <a src="#" class="d-flex flex-column justify-content-center align-items-center event-shop">
                     <i class="bi bi-cart-fill fs-5"></i>
@@ -88,3 +88,15 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script src="~/lib/jquery.countdown-2.2.0/jquery.countdown.js"></script>
+    <script src="~/lib/jquery.countdown-2.2.0/jquery.countdown.min.js"></script>
+    <script>
+        $('#clock').countdown('@Model.StartDate', function (event) {
+            $(this).text(
+                event.strftime('%D %H:%M')
+            );
+        });
+    </script>
+}

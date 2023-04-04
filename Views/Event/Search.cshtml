@@ -2,23 +2,18 @@
 
 <div class="bg-black">
     <header class="container">
-        <div class="input-group mb-4">
-            <input type="text" class="form-control" placeholder="Ex. 'Festa do Peão'" aria-label="Username"
-                aria-describedby="basic-addon1">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
-            </div>
-        </div>
-        <h2 class="title-page text-white">"Festa do peao"</h2>
+        <partial name="../Shared/_SearchContainer.cshtml" />
+        <h2 class="title-page text-white">@Model.Title</h2>
         <a class="subtitle-page text-white" data-bs-toggle="modal" data-bs-target="#modal-localization">
-            em <span> Qualquer Lugar <i class="bi bi-geo-alt-fill text-primary"></i> </span>
+            em <span> @(Model.Local != "" ? Model.Local : "Qualquer Lugar") <i
+                    class="bi bi-geo-alt-fill text-primary"></i> </span>
         </a>
     </header>
 </div>
 <div class="bg-dark text-white">
     <div class="container">
         <header class="d-flex align-items-center">
-            <p class="m-0 p-0">0 Eventos Encontrados</p>
+            <p class="m-0 p-0"><span class="count-events">@Model.CountEvents</span> Eventos Encontrados</p>
             <div class="flex-grow-1"></div>
             <div class="form-group row">
                 <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm px-0">Ordernar por:</label>
@@ -41,70 +36,36 @@
                 </header>
                 <div id="list-thumb-content" class="list-thumb-content-wrap hidden-scroll">
 
-                    <a class="event-thumb" city-event="Macatuba,SC">
+
+                    <a class="event-thumb" city-event="Jau,SP">
                         <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
                         <content class="event-thumb-info">
                             <span class="event-thumb-info-title">Baile da favorita</span>
-                            <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
+                            <span class="event-thumb-info-local">Jau,SP</span>
                             <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
                         </content>
                     </a>
-                    <a class="event-thumb" city-event="Macatuba,SC" asp-controller="Home" asp-action="EventPage">
+
+                    <a class="event-thumb" city-event="Bauru,SP">
                         <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
                         <content class="event-thumb-info">
-                            <span class="event-thumb-info-title">Baile da favorita</span>
-                            <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
+                            <span class="event-thumb-info-title">Carna Open</span>
+                            <span class="event-thumb-info-local">Bauru - SP</span>
                             <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
                         </content>
                     </a>
-                    <a class="event-thumb" city-event="Macatuba,SC">
-                        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
-                        <content class="event-thumb-info">
-                            <span class="event-thumb-info-title">Baile da favorita</span>
-                            <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
-                            <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
-                        </content>
-                    </a>
-                    <a class="event-thumb" city-event="Macatuba,SC">
-                        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
-                        <content class="event-thumb-info">
-                            <span class="event-thumb-info-title">Baile da favorita</span>
-                            <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
-                            <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
-                        </content>
-                    </a>
-                    <a class="event-thumb" city-event="Macatuba,SC">
-                        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
-                        <content class="event-thumb-info">
-                            <span class="event-thumb-info-title">Baile da favorita</span>
-                            <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
-                            <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
-                        </content>
-                    </a>
-                    <a class="event-thumb" city-event="Macatuba,SC">
-                        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
-                        <content class="event-thumb-info">
-                            <span class="event-thumb-info-title">Baile da favorita</span>
-                            <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
-                            <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
-                        </content>
-                    </a>
-                    <a class="event-thumb" city-event="Macatuba,SC">
-                        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
-                        <content class="event-thumb-info">
-                            <span class="event-thumb-info-title">Baile da favorita</span>
-                            <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
-                            <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
-                        </content>
-                    </a>
-                    <a class="event-thumb" city-event="Macatuba,SP">
-                        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
-                        <content class="event-thumb-info">
-                            <span class="event-thumb-info-title">Baile da favorita</span>
-                            <span class="event-thumb-info-local">Tantrarosa, Garopada - SC</span>
-                            <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
-                        </content>
-                    </a>
+
+                    @foreach (var eventCard in Model.EventCards)
+                    {
+                        <a class="event-thumb" city-event="Macatuba,SC" asp-action="EventPage" asp-route-id="@eventCard.Id">
+                            <img class="event-thumb-img" src="@eventCard.ThumbnailPath" />
+                            <content class="event-thumb-info">
+                                <span class="event-thumb-info-title">@eventCard.Name</span>
+                                <span class="event-thumb-info-local">@eventCard.Address</span>
+                                <span class="event-thumb-info-date">@eventCard.Date</span>
+                            </content>
+                        </a>
+                    }
 
                 </div>
             </div>
@@ -132,10 +93,14 @@
                 </div>
 
                 <div id="modal-cities" class="list-group">
+                    <button onclick="filterCity(this.value)" value="Qualquer Lugar"
+                        class="list-group-item list-group-item-action" data-bs-dismiss="modal">
+                        Qualquer Lugar
+                    </button>
                     @foreach (var city in Model.Cities)
                     {
                         <button onclick="filterCity(this.value)" value="@city.CityAndState()"
-                        class="list-group-item list-group-item-action" data-bs-dismiss="modal">
+                            class="list-group-item list-group-item-action" data-bs-dismiss="modal">
                             @city.CityAndState()
                         </button>
                     }
@@ -147,19 +112,27 @@
 </div>
 
 @section Scripts{
-<script>
-    function filterCity(city) {
-        console.log(city);
-        let thumbs = $('#list-thumb-content').children('a').toArray();
-        thumbs.forEach( item =>{
-            
-            if(item.getAttribute('city-event') === city){
-                console.log(item.getAttribute('city-event'));
-                item.style.display = 'block';
-            }else{
-                item.style.display = 'none';
-            }
-        });
-    }
-</script>
+    <script>
+        function filterCity(city) {
+            console.log(city);
+            let thumbs = $('#list-thumb-content').children('a').toArray();
+            let eventON = 0;
+            thumbs.forEach(item => {
+                if (city == 'Qualquer Lugar') {
+                    eventON++;
+                    item.style.display = 'block';
+                }
+                else if (item.getAttribute('city-event') === city) {
+                    console.log(item.getAttribute('city-event'));
+                    item.style.display = 'block';
+                    eventON++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            $('.count-events').text(eventON);
+
+        }
+    </script>
 }

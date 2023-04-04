@@ -9,6 +9,8 @@ public class EventCard
     public string? Date { get; set; }
     public Guid Id { get; set; }
 
+    public string ThumbnailPath { get; set; }
+
     public EventCard(string name, string address, string date, Guid id)
     {
         this.Name = name;
@@ -19,8 +21,9 @@ public class EventCard
     public EventCard(Convention convention)
     {
         this.Name = convention.Name;
-        this.Address = "";
-        this.Date = convention.EndDate.ToString();
+        this.Address = convention.CityAndState();
+        this.Date = convention.Date();
         this.Id = convention.Id;
+        this.ThumbnailPath = convention.ThumbnailPath;
     }
 }

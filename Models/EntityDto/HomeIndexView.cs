@@ -1,35 +1,21 @@
-using System.Diagnostics;
-using System.Runtime.Serialization.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Moment.Models.Entity;
-using System.Text.Json;
-using System.Text.Encodings.Web;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Moment.Models.EntityDto;
 
 public class HomeIndexView
 {
     public List<CategoryDto> Categories;
+    public SearchForm searchForm = new();
 
     public HomeIndexView(List<CategoryDto> categories)
     {
         this.Categories = categories;
     }
 
-    public string CategoriesJson()
+    public SelectList SelectCategories
     {
-        var options = new JsonSerializerOptions
-        {
-            Encoder = JavaScriptEncoder.Default,
-            WriteIndented = false
-        };
-        string s = JsonSerializer.Serialize(Categories,options);
-        s.Replace("//","/");
-        Debug.WriteLine(s);
-        return s;
+        get { return new SelectList(Categories.OrderBy(c => c.Name).ToList(), "Name"); }
     }
 
 }
