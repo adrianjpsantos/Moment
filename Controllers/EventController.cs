@@ -30,7 +30,7 @@ public class EventController : Controller
 
     [HttpGet]
     [Route("Pesquisa")]
-    public async Task<IActionResult> Search(string texto, string local, string categoria, string valor)
+    public async Task<IActionResult> Search(string texto, string local, string categoria, int valor)
     {
         var conventions = await _context.Conventions.Where(c => c.Name.Contains(texto)).ToListAsync();
         var cities = await _context.Cities.ToListAsync();
@@ -42,7 +42,7 @@ public class EventController : Controller
             categories.Add(new CategoryDto(item));
         }
 
-        var searchView = new EventSearchView(texto, local != null ? local : "");
+        var searchView = new EventSearchView(texto, local != null ? local : "",categoria,valor);
         searchView.Categories = categories;
         searchView.AddCities(cities);
         searchView.CreateEventCards(conventions);
@@ -109,7 +109,7 @@ public class EventController : Controller
 
     [HttpGet]
     [Route("api/Pesquisa")]
-    public async Task<IActionResult> SearchApi(string texto, string local, string categoria, string valor)
+    public async Task<IActionResult> SearchApi(string texto, string local, string categoria, int valor)
     {
         var conventions = await _context.Conventions.Where(c => c.Name.Contains(texto)).ToListAsync();
         var cities = await _context.Cities.ToListAsync();
@@ -132,7 +132,7 @@ public class EventController : Controller
             conventions = conventions.Where(c => c.IdCategory == cat.Id).ToList();
         }
 
-        var searchView = new EventSearchView(texto, local != null ? local : "");
+        var searchView = new EventSearchView(texto, local != null ? local : "",categoria,valor);
         searchView.Categories = categories;
         searchView.AddCities(cities);
         searchView.CreateEventCards(conventions);

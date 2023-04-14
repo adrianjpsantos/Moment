@@ -9,7 +9,8 @@ namespace Moment.Models.EntityDto
         public string? Name;
         public string? Resume;
         public string? Description;
-        public string? Image;
+        public string? ThumbnailPath;
+        public string? BackgroundPath;
         public string? Terms;
         public string? Date;
         public string? StartDate;
@@ -21,6 +22,8 @@ namespace Moment.Models.EntityDto
         public decimal Longitude { get; set; }
 
         public string? CityAndState { get; set; }
+
+        public bool IsFree { get; set; }
 
         public List<Convention>? Conventions { get; set; }
     }

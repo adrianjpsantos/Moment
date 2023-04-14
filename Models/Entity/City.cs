@@ -26,4 +26,11 @@ public class City
     {
         return $"{this.Name},{this.State}";
     }
+
+    public City(){}
+
+    public City(string name,string state){
+        this.Name = name;
+        this.State = state;
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,8 +14,10 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly ApplicationDbContext _context;
-    public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+    private readonly IMapper _mapper;
+    public HomeController(ILogger<HomeController> logger, ApplicationDbContext context ,IMapper mapper)
     {
+        _mapper = mapper;
         _logger = logger;
         _context = context;
     }
@@ -22,33 +25,19 @@ public class HomeController : Controller
     [HttpGet]
     public async Task<IActionResult> Index()
     {
+        var conventions = await _context.Conventions.OrderBy(c => c.CreateDate).ToListAsync();
         var conventionCategories = await _context.ConventionCategories.ToListAsync();
+        var cities = await _context.Cities.ToListAsync();
+
         var categories = new List<CategoryDto>();
+
         foreach (var item in conventionCategories)
         {
             categories.Add(new CategoryDto(item));
         }
-        var homeIndex = new HomeIndexView(categories);
-        return View(homeIndex);
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> Index(HomeIndexView homeIndexView)
-    {
-
-        if (ModelState.IsValid)
-        {
-            return RedirectToAction("Search", "Event", homeIndexView.searchForm);
-        }
-
-        var conventionCategories = await _context.ConventionCategories.ToListAsync();
-        var categories = new List<CategoryDto>();
-        foreach (var item in conventionCategories)
-        {
-            categories.Add(new CategoryDto(item));
-        }
-        var homeIndex = new HomeIndexView(categories);
-        return View(homeIndex);
+        
+        var homeIndex = new HomeIndexView(categories, cities);
+        homeIndex.CreateRecentEvents(conventions);
         return View(homeIndex);
     }
 

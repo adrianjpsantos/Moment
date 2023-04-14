@@ -2,6 +2,10 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
+@{
+    ViewData["AvatarUrl"] = $"https://icotar.com/avatar/{User.Identity?.Name!}.png?s=50";
+}
+
 <ul class="navbar-nav align-items-center gap-2">
     @if (ViewBag.Title != "Seja Produtor")
     {
@@ -10,15 +14,15 @@
     }
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
-            <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-                @User.Identity?.Name!</a>
+        <li class="nav-item m-0 p-0">
+            <a class="text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                <img class="img-avatar img-fluid" src="@ViewBag.AvatarUrl" alt="Conta Usuario"></a>
         </li>
         <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
+            <a class="nav-link" asp-area="Identity" asp-page="/Account/Logout"
             asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-light">Logout</button>
-            </form>
+                Sair
+            </a>
         </li>
     }
     else

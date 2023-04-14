@@ -21,7 +21,6 @@ public class EventCreateView
 
     [Required(ErrorMessage = "Descrição é Obrigátoria.")]
     [Display(Name = "Descrição")]
-    [StringLength(60, MinimumLength = 10, ErrorMessage = "Descrição deve ter no minimo 10 e no Máximo 60 Caracteres.")]
     public string? Description { get; set; }
 
     [Required(ErrorMessage = "Digite seus Termos.")]
@@ -76,6 +75,10 @@ public class EventCreateView
     [Required(ErrorMessage = "Escolha a Categoria do Evento.")]
     [Display(Name = "Categoria")]
     public string? IdCategory { get; set; }
+
+    [Required]
+    [Display(Name = "Evento é Gratuito?")]
+    public bool IsFree { get; set; }
 
     List<SelectListItem> Categories { get; set; }
 }

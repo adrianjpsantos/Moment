@@ -82,18 +82,22 @@ public class AdminController : Controller
 
             var convention = new Convention();
             convention.IdUserPromoter = _userManager.GetUserId(User);
+            convention.CreateDate = DateTime.Now;
             _mapper.Map(eventCreate, convention);
             _context.Add(convention);
+            
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("CreatedEvent");
+            return RedirectToAction("CreatedEvent",convention);
         }
         return View();
     }
 
     [Authorize]
-    public IActionResult CreatedEvent()
+    public IActionResult CreatedEvent(Convention convention)
     {
+        ViewData["NameEvent"] = convention.Name;
+        ViewData["IdEvent"] = convention.Id;
         return View();
     }
 

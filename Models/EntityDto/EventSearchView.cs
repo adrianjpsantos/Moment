@@ -4,17 +4,18 @@ namespace Moment.Models.EntityDto;
 
 public class EventSearchView
 {
-    public string Title;
+    public string Texto;
     public string Local;
     public string Categoria;
+    public int Valor;
 
     public List<CategoryDto> Categories = new List<CategoryDto>();
     public List<City> Cities = new List<City>();
     public List<EventCard> EventCards = new List<EventCard>();
 
-    public EventSearchView(string title,string local)
+    public EventSearchView(string texto,string local,string categoria,int valor)
     {
-        this.Title = title;
+        this.Texto = texto;
         this.Local = local;
     }
     public void AddCities(List<City> cities)

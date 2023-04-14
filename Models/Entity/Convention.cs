@@ -72,6 +72,12 @@ public class Convention
     [Required]
     public DateTime EndDate { get; set; }
 
+    [Required]
+    public bool IsFree { get; set; }
+
+    [Required]
+    public DateTime CreateDate{get;set;}
+
 
     [ForeignKey("IdUserPromoter")]
     public IdentityUser? UserPromoter { get; set; }

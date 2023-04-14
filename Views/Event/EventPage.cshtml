@@ -6,7 +6,7 @@
 <div class="page">
     <header class="position-relative">
         <img class="header-event-photo"
-            src="https://media-blog.keeperformaturas.com.br/wp-content/uploads/2019/07/O-que-observar-ao-visitar-uma-festa-de-formatura.jpg"
+            src="@(Model.BackgroundPath == null ? Model.ThumbnailPath : Model.BackgroundPath )"
             alt="" srcset="">
         <div class="container py-5">
             <span class="big-title">@Model.Name</span>

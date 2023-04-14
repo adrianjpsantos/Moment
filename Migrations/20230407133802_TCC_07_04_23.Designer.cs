@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Moment.Data;
 
@@ -10,9 +11,10 @@ using Moment.Data;
 namespace Moment.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230407133802_TCC_07_04_23")]
+    partial class TCC_07_04_23
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,37 +240,37 @@ namespace Moment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("77eae789-58ed-412b-8e89-40f78d60c47f"),
+                            Id = new Guid("4fb3371c-334f-4ace-aeea-af03753a835c"),
                             Name = "Macatuba",
                             State = "SP"
                         },
                         new
                         {
-                            Id = new Guid("d7f6542a-a7f1-4e23-9fac-240e44c44000"),
+                            Id = new Guid("7722b5b4-b5ba-4397-87c5-7c8eaa8d328e"),
                             Name = "Barra Bonita",
                             State = "SP"
                         },
                         new
                         {
-                            Id = new Guid("178cefdb-e576-4c6f-ae15-a8ff01c15de2"),
+                            Id = new Guid("6eaa1d0d-f918-4711-9b4b-781425e242e3"),
                             Name = "Igaraçu do Tiête",
                             State = "SP"
                         },
                         new
                         {
-                            Id = new Guid("8648112e-a91f-4b3d-86d4-c4801ed4b320"),
+                            Id = new Guid("ad9bff44-01eb-4453-a7be-20ad6a066239"),
                             Name = "Jau",
                             State = "SP"
                         },
                         new
                         {
-                            Id = new Guid("630ab994-296e-4706-b068-4f53bed6641b"),
+                            Id = new Guid("d308b9d9-c257-4cbe-91aa-26f3447f76f7"),
                             Name = "Pederneiras",
                             State = "SP"
                         },
                         new
                         {
-                            Id = new Guid("9a8d85ae-6e9a-4755-b23e-46872a3e2b87"),
+                            Id = new Guid("e54b0dfc-705c-4836-a639-879fe35c31b4"),
                             Name = "Lençois Paulista",
                             State = "SP"
                         });
@@ -293,9 +295,6 @@ namespace Moment.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -391,35 +390,35 @@ namespace Moment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("141e3200-118a-4c56-9be6-00ba53243844"),
+                            Id = new Guid("cb473245-b5f0-4703-a734-6d65aeabe9fc"),
                             Description = "Encontrar os amigos na balada, curtir música boa em um festival ou ver o show do seu artista favorito na sua cidade: escolha sua festa na Moment e aproveite!",
                             ImagePath = "\\img\\conventionCategory\\festaseshows.jpg",
                             Name = "Festas e Shows"
                         },
                         new
                         {
-                            Id = new Guid("886376e7-1334-42a4-a79b-48d492c92dd0"),
+                            Id = new Guid("08b11e72-09c2-4401-b30e-47ee63530c79"),
                             Description = "Apreciar uma peça de teatro, admirar um espetáculo em um teatro histórico ou conhecer uma cultura diferente da sua. Descubra os melhores eventos culturais da sua cidade e viva novas experiências.",
                             ImagePath = "\\img\\conventionCategory\\teatroseespetaculos.jpg",
                             Name = "Teatros e Espetáculos"
                         },
                         new
                         {
-                            Id = new Guid("936206ae-59e2-480b-99f0-b8c60a4da652"),
+                            Id = new Guid("d5ab0930-a9c1-4a5c-88fb-cae620a1fc8e"),
                             Description = "Encontre a programação dos melhores shows de stand up comedy que estão em cartaz na sua cidade e se divirta com a Sympla. Aproveite com os amigos essa experiência!",
                             ImagePath = "\\img\\conventionCategory\\standupcomedy.jpg",
                             Name = "Stand up Comedy"
                         },
                         new
                         {
-                            Id = new Guid("24d1280c-55fc-4561-a68b-09a9f2dceac1"),
+                            Id = new Guid("019debe7-18e6-40e8-894c-d55e2f08ebe8"),
                             Description = "Do básico ao avançado, da informática à programação. Encontre aqui cursos, palestras, treinamentos, hackathon e diversos eventos de tecnologia.",
                             ImagePath = "\\img\\conventionCategory\\tecnologia.jpg",
                             Name = "Tecnologia"
                         },
                         new
                         {
-                            Id = new Guid("6f8ac949-0cc7-43ca-95b4-e6ecc047b039"),
+                            Id = new Guid("1aabb448-ba9f-4333-a37f-569e037f0b46"),
                             Description = "Viva algo novo! Confira as opções de passeios turísticos, atividades ao ar livre, tours, museus, exposições... Experiências culturais para todos os gostos.",
                             ImagePath = "\\img\\conventionCategory\\passeiosetours.jpg",
                             Name = "Passeios e Tours"

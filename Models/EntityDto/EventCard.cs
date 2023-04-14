@@ -10,6 +10,7 @@ public class EventCard
     public Guid Id { get; set; }
 
     public string ThumbnailPath { get; set; }
+    public bool IsFree { get; set; }
 
     public EventCard(string name, string address, string date, Guid id)
     {
@@ -25,5 +26,6 @@ public class EventCard
         this.Date = convention.Date();
         this.Id = convention.Id;
         this.ThumbnailPath = convention.ThumbnailPath;
+        this.IsFree = convention.IsFree;
     }
 }

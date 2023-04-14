@@ -20,6 +20,10 @@
                 newUrl += `&categoria=${inputCategoria.val()}`;
                 console.log(newUrl);
             }
+            if (inputValor.val() != 0) {
+                newUrl += `&valor=${inputValor.val()}`;
+                console.log(newUrl);
+            }
 
             $(location).attr('href', newUrl);
         }

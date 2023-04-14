@@ -1,34 +1,17 @@
 @model Moment.Models.EntityDto.EventSearchView
 
 <div class="bg-black">
-    <header class="container">
+    <header class="container mb-2">
         <partial name="../Shared/_SearchContainer.cshtml" />
-        <h2 class="title-page text-white">@Model.Title</h2>
-        <a class="subtitle-page text-white" data-bs-toggle="modal" data-bs-target="#modal-localization">
-            em <span> @(Model.Local != "" ? Model.Local : "Qualquer Lugar") <i
-                    class="bi bi-geo-alt-fill text-primary"></i> </span>
-        </a>
+        <h2 class="title-page text-white">@Model.Texto</h2>
+        <div class="d-flex align-items-center">
+            <p class="m-0 p-0 text-primary fw-light"><span class="count-events">@Model.CountEvents</span> Eventos Encontrados...</p>
+            <div class="flex-grow-1"></div>
+        </div>
     </header>
 </div>
 <div class="bg-dark text-white">
     <div class="container">
-        <header class="d-flex align-items-center">
-            <p class="m-0 p-0"><span class="count-events">@Model.CountEvents</span> Eventos Encontrados</p>
-            <div class="flex-grow-1"></div>
-            <div class="form-group row">
-                <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm px-0">Ordernar por:</label>
-                <div class="col-sm-8">
-                    <select type="email" class="form-control form-control-sm" id="colFormLabelSm"
-                        placeholder="col-form-label-sm">
-                        <option>DGdgg</option>
-                        <option>DGdgg</option>
-                        <option>DGdgg</option>
-                        <option>DGdgg</option>
-
-                    </select>
-                </div>
-            </div>
-        </header>
         <div class="content">
             <div>
                 <header class="list-thumb-title">
@@ -73,66 +56,6 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="modal-localization" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog text-white">
-        <div class="modal-content  bg-dark">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5 " id="exampleModalLabel">Escolha Localização</h1>
-                <button type="button" class="btn-close bi bi-x-square-fill fs-5" data-bs-dismiss="modal"
-                    aria-label="Close">
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="input-group mb-4">
-                    <input type="text" class="form-control" placeholder="Ex. 'São Paulo'" aria-label="Username"
-                        aria-describedby="basic-addon1">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
-                    </div>
-                </div>
-
-                <div id="modal-cities" class="list-group">
-                    <button onclick="filterCity(this.value)" value="Qualquer Lugar"
-                        class="list-group-item list-group-item-action" data-bs-dismiss="modal">
-                        Qualquer Lugar
-                    </button>
-                    @foreach (var city in Model.Cities)
-                    {
-                        <button onclick="filterCity(this.value)" value="@city.CityAndState()"
-                            class="list-group-item list-group-item-action" data-bs-dismiss="modal">
-                            @city.CityAndState()
-                        </button>
-                    }
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 @section Scripts{
-    <script>
-        function filterCity(city) {
-            console.log(city);
-            let thumbs = $('#list-thumb-content').children('a').toArray();
-            let eventON = 0;
-            thumbs.forEach(item => {
-                if (city == 'Qualquer Lugar') {
-                    eventON++;
-                    item.style.display = 'block';
-                }
-                else if (item.getAttribute('city-event') === city) {
-                    console.log(item.getAttribute('city-event'));
-                    item.style.display = 'block';
-                    eventON++;
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-
-            $('.count-events').text(eventON);
-
-        }
-    </script>
+    <partial name="../Shared/_SearchScripts.cshtml" />
 }
