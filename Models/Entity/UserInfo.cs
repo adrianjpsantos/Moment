@@ -43,14 +43,13 @@ public class UserInfo
     public string? CityAddress { get; set; }
     [Required]
     public string? StateAddress { get; set; }
-    [Required]
     public string? ComplementAddress { get; set; }
 
     public int CPF { get; set; }
     public int CNPJ { get; set; }
 
     [Required]
-    public bool Promoter { get; set; } = false;
+    public bool Promoter { get; set; } = true;
 
     [ForeignKey("IdUser")]
     public IdentityUser? User { get; set; }

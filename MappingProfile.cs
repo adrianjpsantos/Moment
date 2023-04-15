@@ -10,6 +10,7 @@ public class MappingProfile : Profile
         CreateMap<ConventionCategory,CategoryDto>();
         CreateMap<EventCreateView, Convention>();
         CreateMap<Convention, EventPageView>();
+        CreateMap<UserInfoDto,UserInfo>();
     }
 
 }

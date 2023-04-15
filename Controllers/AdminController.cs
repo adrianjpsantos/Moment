@@ -29,18 +29,37 @@ public class AdminController : Controller
     {
         return View();
     }
-
     [Route("/Conta/CompletarRegistro")]
-    [Authorize]
+    [HttpGet,Authorize]
     public IActionResult CompleteRegister()
     {
         return View();
+    }
+    
+
+    [Route("/Conta/CompletarRegistro")]
+    [HttpPost,Authorize]
+    public IActionResult CompleteRegister(UserInfoDto info)
+    {
+        if(ModelState.IsValid){
+            var userInfo = new UserInfo();
+            userInfo.IdUser = _userManager.GetUserId(User);
+            userInfo.Promoter = true;
+            _mapper.Map(info,userInfo);
+            _context.Add(userInfo);
+            //return View(info);
+            return RedirectToAction("CreateEvent","Admin");
+        }
+        return NotFound();
     }
 
     [Route("Eventos/Criar")]
     [Authorize]
     public IActionResult CreateEvent()
     {
+        if (!UserIsPromoter())
+            return RedirectToAction("CompleteRegister", "Admin");
+
         ViewData["CategoryList"] = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(), "Id", "Name");
         return View();
     }
@@ -83,12 +102,17 @@ public class AdminController : Controller
             var convention = new Convention();
             convention.IdUserPromoter = _userManager.GetUserId(User);
             convention.CreateDate = DateTime.Now;
+
             _mapper.Map(eventCreate, convention);
             _context.Add(convention);
-            
+
+            var ct = new City(convention.CityAddress, convention.StateAddress);
+            if (!_context.Cities.ToList().Contains(ct))
+                _context.Add(ct);
+
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("CreatedEvent",convention);
+            return RedirectToAction("CreatedEvent", convention);
         }
         return View();
     }
