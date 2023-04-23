@@ -36,10 +36,21 @@ public class EventController : Controller
         var cities = await _context.Cities.ToListAsync();
         var conventionCategories = await _context.ConventionCategories.ToListAsync();
 
-        var categories = new List<CategoryDto>();
+         var categories = new List<CategoryDto>();
         foreach (var item in conventionCategories)
         {
             categories.Add(new CategoryDto(item));
+        }
+
+        if (!String.IsNullOrEmpty(local))
+        {
+            conventions = conventions.Where(c => c.CityAndState() == local).ToList();
+        }
+
+        if (!String.IsNullOrEmpty(categoria))
+        {
+            var cat = await _context.ConventionCategories.Where(cc => cc.Name == categoria).FirstOrDefaultAsync();
+            conventions = conventions.Where(c => c.IdCategory == cat.Id).ToList();
         }
 
         var searchView = new EventSearchView(texto, local != null ? local : "",categoria,valor);
@@ -107,36 +118,5 @@ public class EventController : Controller
         return Json(response);
     }
 
-    [HttpGet]
-    [Route("api/Pesquisa")]
-    public async Task<IActionResult> SearchApi(string texto, string local, string categoria, int valor)
-    {
-        var conventions = await _context.Conventions.Where(c => c.Name.Contains(texto)).ToListAsync();
-        var cities = await _context.Cities.ToListAsync();
-        var conventionCategories = await _context.ConventionCategories.ToListAsync();
-
-        var categories = new List<CategoryDto>();
-        foreach (var item in conventionCategories)
-        {
-            categories.Add(new CategoryDto(item));
-        }
-
-        if (!String.IsNullOrEmpty(local))
-        {
-            conventions = conventions.Where(c => c.CityAndState() == local).ToList();
-        }
-
-        if (!String.IsNullOrEmpty(categoria))
-        {
-            var cat = await _context.ConventionCategories.Where(cc => cc.Name == categoria).FirstOrDefaultAsync();
-            conventions = conventions.Where(c => c.IdCategory == cat.Id).ToList();
-        }
-
-        var searchView = new EventSearchView(texto, local != null ? local : "",categoria,valor);
-        searchView.Categories = categories;
-        searchView.AddCities(cities);
-        searchView.CreateEventCards(conventions);
-        return View(searchView);
-    }
 
 }

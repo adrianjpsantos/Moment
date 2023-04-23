@@ -15,7 +15,7 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item m-0 p-0">
-            <a class="text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+            <a class="text-light" asp-controller="UserManager" asp-action="Index" title="Manage">
                 <img class="img-avatar img-fluid" src="@ViewBag.AvatarUrl" alt="Conta Usuario"></a>
         </li>
         <li class="nav-item">

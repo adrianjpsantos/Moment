@@ -29,28 +29,49 @@ public class AdminController : Controller
     {
         return View();
     }
-    [Route("/Conta/CompletarRegistro")]
-    [HttpGet,Authorize]
+
+    [HttpGet, Authorize, Route("/Conta/CompletarRegistro")]
     public IActionResult CompleteRegister()
     {
         return View();
     }
-    
 
-    [Route("/Conta/CompletarRegistro")]
-    [HttpPost,Authorize]
-    public IActionResult CompleteRegister(UserInfoDto info)
+
+
+    [HttpPost, Authorize, Route("/Conta/CompletarRegistro")]
+    public async Task<IActionResult> CompleteRegisterAsync(UserInfoDto info, IFormFile profilePicture)
     {
-        if(ModelState.IsValid){
+        if (ModelState.IsValid)
+        {
             var userInfo = new UserInfo();
+            _mapper.Map(info, userInfo);
+
             userInfo.IdUser = _userManager.GetUserId(User);
             userInfo.Promoter = true;
-            _mapper.Map(info,userInfo);
-            _context.Add(userInfo);
+
+            if (profilePicture != null)
+            {
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                string fileName = userInfo.IdUser + Path.GetExtension(profilePicture.FileName);
+                string uploads = Path.Combine(wwwRootPath, @"img\usersPictures");
+                string newFile = Path.Combine(uploads, fileName);
+                using (var stream = new FileStream(newFile, FileMode.Create))
+                {
+                    profilePicture.CopyTo(stream);
+                }
+                userInfo.ProfilePicture = @"\img\usersPictures\" + fileName;
+            }
+
+            _context.UserInfos.Add(userInfo);
+            await _context.SaveChangesAsync();
             //return View(info);
-            return RedirectToAction("CreateEvent","Admin");
+            return RedirectToAction("Index", "Event");
         }
-        return NotFound();
+        else
+        {
+            return Json(info);
+        }
+
     }
 
     [Route("Eventos/Criar")]
@@ -128,7 +149,7 @@ public class AdminController : Controller
     public bool UserIsPromoter()
     {
         var id = _userManager.GetUserId(User);
-        var user = _context.UserInfos.Where(ui => ui.IdUser == id).FirstOrDefault();
+        var user =  _context.UserInfos.Where(user => user.IdUser == id).FirstOrDefault();
 
         if (user != null && user.Promoter)
             return true;

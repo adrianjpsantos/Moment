@@ -371,6 +371,15 @@
   padding: 5px;
 }
 
+.event-thumb-list{
+  display: flex;
+  text-decoration: none;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  padding: 5px;
+}
+
+
 .event-thumb:hover {
   background-color: rgb(29, 29, 29);
   cursor: pointer;
@@ -382,6 +391,11 @@
   object-fit: cover;
   border-radius: 10px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.11);
+}
+
+.event-thumb-list>.event-thumb-img {
+  width: 100px;
+  height: 100px;
 }
 
 .event-thumb-info {
@@ -524,6 +538,8 @@
 }
 
 .nav-manager {
+  height: 100%;
+  background-color: var(--cor-secundaria);
   list-style-type: none;
   padding: 0;
 }
@@ -549,6 +565,7 @@
 }
 
 .btn-primary {
+  min-width: 60px !important;
   padding: 0.4rem;
   background-color: var(--cor-principal) !important;
   color: rgb(0, 0, 0);
@@ -685,8 +702,15 @@
 .form-control {
   font-size: 0.8rem;
   color: rgb(128, 128, 128);
-  background-color: rgb(18, 18, 18);
+  background-color: rgb(31, 31, 31);
   border: 0;
+}
+
+.form-control:focus{
+  background-color: rgb(46, 46, 46);
+  color: white;
+  border: 0;
+  outline: none;
 }
 
 .form-select {
@@ -710,7 +734,6 @@
   color: rgb(128, 128, 128);
 }
 
-.input-group {}
 
 .input-group-text {
   background: var(--cor-principal);

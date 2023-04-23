@@ -25,7 +25,7 @@ public class HomeController : Controller
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var conventions = await _context.Conventions.OrderByDescending(c => c.CreateDate).ToListAsync();
+        var conventions =  _context.Conventions.ToList();
         var conventionCategories = await _context.ConventionCategories.ToListAsync();
         var cities = await _context.Cities.ToListAsync();
 

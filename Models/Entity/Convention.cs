@@ -42,8 +42,12 @@ public class Convention
     public string? BackgroundPath { get; set; }
 
     [Required]
+    public string? LocalNameAddress { get; set; }
+
+    [Required]
     [StringLength(9)]
     public string? ZipCodeAddress { get; set; }
+
     [Required]
     [StringLength(50)]
     public string? StreetAddress { get; set; }
@@ -51,7 +55,6 @@ public class Convention
     [Required]
     public int NumberAddress { get; set; }
 
-    [Required]
     [StringLength(50)]
     public string? ComplementAddress { get; set; }
     [Required]

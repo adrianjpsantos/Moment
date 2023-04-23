@@ -37,7 +37,7 @@ public class UserInfo
     public string? DistrictAddress { get; set; }
 
     [Required]
-    public int ZipCodeAddress { get; set; }
+    public string? ZipCodeAddress { get; set; }
 
     [Required]
     public string? CityAddress { get; set; }
@@ -45,8 +45,8 @@ public class UserInfo
     public string? StateAddress { get; set; }
     public string? ComplementAddress { get; set; }
 
-    public int CPF { get; set; }
-    public int CNPJ { get; set; }
+    public string? CPF { get; set; }
+    public string? CNPJ { get; set; }
 
     [Required]
     public bool Promoter { get; set; } = true;

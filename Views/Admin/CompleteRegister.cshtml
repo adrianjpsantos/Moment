@@ -1,8 +1,15 @@
 @model Moment.Models.EntityDto.UserInfoDto
 <div>
-    <form class="m-4" asp-controller="Admin" asp-action="CompleteRegister">
+    <form class="m-4" enctype="multipart/form-data" asp-controller="Admin" asp-action="CompleteRegister">
         <div class="px-4 pt-4 pb-2 bg-light">
             <h1 class="title-identity mb-4">@ViewData["Title"]</h1>
+
+            <div class="col form-group">
+                <label asp-for="ProfilePicture" class="form-label"></label>
+                <input class="form-control" type="file" asp-for="ProfilePicture"
+                    onchange="readImg(this,'Background-Preview')" accept=".jpg,.jpeg,.png,.gif,.jfif">
+                <img id="Background-Preview" src="" alt="" srcset="">
+            </div>
             <div class="form-group">
                 <label asp-for="FirstName" class="form-label"></label>
                 <input asp-for="FirstName" class="form-control">
@@ -41,7 +48,7 @@
             <div class="row">
                 <div class="col form-group">
                     <label asp-for="CityAddress" class="form-label"></label>
-                    <input asp-for="CityAddress" class="form-control" ></input>
+                    <input asp-for="CityAddress" class="form-control"></input>
                     <span asp-validation-for="CityAddress" class="text-danger"></span>
                 </div>
                 <div class="col form-group">
@@ -54,12 +61,6 @@
                 <label asp-for="ComplementAddress" class="form-label"></label>
                 <input asp-for="ComplementAddress" class="form-control"></input>
                 <span asp-validation-for="ComplementAddress" class="text-danger"></span>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                <label class="form-check-label" for="flexCheckChecked">
-                    Checked checkbox
-                </label>
             </div>
             <div class="form-group">
                 <label asp-for="CPF" class="form-label"></label>
@@ -93,40 +94,8 @@
 
 
 @section Scripts {
-<partial name="_ValidationScriptsPartial" />
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-<script>
-    $('input#ZipCodeAddress').blur(() => {
-        let cep = $('input#ZipCodeAddress').val().replace('-', '');
-        if (cep != '') {
-
-            $('#loading-modal').modal('show');
-
-            $.getJSON(`https://viacep.com.br/ws/${cep}/json/?callback=?`, dados => {
-
-                if (!('erro' in dados)) {
-
-                    setTimeout(() => {
-                        $('#StreetAddress').val(dados.logradouro);
-                        $('#DistrictAddress').val(dados.bairro);
-                        $('#CityAddress').val(dados.localidade);
-                        $('#StateAddress').val(dados.uf);
-                        $('#loading-modal').modal('hide');
-                    }, 1000);
-
-                }
-                else {
-                    alert('CEP não encontrado.');
-                }
-            });
-        }
-        else {
-
-            $('#StreetAddress').val('');
-            $('#DistrictAddress').val('');
-            $('#CityAddress').val('');
-            $('#StateAddress').val('');
-        }
-    });
-</script>
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/lib/jquery-mask/dist/jquery.mask.min.js"></script>
+    <script src="~/lib/jquery-mask/dist/jquery.mask.js"></script>
+    <script src="~/js/cpf_cnpj_cep_validator.js"></script>
 }

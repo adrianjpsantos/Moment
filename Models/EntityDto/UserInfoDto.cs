@@ -25,15 +25,19 @@ public class UserInfoDto
     public string? DistrictAddress { get; set; }
 
     [Required]
-    public int ZipCodeAddress { get; set; }
+    public string? ZipCodeAddress { get; set; }
 
     [Required]
     public string? CityAddress { get; set; }
+
     [Required]
     public string? StateAddress { get; set; }
 
     public string? ComplementAddress { get; set; }
 
-    public int CPF { get; set; }
-    public int CNPJ { get; set; }
+    [Required(ErrorMessage = "CPF ou CNPJ são obrigatórios.")]
+    [Display(Name = "CPF ou CNPJ")]
+    [RegularExpression(@"^(((\d{3}).(\d{3}).(\d{3})-(\d{2}))?((\d{2}).(\d{3}).(\d{3})/(\d{4})-(\d{2}))?)*$", ErrorMessage = "Insira um CPF ou CNPJ Válido")]
+    public string? CPF { get; set; }
+    public string? CNPJ { get; set; }
 }

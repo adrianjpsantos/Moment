@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Moment.Migrations
 {
-    public partial class TCC_14_04_23 : Migration
+    public partial class TCC_15_04_23 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -268,15 +268,18 @@ namespace Moment.Migrations
                     NumberAddress = table.Column<int>(type: "int", nullable: false),
                     DistrictAddress = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ZipCodeAddress = table.Column<int>(type: "int", nullable: false),
+                    ZipCodeAddress = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     CityAddress = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     StateAddress = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ComplementAddress = table.Column<string>(type: "longtext", nullable: false)
+                    ComplementAddress = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CPF = table.Column<int>(type: "int", nullable: false),
-                    CNPJ = table.Column<int>(type: "int", nullable: false),
+                    CPF = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CNPJ = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Promoter = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
@@ -462,12 +465,12 @@ namespace Moment.Migrations
                 columns: new[] { "Id", "Name", "State" },
                 values: new object[,]
                 {
-                    { new Guid("45ba0ad6-8b75-4a9a-b300-fb312ab45d6a"), "Lençois Paulista", "SP" },
-                    { new Guid("49b3777f-d7e6-4c88-8ee5-a326a452ab62"), "Macatuba", "SP" },
-                    { new Guid("54878c7c-19f2-46c3-8064-8956d3b4d679"), "Barra Bonita", "SP" },
-                    { new Guid("8cea05e0-c936-4ea8-9294-ebae6a7ca87a"), "Igaraçu do Tiête", "SP" },
-                    { new Guid("96cf4b1e-21f3-42db-8d1c-d6e16406b369"), "Jau", "SP" },
-                    { new Guid("97648643-648b-4db3-9164-996eb5b95c43"), "Pederneiras", "SP" }
+                    { new Guid("0d7de41e-8d04-4ebc-a7f3-731a8909a683"), "Macatuba", "SP" },
+                    { new Guid("2c04eddf-7852-4c3c-b7de-2d8c90305812"), "Jau", "SP" },
+                    { new Guid("49efcc45-e339-401e-b87d-7de3764bdbde"), "Lençois Paulista", "SP" },
+                    { new Guid("517a9153-ab87-4570-b607-fa52a0faf303"), "Barra Bonita", "SP" },
+                    { new Guid("5dedba3b-d02e-48f8-bc64-79d34586c98f"), "Igaraçu do Tiête", "SP" },
+                    { new Guid("977daa4b-396c-4d4d-802b-d6900c6ccfbd"), "Pederneiras", "SP" }
                 });
 
             migrationBuilder.InsertData(
@@ -475,11 +478,11 @@ namespace Moment.Migrations
                 columns: new[] { "Id", "Description", "ImagePath", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("4f423562-bb37-4a41-80e0-ff16070b7a50"), "Encontre a programação dos melhores shows de stand up comedy que estão em cartaz na sua cidade e se divirta com a Sympla. Aproveite com os amigos essa experiência!", "\\img\\conventionCategory\\standupcomedy.jpg", "Stand up Comedy" },
-                    { new Guid("6cb25322-46de-46e2-a4f8-8e11fa34fab1"), "Viva algo novo! Confira as opções de passeios turísticos, atividades ao ar livre, tours, museus, exposições... Experiências culturais para todos os gostos.", "\\img\\conventionCategory\\passeiosetours.jpg", "Passeios e Tours" },
-                    { new Guid("73d24c65-9042-4691-bc3c-a64ce8f84db9"), "Encontrar os amigos na balada, curtir música boa em um festival ou ver o show do seu artista favorito na sua cidade: escolha sua festa na Moment e aproveite!", "\\img\\conventionCategory\\festaseshows.jpg", "Festas e Shows" },
-                    { new Guid("dee8ecf2-3421-45ab-95d8-de0977a22646"), "Apreciar uma peça de teatro, admirar um espetáculo em um teatro histórico ou conhecer uma cultura diferente da sua. Descubra os melhores eventos culturais da sua cidade e viva novas experiências.", "\\img\\conventionCategory\\teatroseespetaculos.jpg", "Teatros e Espetáculos" },
-                    { new Guid("ef9f628f-7847-4516-ad2c-3c1782d60e90"), "Do básico ao avançado, da informática à programação. Encontre aqui cursos, palestras, treinamentos, hackathon e diversos eventos de tecnologia.", "\\img\\conventionCategory\\tecnologia.jpg", "Tecnologia" }
+                    { new Guid("1f8b5582-5b5e-4637-9830-a817248272b7"), "Viva algo novo! Confira as opções de passeios turísticos, atividades ao ar livre, tours, museus, exposições... Experiências culturais para todos os gostos.", "\\img\\conventionCategory\\passeiosetours.jpg", "Passeios e Tours" },
+                    { new Guid("49c9b7a5-e01a-4583-b768-c789f658935f"), "Encontrar os amigos na balada, curtir música boa em um festival ou ver o show do seu artista favorito na sua cidade: escolha sua festa na Moment e aproveite!", "\\img\\conventionCategory\\festaseshows.jpg", "Festas e Shows" },
+                    { new Guid("52f22ade-63b5-4d6d-b8a6-6638a6992c6d"), "Encontre a programação dos melhores shows de stand up comedy que estão em cartaz na sua cidade e se divirta com a Sympla. Aproveite com os amigos essa experiência!", "\\img\\conventionCategory\\standupcomedy.jpg", "Stand up Comedy" },
+                    { new Guid("a6af579d-0854-4fee-b1e0-094a3482a165"), "Do básico ao avançado, da informática à programação. Encontre aqui cursos, palestras, treinamentos, hackathon e diversos eventos de tecnologia.", "\\img\\conventionCategory\\tecnologia.jpg", "Tecnologia" },
+                    { new Guid("bb71a95e-c3d7-4fa6-a6fd-6e34be0f3cb7"), "Apreciar uma peça de teatro, admirar um espetáculo em um teatro histórico ou conhecer uma cultura diferente da sua. Descubra os melhores eventos culturais da sua cidade e viva novas experiências.", "\\img\\conventionCategory\\teatroseespetaculos.jpg", "Teatros e Espetáculos" }
                 });
 
             migrationBuilder.CreateIndex(
