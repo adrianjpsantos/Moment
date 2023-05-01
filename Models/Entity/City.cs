@@ -22,14 +22,21 @@ public class City
     [StringLength(2)]
     public string? State { get; set; }
 
-    public string CityAndState()
+    public string CityAndState
     {
-        return $"{this.Name},{this.State}";
+        get
+        {
+
+            return $"{this.Name},{this.State}";
+
+        }
     }
 
-    public City(){}
 
-    public City(string name,string state){
+    public City() { }
+
+    public City(string name, string state)
+    {
         this.Name = name;
         this.State = state;
     }

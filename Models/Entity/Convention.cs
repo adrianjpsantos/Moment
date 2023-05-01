@@ -42,6 +42,7 @@ public class Convention
     public string? BackgroundPath { get; set; }
 
     [Required]
+    [StringLength(40)]
     public string? LocalNameAddress { get; set; }
 
     [Required]
@@ -79,7 +80,7 @@ public class Convention
     public bool IsFree { get; set; }
 
     [Required]
-    public DateTime CreateDate{get;set;}
+    public DateTime CreateDate { get; set; }
 
 
     [ForeignKey("IdUserPromoter")]
@@ -95,8 +96,11 @@ public class Convention
         return $"{start} até {end}";
     }
 
-    public string CityAndState()
+    public string CityAndState
     {
-        return $"{this.CityAddress},{this.StateAddress}";
+        get
+        {
+            return $"{this.CityAddress},{this.StateAddress}";
+        }
     }
 }

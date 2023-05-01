@@ -2,41 +2,25 @@
 
 <div class="bg-black">
     <header class="container mb-2">
-        <partial name="../Shared/_SearchContainer.cshtml" />
-        <h2 class="title-page text-white">@Model.Texto</h2>
+        <partial name="../Shared/_SearchContainer.cshtml" /> 
+        <h2 class="title-page text-white">" @(Model.Texto != null ? Model.Texto : " ") "</h2>
         <div class="d-flex align-items-center">
-            <p class="m-0 p-0 text-primary fw-light"><span class="count-events">@Model.CountEvents</span> Eventos Encontrados...</p>
+            <p class="m-0 mt-3 p-0 text-primary fw-light"><span class="count-events">@Model.CountEvents</span> Eventos
+                Encontrados...</p>
             <div class="flex-grow-1"></div>
         </div>
     </header>
 </div>
-<div class="bg-dark text-white">
+<div class="bg-secondary text-white">
     <div class="container">
         <div class="content">
-            <div>
+            <div style="min-height: 100vh;">
                 <header class="list-thumb-title">
                     <h6></h6>
                 </header>
+                @if(Model.EventCards.Count > 0)
+                {
                 <div id="list-thumb-content" class="list-thumb-content-wrap hidden-scroll">
-
-
-                    <a class="event-thumb" city-event="Jau,SP">
-                        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
-                        <content class="event-thumb-info">
-                            <span class="event-thumb-info-title">Baile da favorita</span>
-                            <span class="event-thumb-info-local">Jau,SP</span>
-                            <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
-                        </content>
-                    </a>
-
-                    <a class="event-thumb" city-event="Bauru,SP">
-                        <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
-                        <content class="event-thumb-info">
-                            <span class="event-thumb-info-title">Carna Open</span>
-                            <span class="event-thumb-info-local">Bauru - SP</span>
-                            <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
-                        </content>
-                    </a>
 
                     @foreach (var eventCard in Model.EventCards)
                     {
@@ -51,6 +35,13 @@
                     }
 
                 </div>
+                }
+                else
+                {
+                    <div class="text-center">
+                        <h3>Nenhum Evento encontrado.</h3>
+                    </div>
+                }
             </div>
         </div>
     </div>

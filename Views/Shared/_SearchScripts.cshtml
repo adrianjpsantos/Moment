@@ -8,21 +8,20 @@
 
     function searchEvent() {
         let newUrl = url + '?';
-        if (inputTexto != null && inputTexto.val() != '' && inputTexto.val() != null) {
-            newUrl += `texto=${inputTexto.val()}`;
-            console.log(url);
-            console.log(newUrl);
+        if (inputTexto.val() != null || inputLocal.val() != null || inputCategoria.val() != null || inputValor.val() != null) {
+
+             if (inputTexto != null && inputTexto.val() != '' && inputTexto.val() != null) {
+                newUrl += `&texto=${inputTexto.val()}`;
+            }
+
             if (inputLocal != null && inputLocal.val() != '' && inputLocal.val() != null) {
                 newUrl += `&local=${inputLocal.val()}`;
-                console.log(newUrl);
             }
             if (inputCategoria != null && inputCategoria.val() != '' && inputCategoria.val() != null) {
                 newUrl += `&categoria=${inputCategoria.val()}`;
-                console.log(newUrl);
             }
             if (inputValor.val() != 0) {
                 newUrl += `&valor=${inputValor.val()}`;
-                console.log(newUrl);
             }
 
             $(location).attr('href', newUrl);

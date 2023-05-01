@@ -4,7 +4,7 @@
 }
 
 <div>
-    <form class="m-4" enctype="multipart/form-data" asp-controller="Admin" asp-action="CreateEvent">
+    <form class="m-4" enctype="multipart/form-data" asp-controller="Event" asp-action="CreateEvent">
         <div class="px-4 pt-4 pb-2 bg-light">
             <h1 class="title-identity mb-4">@ViewData["Title"]</h1>
             <div class="form-check">
@@ -25,8 +25,8 @@
             <div class="form-group">
                 <label asp-for="IdCategory" class="control-label"></label>
                 <select asp-for="IdCategory" class="form-control" asp-items="ViewBag.CategoryList">
-                    <form action=""></form>
                 </select>
+                <span asp-validation-for="IdCategory" class="text-danger"></span>
             </div>
             <div class="row">
                 <div class="col form-group">
@@ -43,9 +43,36 @@
             <div class="form-group">
                 <label asp-for="Description" class="form-label"></label>
                 <textarea asp-for="Description" class="form-control"></textarea>
-                <div id="RichText" class="" style="min-height: 2rem;">
-                </div>
                 <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col form-group">
+                    <label asp-for="ThumbnailPath" class="form-label"></label>
+                    <input class="form-control" type="file" asp-for="ThumbnailPath"
+                        onchange="readImg(this,'Thumbnail-Preview')" accept=".jpg,.jpeg,.png,.gif,.jfif">
+                    <img id="Thumbnail-Preview" src="" alt="" srcset="">
+                </div>
+                <div class="col form-group">
+                    <label asp-for="BackgroundPath" class="form-label"></label>
+                    <input class="form-control" type="file" asp-for="BackgroundPath"
+                        onchange="readImg(this,'Background-Preview')" accept=".jpg,.jpeg,.png,.gif,.jfif">
+                    <img id="Background-Preview" src="" alt="" srcset="">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Terms" class="form-label"></label>
+                <textarea asp-for="Terms" class="form-control"></textarea>
+                <span asp-validation-for="Terms" class="text-danger"></span>
+            </div>
+
+            <h3>Endereço</h3>
+
+            <div class="form-group">
+                <label asp-for="LocalNameAddress" class="form-label"></label>
+                <input asp-for="LocalNameAddress" class="form-control cep"></input>
+                <span asp-validation-for="LocalNameAddress" class="text-danger"></span>
             </div>
 
             <div class="row">
@@ -91,28 +118,6 @@
                 <span asp-validation-for="ComplementAddress" class="text-danger"></span>
             </div>
 
-            <div class="row">
-                <div class="col form-group">
-                    <label asp-for="ThumbnailPath" class="form-label"></label>
-                    <input class="form-control" type="file" asp-for="ThumbnailPath"
-                        onchange="readImg(this,'Thumbnail-Preview')" accept=".jpg,.jpeg,.png,.gif,.jfif">
-                    <img id="Thumbnail-Preview" src="" alt="" srcset="">
-                </div>
-                <div class="col form-group">
-                    <label asp-for="BackgroundPath" class="form-label"></label>
-                    <input class="form-control" type="file" asp-for="BackgroundPath"
-                        onchange="readImg(this,'Background-Preview')" accept=".jpg,.jpeg,.png,.gif,.jfif">
-                    <img id="Background-Preview" src="" alt="" srcset="">
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                <label asp-for="Terms" class="form-label"></label>
-                <textarea asp-for="Terms" class="form-control"></textarea>
-                <span asp-validation-for="Terms" class="text-danger"></span>
-            </div>
-
 
         </div>
 
@@ -133,11 +138,8 @@
     </div>
 </div>
 
-@section Styles{
-    <link rel="stylesheet" href="trumbowyg/dist/ui/trumbowyg.min.css">
-}
-
 @section Scripts {
+    <script src="~/lib/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
     <partial name="_ValidationScriptsPartial" />
     <script>
         $('input#ZipCodeAddress').blur(() => {
@@ -186,5 +188,12 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+            language: 'pt_BR',
+        });
     </script>
 }

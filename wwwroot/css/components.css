@@ -760,3 +760,16 @@
   height: 30px;
   border-radius: 50%;
 }
+
+
+/*SEARCH CATEGORY */
+#select-cities{
+  background-color: transparent;
+  color: rgb(255,255,255);
+  border: 0;
+}
+
+#select-cities>option{
+  background-color: rgb(17,17,17);
+  border: 0;
+}

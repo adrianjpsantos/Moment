@@ -4,45 +4,38 @@
     <div class="w-100 bg-secondary text-white py-3">
         <div class="container ">
             <div class="content">
+
                 <div>
                     <header class="px-3">
                         <h6 class="text-primary fs-3 m-0 p-0">Meus Eventos</h6>
                     </header>
                     <div class="row p-3">
-                        <a class="col-4 event-thumb-list mb-2" city-event="Jau,SP">
-                            <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
-                            <content class="event-thumb-info">
-                                <span class="event-thumb-info-title">Baile da favorita</span>
-                                <span class="event-thumb-info-local">Jau,SP</span>
-                                <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
-                            </content>
-                        </a>
-
-                        <a class="col-4 event-thumb-list" city-event="Jau,SP">
-                            <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
-                            <content class="event-thumb-info">
-                                <span class="event-thumb-info-title">Baile da favorita</span>
-                                <span class="event-thumb-info-local">Jau,SP</span>
-                                <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
-                            </content>
-                        </a>
-                        <a class="col-4 event-thumb-list" city-event="Jau,SP">
-                            <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
-                            <content class="event-thumb-info">
-                                <span class="event-thumb-info-title">Baile da favorita</span>
-                                <span class="event-thumb-info-local">Jau,SP</span>
-                                <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
-                            </content>
-                        </a>
-                        <a class="col-4 event-thumb-list" city-event="Jau,SP">
-                            <img class="event-thumb-img" src="~/assets/imgs/event.jpg" />
-                            <content class="event-thumb-info">
-                                <span class="event-thumb-info-title">Baile da favorita</span>
-                                <span class="event-thumb-info-local">Jau,SP</span>
-                                <span class="event-thumb-info-date">30/Dez &bull; 23:00 Até 31/dez &bull; 6:00</span>
-                            </content>
-                        </a>
-
+                        @if (ViewBag.IsPromoter == true)
+                        {
+                            if (ViewBag.Conventions.Count > 0)
+                            {
+                                @foreach (var eventCard in ViewBag.Conventions)
+                                {
+                                    <a class="col-4 event-thumb-list" asp-controller="Event" asp-action="EventPage"
+                            asp-route-id="@eventCard.Id">
+                                        <img class="event-thumb-img" src="@eventCard.ThumbnailPath" />
+                                        <content class="event-thumb-info">
+                                            <span class="event-thumb-info-title">@eventCard.Name</span>
+                                            <span class="event-thumb-info-local">@eventCard.Address</span>
+                                            <span class="event-thumb-info-date">@eventCard.Date</span>
+                                        </content>
+                                    </a>
+                                }
+                            }else{
+                                <h4>Voce ainda não tem eventos</h4>
+                                <button>Adicionar Evento</button>
+                            }
+                        }
+                        else
+                        {
+                            <h4>Voce ainda não é um promoter, precisamos de mais informações suas.</h4>
+                            <a asp-controller="UserManager" asp-action="CompleteRegister">Virar Promoter</a>
+                        }
                     </div>
                 </div>
             </div>

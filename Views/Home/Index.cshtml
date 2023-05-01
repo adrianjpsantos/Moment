@@ -5,16 +5,16 @@
 <div class="header container pb-4">
   <div class="info-container">
     <div>
-      <span class="big-title">@Model.Categories[0].Name</span>
-      <p class="info-container-description">@Model.Categories[0].Description
+      <span class="big-title">@ViewBag.CategoryList.Items[0].Name</span>
+      <p class="info-container-description">@ViewBag.CategoryList.Items[0].Description
       </p>
-      <a id="info-container-button" class="btn btn-white" href="/c/@Model.Categories[0].Name">Saber mais</a>
+      <a id="info-container-button" class="btn btn-white" href="/Categoria/@ViewBag.CategoryList.Items[0].Name">Saber mais</a>
     </div>
     <partial name="../Shared/_SearchContainer.cshtml" />
   </div>
   <div class="info-container-banner">
     <div class="info-banner">
-      <img class="banner" src="@Model.Categories[0].ImagePath" />
+      <img class="banner" src="@ViewBag.CategoryList.Items[0].ImagePath" />
     </div>
     <img class="back-banner-1" src="~/assets/imgs/Points.svg" />
     <img class="back-banner-2" src="~/assets/imgs/Points2.svg" />
@@ -28,7 +28,7 @@
     <div id="list-thumb-content" class="list-thumb-content hidden-scroll">
       @foreach (var eventCard in Model.RecentEvents)
       {
-        <a class="event-thumb" city-event="Macatuba,SC" asp-controller="Event" asp-action="EventPage" asp-route-id="@eventCard.Id">
+        <a class="event-thumb" asp-controller="Event" asp-action="EventPage" asp-route-id="@eventCard.Id">
           <img class="event-thumb-img" src="@eventCard.ThumbnailPath" />
           <content class="event-thumb-info">
             <span class="event-thumb-info-title">@eventCard.Name</span>
@@ -94,7 +94,7 @@
     let categories;
 
     async function getCategories() {
-      await $.get('@Url.Action("Categories","Event")', result => {
+      await $.get('@Url.Action("Categories","Api")', result => {
         if (result) {
           categories = result;
         }
@@ -110,7 +110,7 @@
       banner.attr('src', category.imagePath);
       title.text(category.name);
       description.text(category.description)
-      button.attr('href', `/c/${category.name}`);
+      button.attr('href', `/Categoria/${category.name}`);
       setInterval(() => {
 
         title.animate({ opacity: '0', left: '-80px' }, 500, () => { });
@@ -125,7 +125,7 @@
           banner.attr('src', category.imagePath);
           title.text(category.name);
           description.text(category.description)
-          button.attr('href', `/c/${category.name}`);
+          button.attr('href', `/Categoria/${category.name}`);
 
           title.animate({ opacity: '1', left: '0px' }, 500, () => { });
           description.animate({ opacity: '1', left: '0px' }, 500, () => { });

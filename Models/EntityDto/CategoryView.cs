@@ -5,12 +5,12 @@ namespace Moment.Models.EntityDto;
 public class CategoryView
 {
     private CategoryDto _category;
-    private List<EventCard> _conventions;
+    public List<EventCard> EventCards;
 
-    public CategoryView(CategoryDto category, List<EventCard> conventions)
+    public CategoryView(CategoryDto category, List<EventCard> eventCards)
     {
         this._category = category;
-        this._conventions = conventions;
+        this.EventCards = eventCards;
     }
 
     public string? Name

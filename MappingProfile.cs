@@ -6,11 +6,14 @@ namespace AccountOwnerServer;
 
 public class MappingProfile : Profile
 {
-    public MappingProfile(){
-        CreateMap<ConventionCategory,CategoryDto>();
+    public MappingProfile()
+    {
+        CreateMap<ConventionCategory, CategoryDto>();
         CreateMap<EventCreateView, Convention>();
         CreateMap<Convention, EventPageView>();
-        CreateMap<UserInfoDto,UserInfo>();
+        CreateMap<Convention, EventEditView>();
+        CreateMap<EventEditView, Convention>();
+        CreateMap<UserInfoDto, UserInfo>();
     }
 
 }

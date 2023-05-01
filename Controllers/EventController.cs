@@ -1,6 +1,9 @@
+using System.Linq;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Moment.Data;
 using Moment.Models.Entity;
@@ -28,23 +31,18 @@ public class EventController : Controller
         return View();
     }
 
-    [HttpGet]
-    [Route("Pesquisa")]
+    [HttpGet, Route("Pesquisa")]
     public async Task<IActionResult> Search(string texto, string local, string categoria, int valor)
     {
-        var conventions = await _context.Conventions.Where(c => c.Name.Contains(texto)).ToListAsync();
+        var conventions = texto == null ? await _context.Conventions.ToListAsync() : await _context.Conventions.Where(c => c.Name.Contains(texto == null ? "" : texto)).ToListAsync();
         var cities = await _context.Cities.ToListAsync();
         var conventionCategories = await _context.ConventionCategories.ToListAsync();
 
-         var categories = new List<CategoryDto>();
-        foreach (var item in conventionCategories)
-        {
-            categories.Add(new CategoryDto(item));
-        }
+        conventions = conventions.OrderByDescending(c => c.CreateDate).ToList();
 
         if (!String.IsNullOrEmpty(local))
         {
-            conventions = conventions.Where(c => c.CityAndState() == local).ToList();
+            conventions = conventions.Where(c => c.CityAndState.Contains(local)).ToList();
         }
 
         if (!String.IsNullOrEmpty(categoria))
@@ -53,23 +51,196 @@ public class EventController : Controller
             conventions = conventions.Where(c => c.IdCategory == cat.Id).ToList();
         }
 
-        var searchView = new EventSearchView(texto, local != null ? local : "",categoria,valor);
-        searchView.Categories = categories;
-        searchView.AddCities(cities);
+        if (valor > 0)
+        {
+            var isFree = valor == 1 ? true : false;
+            conventions = conventions.Where(c => c.IsFree == isFree).ToList();
+        }
+
+        var searchView = new EventSearchView(texto, local != null ? local : "", categoria, valor);
         searchView.CreateEventCards(conventions);
+
+        ViewData["Cities"] = cities;
+        ViewData["CategoryList"] = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(),"Name","Name", searchView.Categoria);
+
         return View(searchView);
     }
 
 
-    [HttpGet]
-    [Route("C/{category}")]
-    public async Task<IActionResult> SearchCategory(string category)
+
+    [Authorize, Route("Evento/CriarEvento")]
+    public IActionResult CreateEvent()
+    {
+        if (!UserIsPromoter())
+            return RedirectToAction("CompleteRegister", "Admin");
+
+        ViewData["CategoryList"] = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(), "Id", "Name");
+        return View();
+    }
+
+    [HttpPost, ValidateAntiForgeryToken, Route("Evento/CriarEvento")]
+    public async Task<IActionResult> CreateEvent(EventCreateView eventCreate, IFormFile thumbnailPath, IFormFile backgroundPath)
+    {
+        ViewData["CategoryList"] = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(), "Id", "Name");
+        if (ModelState.IsValid)
+        {
+            Console.WriteLine(eventCreate);
+            if (thumbnailPath != null)
+            {
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(thumbnailPath.FileName);
+                string uploads = Path.Combine(wwwRootPath, @"img\eventThumb");
+                string newFile = Path.Combine(uploads, fileName);
+                using (var stream = new FileStream(newFile, FileMode.Create))
+                {
+                    thumbnailPath.CopyTo(stream);
+                }
+                eventCreate.ThumbnailPath = @"\img\eventThumb\" + fileName;
+            }
+
+            if (backgroundPath != null)
+            {
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(backgroundPath.FileName);
+                string uploads = Path.Combine(wwwRootPath, @"img\eventBack");
+                string newFile = Path.Combine(uploads, fileName);
+                using (var stream = new FileStream(newFile, FileMode.Create))
+                {
+                    backgroundPath.CopyTo(stream);
+                }
+                eventCreate.BackgroundPath = @"\img\eventBack\" + fileName;
+            }
+
+            var convention = new Convention();
+            convention.IdUserPromoter = _userManager.GetUserId(User);
+            convention.CreateDate = DateTime.Now;
+
+            _mapper.Map(eventCreate, convention);
+            _context.Add(convention);
+
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("CreatedEvent", convention);
+        }
+        return View(eventCreate);
+    }
+
+    [HttpGet, Authorize, Route("Evento/CriadoComSucesso")]
+    public IActionResult CreatedEvent(Convention convention)
+    {
+        ViewData["NameEvent"] = convention.Name;
+        ViewData["IdEvent"] = convention.Id;
+        return View();
+    }
+
+    [HttpGet, Authorize, Route("Evento/{id}/Editar")]
+    public async Task<IActionResult> EditEvent(string id)
+    {
+        var convention = await _context.Conventions.Where(c => c.Id.ToString() == id).FirstAsync();
+        if (convention == null) return NotFound();
+
+        EventEditView viewModel = new();
+        _mapper.Map(convention, viewModel);
+
+        ViewData["CategoryList"] = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(), "Id", "Name", convention.IdCategory);
+
+        return View(viewModel);
+    }
+
+    [HttpPost, ValidateAntiForgeryToken, Route("Evento/{id}/Editar")]
+    public async Task<IActionResult> EditEvent(EventEditView eventEdit, IFormFile thumbnailPath, IFormFile backgroundPath)
+    {
+        if (ModelState.IsValid)
+        {
+            Console.WriteLine(eventEdit);
+            if (thumbnailPath != null)
+            {
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+
+                if (eventEdit.ThumbnailPath != null)
+                {
+                    string oldFile = Path.Combine(wwwRootPath, eventEdit.ThumbnailPath.TrimStart('\\'));
+                    if (System.IO.File.Exists(oldFile))
+                    {
+                        System.IO.File.Delete(oldFile);
+                    }
+                }
+
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(thumbnailPath.FileName);
+                string uploads = Path.Combine(wwwRootPath, @"img\eventThumb");
+                string newFile = Path.Combine(uploads, fileName);
+                using (var stream = new FileStream(newFile, FileMode.Create))
+                {
+                    thumbnailPath.CopyTo(stream);
+                }
+                eventEdit.ThumbnailPath = @"\img\eventThumb\" + fileName;
+            }
+
+            if (backgroundPath != null)
+            {
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+
+
+                if (eventEdit.ThumbnailPath != null)
+                {
+                    string oldFile = Path.Combine(wwwRootPath, eventEdit.ThumbnailPath.TrimStart('\\'));
+                    if (System.IO.File.Exists(oldFile))
+                    {
+                        System.IO.File.Delete(oldFile);
+                    }
+                }
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(backgroundPath.FileName);
+                string uploads = Path.Combine(wwwRootPath, @"img\eventBack");
+                string newFile = Path.Combine(uploads, fileName);
+                using (var stream = new FileStream(newFile, FileMode.Create))
+                {
+                    backgroundPath.CopyTo(stream);
+                }
+                eventEdit.BackgroundPath = @"\img\eventBack\" + fileName;
+            }
+
+            var convention = new Convention();
+            convention.IdUserPromoter = _userManager.GetUserId(User);
+            convention.CreateDate = DateTime.Now;
+
+            _mapper.Map(eventEdit, convention);
+            _context.Add(convention);
+
+            var ct = new City(convention.CityAddress, convention.StateAddress);
+            if (!_context.Cities.ToList().Contains(ct))
+                _context.Add(ct);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("CreatedEvent", convention);
+        }
+        ViewData["CategoryList"] = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(), "Id", "Name", eventEdit.IdCategory);
+        return View();
+    }
+
+    public bool UserIsPromoter()
+    {
+        var id = _userManager.GetUserId(User);
+        var user = _context.UserInfos.Where(user => user.IdUser == id).FirstOrDefault();
+
+        if (user != null && user.Promoter)
+            return true;
+
+        return false;
+    }
+
+
+    [HttpGet, Route("Categoria/{category}")]
+    public async Task<IActionResult> SearchCategory(string category,string cidade)
     {
         ConventionCategory? conventionCategory = await _context.ConventionCategories.Where(cc => cc.Name.ToLower() == category.ToLower()).FirstOrDefaultAsync();
-
+        ViewData["Cities"] = cidade != null ? new SelectList(_context.Cities.ToList(), "CityAndState", "CityAndState",cidade) : new SelectList(_context.Cities.ToList(), "CityAndState", "CityAndState");
         if (conventionCategory != null)
         {
             var conventions = await _context.Conventions.Where(c => c.IdCategory == conventionCategory.Id).ToListAsync();
+            if(cidade != null)
+                conventions = conventions.Where(c=> c.CityAndState.Contains(cidade)).ToList();
             var eventCards = new List<EventCard>();
 
             foreach (var convention in conventions)
@@ -85,7 +256,7 @@ public class EventController : Controller
         return NotFound();
     }
 
-    [HttpGet]
+
     [Route("Evento/{id}")]
     public async Task<IActionResult> EventPage(string id)
     {
@@ -101,22 +272,4 @@ public class EventController : Controller
 
         return View(eventPage);
     }
-
-    //API GET'S
-    [HttpGet]
-    [Route("api/categories")]
-    public async Task<IActionResult> Categories()
-    {
-        var conventionCategories = await _context.ConventionCategories.ToListAsync();
-
-        List<CategoryDto> response = new List<CategoryDto>();
-        foreach (var cc in conventionCategories)
-        {
-            response.Add(new CategoryDto(cc));
-        }
-
-        return Json(response);
-    }
-
-
 }

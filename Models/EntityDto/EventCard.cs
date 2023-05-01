@@ -22,7 +22,7 @@ public class EventCard
     public EventCard(Convention convention)
     {
         this.Name = convention.Name;
-        this.Address = convention.CityAndState();
+        this.Address = convention.CityAndState;
         this.Date = convention.Date();
         this.Id = convention.Id;
         this.ThumbnailPath = convention.ThumbnailPath;

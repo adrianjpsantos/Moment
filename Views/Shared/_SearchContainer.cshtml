@@ -1,97 +1,28 @@
-@using Moment.Models.EntityDto
-
-
 <div class="search-container">
     <span class="search-container-title">Pesquise mais</span>
 
-    @if (Model is HomeIndexView)
-    {
-        <div id="SearchForm">
-            <div class="input-group">
-                <input id="texto" type="text" class="form-control" placeholder="Ex. 'Festa do Peão'" aria-label="Username">
-                <button class="btn btn-primary" onclick="searchEvent()"><i class="bi bi-search"></i></button>
-            </div>
-            <div class="d-flex justify-content-center align-items-center gap-1 mt-1">
-                <input class="form-control" list="datalistOptions" id="local" placeholder="Localização">
-                <datalist id="datalistOptions">
-                    @foreach (var city in Model.Cities)
-                    {
-                        <option value="@city.CityAndState()"></option>
-                    }
-                </datalist>
-
-                <select id="categoria" class="form-select">
-                    <option value="" hidden selected>Categoria</option>
-                    @foreach (var c in Model.Categories)
-                    {
-                        <option value="@c.Name">@c.Name</option>
-                    }
-                </select>
-                <select id="valor" class="form-select">
-                    <option value="0" hidden selected>Valor</option>
-                    <option value="1">Grátis</option>
-                    <option value="2">Pago</option>
-                </select>
-            </div>
+    <div id="SearchForm">
+        <div class="input-group">
+            <input id="texto" type="text" class="form-control" placeholder="Ex. 'Festa do Peão'" aria-label="Username">
+            <button class="btn btn-primary" onclick="searchEvent()"><i class="bi bi-search"></i></button>
         </div>
-    }
-    else if (Model is EventSearchView)
-    {
-        <div id="SearchForm">
-            <div class="input-group">
-                <input id="texto" type="text" class="form-control" placeholder="Ex. 'Festa do Peão'" aria-label="Username"
-                    value="@Model.Texto">
-                <button class="btn btn-primary" onclick="searchEvent()"><i class="bi bi-search"></i></button>
-            </div>
-            <div class="d-flex justify-content-center align-items-center gap-1 mt-1">
-                <input class="form-control" list="datalistOptions" id="local" placeholder="Localização" 
-                    value="@Model.Local">
-                <datalist id="datalistOptions">
-                    @foreach (var city in Model.Cities)
-                    {
-                        <option value="@city.CityAndState()"></option>
-                    }
-                </datalist>
+        <div class="d-flex justify-content-center align-items-center gap-1 mt-1">
+            <input class="form-control" list="datalistOptions" id="local" placeholder="Localização">
+            <datalist id="datalistOptions">
+                @foreach (var city in ViewBag.Cities)
+                {
+                    <option value="@city.CityAndState"></option>
+                }
+            </datalist>
 
-                <select id="categoria" class="form-select">
-                    @if (Model.Categoria == null)
-                    {
-                        <option value="" hidden selected>Categoria</option>
-                    }
-                    @foreach (var c in Model.Categories)
-                    {
-                        @if (c.Name == Model.Categoria)
-                        {
-                            <option value="@c.Name" selected>@c.Name</option>
-                        }
-                        else
-                        {
-                            <option value="@c.Name">@c.Name</option>
-                        }
-
-                    }
-                </select>
-                <select id="valor" class="form-select">
-                    @if (Model.Valor == 0)
-                    {
-                        <option value="0" hidden selected>Valor</option>
-                        <option value="1">Grátis</option>
-                        <option value="2">Pago</option>
-                    }
-                    else if (Model.Valor == 1)
-                    {
-                        <option value="1" selected>Grátis</option>
-                        <option value="2">Pago</option>
-                    }
-                    else
-                    {
-                        <option value="1">Grátis</option>
-                        <option value="2" selected>Pago</option>
-                    }
-
-
-                </select>
-            </div>
+            <select id="categoria" class="form-select" asp-items="ViewBag.CategoryList">
+                <option value="" hidden selected>Categoria</option>
+            </select>
+            <select id="valor" class="form-select">
+                <option value="0" hidden selected>Valor</option>
+                <option value="1">Grátis</option>
+                <option value="2">Pago</option>
+            </select>
         </div>
-    }
+    </div>
 </div>

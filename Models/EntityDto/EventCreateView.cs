@@ -31,6 +31,10 @@ public class EventCreateView
 
     public string? BackgroundPath { get; set; }
 
+    [Required(ErrorMessage = "Nome do Local é Obrigatório.")]
+    [Display(Name = "Nome do Local")]
+    public string? LocalNameAddress { get; set; }
+
     [Required]
     [Display(Name = "CEP")]
     [RegularExpression(@"^\d{5}-\d{3}$", ErrorMessage = "O Cep não é válido.")]
