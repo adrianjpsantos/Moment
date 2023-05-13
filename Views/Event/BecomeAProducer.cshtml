@@ -7,7 +7,7 @@
         <h1>Produza eventos e conteúdos.</h1>
         <h1>Crie um Agora!</h1>
         <p>Junte-se à maior plataforma do Brasil para criar diferentes jeitos de viver.</p>
-        <button asp-controller="Admin" asp-action="CreateEvent" class="btn btn-primary">Comece a criar</button>
+        <a asp-controller="Event" asp-action="CreateEvent" class="btn btn-primary">Comece a criar</a>
     </div>
     <div style="opacity: 0.3;">
         <img class="img-fluid" src="~/assets/imgs/event-index.jpg" alt="" srcset="">
@@ -26,19 +26,7 @@
                 <p class="subtitle">Para produtores com eventos gratuitos</p>
             </div>
             <div>
-                <a asp-controller="Admin" asp-action="CreateEvent" class="btn btn-primary">Comece Agora</a>
-            </div>
-
-        </div>
-        <div class="card card-moment">
-            <div class="content">
-                <p class="badge badge-moment-paid">Criações pagas</p>
-                <h1 class="title">Taxa de 10%</h1>
-                <p class="info">Minimo de R$1,50 sobre a venda</p>
-                <p class="subtitle">Para produtores com eventos gratuitos</p>
-            </div>
-            <div>
-                <a asp-controller="Admin" asp-action="CreateEvent" class="btn btn-primary">Comece Agora</a>
+                <a asp-controller="Event" asp-action="CreateEvent" class="btn btn-primary">Comece Agora</a>
             </div>
 
         </div>

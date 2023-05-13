@@ -84,7 +84,7 @@ namespace Moment.Controllers
                 _dbContext.UserInfos.Add(userInfo);
                 await _dbContext.SaveChangesAsync();
                 //return View(info);
-                return RedirectToAction("Index", "Event");
+                return RedirectToAction("BecomeAProducer", "Event");
             }
             else
             {

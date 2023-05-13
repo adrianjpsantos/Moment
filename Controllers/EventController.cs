@@ -72,7 +72,7 @@ public class EventController : Controller
     public IActionResult CreateEvent()
     {
         if (!UserIsPromoter())
-            return RedirectToAction("CompleteRegister", "Admin");
+            return RedirectToAction("CompleteRegister", "UserManager");
 
         ViewData["CategoryList"] = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(), "Id", "Name");
         return View();
