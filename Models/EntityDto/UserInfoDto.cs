@@ -6,38 +6,58 @@ namespace Moment.Models.EntityDto;
 
 public class UserInfoDto
 {
-
-    [Required]
+    [Display(Name = "Primeiro Nome")]
+    [Required(ErrorMessage = "Este Campo é Obrigátorio.")]
+    [StringLength(25, MinimumLength = 3, ErrorMessage = "Deve ter ao minimo 3 e no máximo 25 caracteres")]
     public string? FirstName { get; set; }
 
-    [Required]
+    [Display(Name = "Ultimo Nome")]
+    [Required(ErrorMessage = "Este Campo é Obrigátorio.")]
+    [StringLength(25, MinimumLength = 3, ErrorMessage = "Deve ter ao minimo 3 e no máximo 25 caracteres")]
     public string? LastName { get; set; }
 
+    [Display(Name = "Foto de perfil")]
     public string? ProfilePicture { get; set; }
 
-    [Required]
+    [Display(Name = "Nome da rua")]
+    [Required(ErrorMessage = "Este Campo é Obrigátorio.")]
+    [StringLength(50, MinimumLength = 3, ErrorMessage = "Deve ter ao minimo 3 e no máximo 50 caracteres")]
     public string? StreetAddress { get; set; }
 
-    [Required]
+    [Display(Name = "Numero")]
+    [Required(ErrorMessage = "Este Campo é Obrigátorio.")]
     public int NumberAddress { get; set; }
 
-    [Required]
+    [Display(Name = "Bairro")]
+    [Required(ErrorMessage = "Este Campo é Obrigátorio.")]
+    [StringLength(35, MinimumLength = 3, ErrorMessage = "Deve ter ao minimo 3 e no máximo 35 caracteres")]
     public string? DistrictAddress { get; set; }
 
-    [Required]
+    [Display(Name = "Cep")]
+    [Required(ErrorMessage = "Este Campo é Obrigátorio.")]
+    [RegularExpression(@"\d{5}-\d{3}", ErrorMessage = "Corrija o formato do {0}, Ex: 00000-000")]
     public string? ZipCodeAddress { get; set; }
 
-    [Required]
+    [Display(Name = "Cidade")]
+    [Required(ErrorMessage = "Este Campo é Obrigátorio.")]
+    [MaxLength(25, ErrorMessage = "O Campo ultrapassou seu limite (25 Caracteres).")]
     public string? CityAddress { get; set; }
 
-    [Required]
+    [Display(Name = "Estado")]
+    [Required(ErrorMessage = "Este Campo é Obrigátorio.")]
+    [MaxLength(2, ErrorMessage = "O Campo ultrapassou seu limite (2 Caracteres).")]
     public string? StateAddress { get; set; }
 
+    [Display(Name = "Complemento")]
+    [Required(ErrorMessage = "Este Campo é Obrigátorio.")]
+    [MaxLength(25, ErrorMessage = "O Campo ultrapassou seu limite (25 Caracteres).")]
     public string? ComplementAddress { get; set; }
 
-    [Required(ErrorMessage = "CPF ou CNPJ são obrigatórios.")]
-    [Display(Name = "CPF ou CNPJ")]
-    [RegularExpression(@"^(((\d{3}).(\d{3}).(\d{3})-(\d{2}))?((\d{2}).(\d{3}).(\d{3})/(\d{4})-(\d{2}))?)*$", ErrorMessage = "Insira um CPF ou CNPJ Válido")]
+    [Display(Name = "CPF")]
+    [RegularExpression(@"[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}", ErrorMessage = "Insira um CPF Válido")]
     public string? CPF { get; set; }
+
+    [Display(Name = "CNPJ")]
+    [RegularExpression(@"[0-9]{2}\.?[0-9]{3}\.?[0-9]{3}\/?[0-9]{4}\-?[0-9]{2}", ErrorMessage = "Insira um CPF ou CNPJ Válido")]
     public string? CNPJ { get; set; }
 }

@@ -1,8 +1,11 @@
 @model Moment.Models.EntityDto.UserInfoDto
-<div>
-    <form class="m-4" enctype="multipart/form-data" asp-controller="UserManager" asp-action="CompleteRegister">
-        <div class="px-4 pt-4 pb-2 bg-light">
-            <h1 class="title-identity mb-4">@ViewData["Title"]</h1>
+@{
+    ViewData["Title"] = "Completar Registro";
+}
+<div class="container">
+    <form class="my-4" enctype="multipart/form-data" asp-controller="UserManager" asp-action="CompleteRegister">
+        <div class="px-4 pt-4 pb-2 bg-secondary text-white">
+            <h1 class="title-identity mb-4 text-primary">@ViewData["Title"]</h1>
 
             <div class="col form-group">
                 <label asp-for="ProfilePicture" class="form-label"></label>
@@ -75,7 +78,7 @@
             </div>
         </div>
 
-        <input class="col-10 btn btn-primary btn-lg btn-block w-100 rounded-0" type="submit" value="Criar Evento">
+        <input class="col-10 btn btn-primary btn-lg btn-block w-100 rounded-0" type="submit" value="Completar Registro">
 
     </form>
 </div>
