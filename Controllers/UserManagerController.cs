@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Moment.Data;
 using Moment.Models.Entity;
 using Moment.Models.EntityDto;
@@ -26,12 +27,23 @@ namespace Moment.Controllers
             this._userManager = userManager;
             this._mapper = mapper;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var user = await _userManager.GetUserAsync(User);
+            var info = await _dbContext.UserInfos.Where(u => u.IdUser == _userManager.GetUserId(User)).FirstOrDefaultAsync();
+            var model = new UserManagerIndexView();
+
+            model.Username = user.UserName;
+            model.Email = user.Email;
+            model.Phone = user.PhoneNumber;
+
+            if(info != null)
+            _mapper.Map(info, model.Info);
+
+            return View(model);
         }
 
-        [HttpGet,Authorize,Route("Conta/MeusEventos")]
+        [HttpGet, Authorize, Route("Conta/MeusEventos")]
         public async Task<IActionResult> MyEvents()
         {
             var conventions = new List<EventCard>();

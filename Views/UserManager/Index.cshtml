@@ -1,23 +1,24 @@
+@model Moment.Models.EntityDto.UserManagerIndexView
 <h1>User Manager</h1>
 <div class="d-flex gap-4 text-white">
     <partial name="_UserManagerNavPartial" />
     <div class="w-100 bg-secondary">
-        <form class="p-4 ">
+        <form class="p-4" enctype="multipart/form-data" asp-controller="UserManager" asp-action="UpdateUserInfo">
             <div class="row">
                 <div class="col-4 form-group">
-                    <label class="form-label">UserName</label>
-                    <input class="form-control">
-                    <span class="text-danger">erro</span>
+                    <label asp-for="Username" class="form-label"></label>
+                    <input asp-for="Username" class="form-control">
+                    <span asp-validation-for="Username" class="text-danger"></span>
                 </div>
                 <div class="col-4 form-group">
-                    <label class="form-label">Email</label>
-                    <input class="form-control">
-                    <span class="text-danger">erro</span>
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control">
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="col-4 form-group">
-                    <label class="form-label">Telefone</label>
-                    <input class="form-control">
-                    <span class="text-danger">erro</span>
+                    <label asp-for="Phone" class="form-label"></label>
+                    <input asp-for="Phone" class="form-control">
+                    <span asp-validation-for="Phone" class="text-danger"></span>
                 </div>
             </div>
             <div class="row">
@@ -25,57 +26,57 @@
                     <h3 class="text-primary">Social</h3>
                 </div>
                 <div class="col-12 form-group">
-                    <label class="form-label">Picture</label>
-                    <input class="form-control">
-                    <span class="text-danger">erro</span>
+                    <label asp-for="Info.ProfilePicture" class="form-label"></label>
+                    <input asp-for="Info.ProfilePicture" class="form-control">
+                    <span asp-validation-for="Info.ProfilePicture" class="text-danger"></span>
                 </div>
                 <div class="col-6 form-group">
-                    <label class="form-label">Primeiro Nome</label>
-                    <input class="form-control">
-                    <span class="text-danger">erro</span>
+                    <label asp-for="Info.FirstName" class="form-label"></label>
+                    <input asp-for="Info.FirstName" class="form-control">
+                    <span asp-validation-for="Info.FirstName" class="text-danger"></span>
                 </div>
                 <div class="col-6 form-group">
-                    <label class="form-label">Ultimo Nome</label>
-                    <input class="form-control">
-                    <span class="text-danger">erro</span>
+                    <label asp-for="Info.LastName" class="form-label"></label>
+                    <input asp-for="Info.LastName" class="form-control">
+                    <span asp-validation-for="Info.LastName" class="text-danger"></span>
                 </div>
                 <div class="d-flex mt-3">
                     <h4 class="text-primary">Endereço</h4>
                 </div>
                 <div class="col-8 col-md-5 form-group">
-                    <label class="form-label">Nome da Rua</label>
-                    <input class="form-control">
-                    <span class="text-danger">erro</span>
+                    <label asp-for="Info.StreetAddress" class="form-label"></label>
+                    <input asp-for="Info.StreetAddress" class="form-control">
+                    <span asp-validation-for="Info.StreetAddress" class="text-danger"></span>
                 </div>
                 <div class="col-4 col-md-2 form-group">
-                    <label class="form-label">Numero</label>
-                    <input class="form-control form-control-sm">
-                    <span class="text-danger">erro</span>
+                    <label asp-for="Info.NumberAddress" class="form-label"></label>
+                    <input asp-for="Info.NumberAddress" class="form-control">
+                    <span asp-validation-for="Info.NumberAddress" class="text-danger"></span>
                 </div>
                 <div class="col-12 col-md-5 form-group">
-                    <label class="form-label">Bairro</label>
-                    <input class="form-control">
-                    <span class="text-danger">erro</span>
+     <label asp-for="Info.DistrictAddress" class="form-label"></label>
+                    <input asp-for="Info.DistrictAddress" class="form-control">
+                    <span asp-validation-for="Info.DistrictAddress" class="text-danger"></span>
                 </div>
                 <div class="col-4 col-md-3 form-group">
-                    <label class="form-label">Cep</label>
-                    <input class="form-control">
-                    <span class="text-danger">erro</span>
+     <label asp-for="Info.ZipCodeAddress" class="form-label"></label>
+                    <input asp-for="Info.ZipCodeAddress" class="form-control">
+                    <span asp-validation-for="Info.ZipCodeAddress" class="text-danger"></span>
                 </div>
                 <div class="col-4 col-md-6 form-group">
-                    <label class="form-label">Cidade</label>
-                    <input class="form-control">
-                    <span class="text-danger">erro</span>
-                </div>
+                 <label asp-for="Info.CityAddress" class="form-label"></label>
+                    <input asp-for="Info.CityAddress" class="form-control">
+                    <span asp-validation-for="Info.CityAddress" class="text-danger"></span>
+      </div>
                 <div class="col-4 col-md-3 form-group">
-                    <label class="form-label">UF</label>
-                    <input class="form-control">
-                    <span class="text-danger">erro</span>
+                 <label asp-for="Info.StateAddress" class="form-label"></label>
+                    <input asp-for="Info.StateAddress" class="form-control">
+                    <span asp-validation-for="Info.StateAddress" class="text-danger"></span>
                 </div>
                 <div class="col-12 col-md-6 form-group">
-                    <label class="form-label">Complemento</label>
-                    <input class="form-control">
-                    <span class="text-danger">erro</span>
+                 <label asp-for="Info.ComplementAddress" class="form-label"></label>
+                    <input asp-for="Info.ComplementAddress" class="form-control">
+                    <span asp-validation-for="Info.ComplementAddress" class="text-danger"></span>
                 </div>
             </div>
         </form>
