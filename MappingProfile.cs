@@ -14,6 +14,7 @@ public class MappingProfile : Profile
         CreateMap<Convention, EventEditView>();
         CreateMap<EventEditView, Convention>();
         CreateMap<UserInfoDto, UserInfo>();
+        CreateMap<UserInfo, UserInfoDto>();
     }
 
 }

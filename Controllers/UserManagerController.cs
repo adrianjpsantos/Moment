@@ -32,13 +32,16 @@ namespace Moment.Controllers
             var user = await _userManager.GetUserAsync(User);
             var info = await _dbContext.UserInfos.Where(u => u.IdUser == _userManager.GetUserId(User)).FirstOrDefaultAsync();
             var model = new UserManagerIndexView();
+            var infoDto = new UserInfoDto();
 
             model.Username = user.UserName;
             model.Email = user.Email;
             model.Phone = user.PhoneNumber;
 
-            if(info != null)
-            _mapper.Map(info, model.Info);
+            if(info != null){
+                _mapper.Map(info,infoDto);
+                model.Info = infoDto;
+            }
 
             return View(model);
         }
