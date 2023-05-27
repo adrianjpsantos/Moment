@@ -1,8 +1,8 @@
 @model Moment.Models.EntityDto.UserManagerIndexView
-<h1>User Manager</h1>
+<h1 class="ms-2 text-primary">@ViewData["Title"]</h1>
 <div class="d-flex gap-4 text-white">
     <partial name="_UserManagerNavPartial" />
-    <div class="w-100 bg-secondary">
+    <div class="w-100">
         <form class="p-4" enctype="multipart/form-data" asp-controller="UserManager" asp-action="UpdateUserInfo">
             <div class="row">
                 <div class="col-4 form-group">
@@ -54,31 +54,32 @@
                     <span asp-validation-for="Info.NumberAddress" class="text-danger"></span>
                 </div>
                 <div class="col-12 col-md-5 form-group">
-     <label asp-for="Info.DistrictAddress" class="form-label"></label>
+                    <label asp-for="Info.DistrictAddress" class="form-label"></label>
                     <input asp-for="Info.DistrictAddress" class="form-control">
                     <span asp-validation-for="Info.DistrictAddress" class="text-danger"></span>
                 </div>
                 <div class="col-4 col-md-3 form-group">
-     <label asp-for="Info.ZipCodeAddress" class="form-label"></label>
+                    <label asp-for="Info.ZipCodeAddress" class="form-label"></label>
                     <input asp-for="Info.ZipCodeAddress" class="form-control">
                     <span asp-validation-for="Info.ZipCodeAddress" class="text-danger"></span>
                 </div>
                 <div class="col-4 col-md-6 form-group">
-                 <label asp-for="Info.CityAddress" class="form-label"></label>
+                    <label asp-for="Info.CityAddress" class="form-label"></label>
                     <input asp-for="Info.CityAddress" class="form-control">
                     <span asp-validation-for="Info.CityAddress" class="text-danger"></span>
-      </div>
+                </div>
                 <div class="col-4 col-md-3 form-group">
-                 <label asp-for="Info.StateAddress" class="form-label"></label>
+                    <label asp-for="Info.StateAddress" class="form-label"></label>
                     <input asp-for="Info.StateAddress" class="form-control">
                     <span asp-validation-for="Info.StateAddress" class="text-danger"></span>
                 </div>
                 <div class="col-12 col-md-6 form-group">
-                 <label asp-for="Info.ComplementAddress" class="form-label"></label>
+                    <label asp-for="Info.ComplementAddress" class="form-label"></label>
                     <input asp-for="Info.ComplementAddress" class="form-control">
                     <span asp-validation-for="Info.ComplementAddress" class="text-danger"></span>
                 </div>
             </div>
+            <button class="mt-3 btn btn-secondary" type="submit" >Salvar Preferencias</button>
         </form>
     </div>
 </div>

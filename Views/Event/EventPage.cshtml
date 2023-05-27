@@ -6,8 +6,7 @@
 <div class="page">
     <header class="position-relative">
         <img class="header-event-photo"
-            src="@(Model.BackgroundPath == null ? Model.ThumbnailPath : Model.BackgroundPath )"
-            alt="" srcset="">
+            src="@(Model.BackgroundPath == null ? Model.ThumbnailPath : Model.BackgroundPath )" alt="" srcset="">
         <div class="container py-5">
             <span class="big-title">@Model.Name</span>
             <p class="event-sinopse w-50">
@@ -54,19 +53,23 @@
                 <article class="col-2 event-card event-promoter">
                     <h6>Organizador</h6>
                     <a class="w-100" href="#">
-                        <img class="event-promoter-photo" src="" alt="Foto de Perfil do Promoter" srcset="">
-                        <p>fdgfdgfdg</p>
+                        <img class="event-promoter-photo" src="@Model.UserInfo.ProfilePicture"
+                            alt="Foto de Perfil do Promoter" srcset="">
+                        <p>@Model.UserInfo.GetFullName()</p>
                     </a>
                 </article>
                 <article class="event-card col-10">
                     <h6>Eventos Proximos</h6>
                     <content class="d-flex ">
-                        <a href="#" class="event-link-card">
-                            <img class="event-link-card-photo"
-                                src="https://magazord-public.s3.amazonaws.com/rosaazul/img/2022/06/blog/12016/festa-infantil.jpg"
+                        @foreach (var convention in Model.Conventions)
+                        {
+                            <a asp-controller="Event" asp-action="EventPage" asp-route-id="@convention.Id" class="event-link-card">
+                                <img class="event-link-card-photo"
+                                src="@convention.ThumbnailPath"
                                 alt="" srcset="">
-                            <p class="m-0">Reveillon Vira Jeri</p>
-                        </a>
+                                <p class="m-0">@convention.Name</p>
+                            </a>
+                        }
                     </content>
                 </article>
             </div>
@@ -90,13 +93,13 @@
 </div>
 
 @section Scripts{
-    <script src="~/lib/jquery.countdown-2.2.0/jquery.countdown.js"></script>
-    <script src="~/lib/jquery.countdown-2.2.0/jquery.countdown.min.js"></script>
-    <script>
-        $('#clock').countdown('@Model.StartDate', function (event) {
-            $(this).text(
-                event.strftime('%D %H:%M')
-            );
-        });
-    </script>
+<script src="~/lib/jquery.countdown-2.2.0/jquery.countdown.js"></script>
+<script src="~/lib/jquery.countdown-2.2.0/jquery.countdown.min.js"></script>
+<script>
+    $('#clock').countdown('@Model.StartDate', function (event) {
+        $(this).text(
+            event.strftime('%D %H:%M')
+        );
+    });
+</script>
 }

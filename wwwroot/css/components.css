@@ -539,7 +539,6 @@
 
 .nav-manager {
   height: 100%;
-  background-color: var(--cor-secundaria);
   list-style-type: none;
   padding: 0;
 }
@@ -551,7 +550,6 @@
 
 
 .nav-link-manager {
-  background-color: var(--cor-secundaria);
   color: #FFF;
   padding: 1rem;
   display: block;
@@ -562,6 +560,7 @@
 .nav-link-manager:hover {
   background-color: var(--cor-terciaria);
   color: var(--cor-principal);
+  border-radius: 0 10px 10px 0;
 }
 
 .btn-primary {

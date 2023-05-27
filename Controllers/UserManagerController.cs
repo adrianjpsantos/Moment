@@ -27,8 +27,10 @@ namespace Moment.Controllers
             this._userManager = userManager;
             this._mapper = mapper;
         }
+        [Route("Conta")]
         public async Task<IActionResult> Index()
         {
+            ViewData["Title"] = "Preferências";
             var user = await _userManager.GetUserAsync(User);
             var info = await _dbContext.UserInfos.Where(u => u.IdUser == _userManager.GetUserId(User)).FirstOrDefaultAsync();
             var model = new UserManagerIndexView();
@@ -49,6 +51,8 @@ namespace Moment.Controllers
         [HttpGet, Authorize, Route("Conta/MeusEventos")]
         public async Task<IActionResult> MyEvents()
         {
+            ViewData["Title"] = "Preferências";
+
             var conventions = new List<EventCard>();
             var idUser = _userManager.GetUserId(User);
             var userInfo = _dbContext.UserInfos.Where(u => u.IdUser == idUser).FirstOrDefault();
@@ -58,7 +62,7 @@ namespace Moment.Controllers
             {
                 conventions.Add(new EventCard(convention));
             }
-            ViewData["Title"] = "Meus Eventos";
+
             ViewData["IsPromoter"] = isPromoter;
             ViewData["Conventions"] = conventions;
             return View();
