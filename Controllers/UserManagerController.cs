@@ -20,32 +20,77 @@ namespace Moment.Controllers
         private readonly IWebHostEnvironment _hostEnvironment;
         private readonly IMapper _mapper;
         private UserManager<IdentityUser> _userManager;
-        public UserManagerController(UserManager<IdentityUser> userManager, ApplicationDbContext dbContext, IWebHostEnvironment hostEnvironment, IMapper mapper)
+        private readonly SignInManager<IdentityUser> _signInManager;
+        public UserManagerController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ApplicationDbContext dbContext, IWebHostEnvironment hostEnvironment, IMapper mapper)
         {
             this._dbContext = dbContext;
             this._hostEnvironment = hostEnvironment;
             this._userManager = userManager;
+            this._signInManager = signInManager;
             this._mapper = mapper;
         }
-        [Route("Conta")]
+        [HttpGet, Authorize, Route("Conta")]
         public async Task<IActionResult> Index()
         {
             ViewData["Title"] = "Preferências";
             var user = await _userManager.GetUserAsync(User);
             var info = await _dbContext.UserInfos.Where(u => u.IdUser == _userManager.GetUserId(User)).FirstOrDefaultAsync();
             var model = new UserManagerIndexView();
-            var infoDto = new UserInfoDto();
 
             model.Username = user.UserName;
             model.Email = user.Email;
             model.Phone = user.PhoneNumber;
 
-            if(info != null){
-                _mapper.Map(info,infoDto);
-                model.Info = infoDto;
+            if (info != null)
+            {
+                _mapper.Map(info, model);
             }
 
             return View(model);
+        }
+
+
+        [HttpPost, Authorize, Route("Conta")]
+        public async Task<IActionResult> Index(UserManagerIndexView user, IFormFile profilePicture)
+        {
+            var StatusMessage = "";
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(user);
+            }
+
+            var phoneNumber = await _userManager.GetPhoneNumberAsync(currentUser);
+            if (user.Phone != phoneNumber)
+            {
+                var setPhoneResult = await _userManager.SetPhoneNumberAsync(currentUser, user.Phone);
+                if (!setPhoneResult.Succeeded)
+                {
+                    StatusMessage = "Erro inesperado ao tentar definir o número de telefone.";
+                    return View(user);
+                }
+            }
+
+            await _signInManager.RefreshSignInAsync(currentUser);
+
+            if (!String.IsNullOrEmpty(user.FirstName))
+            {
+                var userInfo = new UserInfo();
+                userInfo.Promoter = true;
+                _mapper.Map(user, userInfo);
+                
+                _dbContext.Update(userInfo);
+                await _dbContext.SaveChangesAsync();
+            }
+            StatusMessage = "Seu perfil foi atualizado";
+
+            ModelState.AddModelError("", StatusMessage);
+            return View(user);
         }
 
         [HttpGet, Authorize, Route("Conta/MeusEventos")]
@@ -63,7 +108,7 @@ namespace Moment.Controllers
                 conventions.Add(new EventCard(convention));
             }
 
-            ViewData["IsPromoter"] = isPromoter;
+            ViewBag.IsPromoter = isPromoter;
             ViewData["Conventions"] = conventions;
             return View();
         }
@@ -111,5 +156,6 @@ namespace Moment.Controllers
             }
 
         }
+
     }
 }
