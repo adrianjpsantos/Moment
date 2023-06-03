@@ -1,9 +1,18 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@inject Moment.Data.ApplicationDbContext DbContext
 
 @{
-    ViewData["AvatarUrl"] = $"https://icotar.com/avatar/{User.Identity?.Name!}.png?s=50";
+    var ImgUser = "";
+
+    var userId = UserManager.GetUserId(User);
+    var user = DbContext.UserInfos.FirstOrDefault(info => info.IdUser == userId);
+
+    if(user != null && !String.IsNullOrEmpty(user.ProfilePicture))
+        ImgUser = user.ProfilePicture;
+    else 
+        ImgUser =  $"https://icotar.com/avatar/{User.Identity?.Name!}.png?s=50";
 }
 
 <ul class="navbar-nav align-items-center gap-2">
@@ -16,7 +25,7 @@
     {
         <li class="nav-item m-0 p-0">
             <a class="text-light" asp-controller="UserManager" asp-action="Index" title="Manage">
-                <img class="img-avatar img-fluid" src="@ViewBag.AvatarUrl" alt="Conta Usuario"></a>
+                <img class="img-avatar img-fluid" src="@ImgUser" alt="Conta Usuario"></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" asp-area="Identity" asp-page="/Account/Logout"
