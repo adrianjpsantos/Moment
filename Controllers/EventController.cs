@@ -270,6 +270,7 @@ public class EventController : Controller
         EventPageView eventPage = new();
         _mapper.Map(convention, eventPage);
 
+
         if(convention != null){
             eventPage.UserInfo = await _context.UserInfos.Where(ui => ui.IdUser == convention.IdUserPromoter).FirstOrDefaultAsync();
             eventPage.Conventions = await _context.Conventions.Where(c => c.IdUserPromoter == convention.IdUserPromoter).OrderByDescending(c => c.StartDate).Take(10).ToListAsync();

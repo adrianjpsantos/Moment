@@ -14,15 +14,12 @@
             </p>
             <div class="d-flex gap-2">
                 <div class="event-timer">
-                    <span id="clock">20D : 15H : 30M</span>
+                    <strong>Contagem regressiva :</strong>
+                    <p id="clock">20D : 15H : 30M</span>
                 </div>
-                <a src="#" class="d-flex flex-column justify-content-center align-items-center event-shop">
-                    <i class="bi bi-cart-fill fs-5"></i>
-                    <span class="fw-bold">Ingresso</span>
-                </a>
             </div>
             <div class="d-flex flex-column mt-3">
-                <span class="event-date">@Model.Date</span>
+                <span class="event-date">@Model.DateFormated</span>
                 <span class="event-local">@Model.CityAndState</span>
             </div>
         </div>
@@ -59,14 +56,13 @@
                     </a>
                 </article>
                 <article class="event-card col-10">
-                    <h6>Eventos Proximos</h6>
+                    <h6>Mais eventos na cidade</h6>
                     <content class="d-flex ">
                         @foreach (var convention in Model.Conventions)
                         {
-                            <a asp-controller="Event" asp-action="EventPage" asp-route-id="@convention.Id" class="event-link-card">
-                                <img class="event-link-card-photo"
-                                src="@convention.ThumbnailPath"
-                                alt="" srcset="">
+                            <a asp-controller="Event" asp-action="EventPage" asp-route-id="@convention.Id"
+                            class="event-link-card">
+                                <img class="event-link-card-photo" src="@convention.ThumbnailPath" alt="" srcset="">
                                 <p class="m-0">@convention.Name</p>
                             </a>
                         }
@@ -93,13 +89,17 @@
 </div>
 
 @section Scripts{
-<script src="~/lib/jquery.countdown-2.2.0/jquery.countdown.js"></script>
+<script src="~/lib/countdown/countdown.js"></script>
 <script src="~/lib/jquery.countdown-2.2.0/jquery.countdown.min.js"></script>
 <script>
-    $('#clock').countdown('@Model.StartDate', function (event) {
-        $(this).text(
-            event.strftime('%D %H:%M')
-        );
-    });
+    let date = new Date('@Model.EuaStartDate');
+    var timerId = 
+        countdown(
+            date,
+            function (ts) {
+                document.getElementById('clock').innerText = `${ts.days}D : ${ts.hours}h : ${ts.minutes}m`;
+
+            },
+            countdown.DAYS | countdown.HOURS | countdown.MINUTES);
 </script>
 }

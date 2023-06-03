@@ -1,3 +1,4 @@
+using System.Globalization;
 using Moment.Models.Entity;
 
 namespace Moment.Models.EntityDto
@@ -26,6 +27,25 @@ namespace Moment.Models.EntityDto
         public bool IsFree { get; set; }
 
         public List<Convention>? Conventions { get; set; }
+
+        public string EuaStartDate
+        {
+            get
+            {
+                return DateTime.Parse(StartDate).ToString("MM/dd/yyyy");
+            }
+        }
+
+        public string? DateFormated
+        {
+            get
+            {
+                if (Date.Contains("00:00"))
+                    return Date.Replace("• 00:00","");
+                else
+                    return Date;
+            }
+        }
     }
 
 

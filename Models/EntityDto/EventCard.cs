@@ -28,4 +28,15 @@ public class EventCard
         this.ThumbnailPath = convention.ThumbnailPath;
         this.IsFree = convention.IsFree;
     }
+
+    public string? DateFormated
+    {
+        get
+        {
+            if (Date != null && Date.Contains("00:00"))
+                return Date.Replace("• 00:00", "");
+            else
+                return Date;
+        }
+    }
 }
