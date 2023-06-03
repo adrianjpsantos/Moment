@@ -9,13 +9,13 @@
         <div class="d-flex justify-content-center align-items-center gap-1 mt-1">
             <input class="form-control" list="datalistOptions" id="local" placeholder="Localização">
             <datalist id="datalistOptions">
-                @foreach (var city in ViewBag.Cities)
+                @foreach (var city in Model.Cities)
                 {
                     <option value="@city.CityAndState"></option>
                 }
             </datalist>
 
-            <select id="categoria" class="form-select" asp-items="ViewBag.CategoryList">
+            <select id="categoria" class="form-select" asp-items="Model.Categories">
                 <option value="" hidden selected>Categoria</option>
             </select>
             <select id="valor" class="form-select">

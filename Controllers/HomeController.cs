@@ -15,7 +15,7 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
-    public HomeController(ILogger<HomeController> logger, ApplicationDbContext context ,IMapper mapper)
+    public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, IMapper mapper)
     {
         _mapper = mapper;
         _logger = logger;
@@ -25,7 +25,7 @@ public class HomeController : Controller
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var conventions =  _context.Conventions.OrderByDescending(c => c.CreateDate).Take(25).ToList();
+        var conventions = _context.Conventions.OrderByDescending(c => c.CreateDate).Take(25).ToList();
         var conventionCategories = await _context.ConventionCategories.ToListAsync();
         var cities = await _context.Cities.ToListAsync();
 
@@ -35,11 +35,12 @@ public class HomeController : Controller
         {
             categories.Add(new CategoryDto(item));
         }
-        
+
         var homeIndex = new HomeIndexView();
 
-        ViewData["Cities"] = cities;
-        ViewData["CategoryList"] = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(),"Name","Name");
+        homeIndex.StartCategory = categories[new Random().Next(categories.Count)];
+        homeIndex.Cities = cities;
+        homeIndex.Categories = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(), "Name", "Name");
         homeIndex.CreateRecentEvents(conventions);
         return View(homeIndex);
     }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Moment.Models.Entity;
 
 namespace Moment.Models.EntityDto;
@@ -9,7 +10,7 @@ public class EventSearchView
     public string Categoria;
     public int Valor;
 
-    public List<CategoryDto> Categories = new List<CategoryDto>();
+    public SelectList Categories;
     public List<City> Cities = new List<City>();
     public List<EventCard> EventCards = new List<EventCard>();
 

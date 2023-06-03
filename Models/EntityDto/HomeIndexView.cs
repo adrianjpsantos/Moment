@@ -5,7 +5,10 @@ namespace Moment.Models.EntityDto;
 
 public class HomeIndexView
 {
+    public CategoryDto StartCategory;
     public List<EventCard> RecentEvents = new();
+    public SelectList Categories;
+    public List<City> Cities = new();
 
     public HomeIndexView()
     {

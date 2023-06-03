@@ -5,16 +5,16 @@
 <div class="header container pb-4">
   <div class="info-container">
     <div>
-      <span class="big-title">@ViewBag.CategoryList.Items[0].Name</span>
-      <p class="info-container-description">@ViewBag.CategoryList.Items[0].Description
+      <span class="big-title">@Model.StartCategory.Name</span>
+      <p class="info-container-description">@Model.StartCategory.Description
       </p>
-      <a id="info-container-button" class="btn btn-white" href="/Categoria/@ViewBag.CategoryList.Items[0].Name">Saber mais</a>
+      <a id="info-container-button" class="btn btn-white" href="/Categoria/@Model.StartCategory.Name">Saber mais</a>
     </div>
     <partial name="../Shared/_SearchContainer.cshtml" />
   </div>
   <div class="info-container-banner">
     <div class="info-banner">
-      <img class="banner" src="@ViewBag.CategoryList.Items[0].ImagePath" />
+      <img class="banner" src="@Model.StartCategory.ImagePath" />
     </div>
     <img class="back-banner-1" src="~/assets/imgs/Points.svg" />
     <img class="back-banner-2" src="~/assets/imgs/Points2.svg" />

@@ -1,3 +1,4 @@
+using System.Reflection.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,16 +31,18 @@ namespace Moment.Controllers
             this._mapper = mapper;
         }
         [HttpGet, Authorize, Route("Conta")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string successMessage,string errorMessage)
         {
             ViewData["Title"] = "Preferências";
-            var user = await _userManager.GetUserAsync(User);
+            var currentUser = await _userManager.GetUserAsync(User);
             var info = await _dbContext.UserInfos.Where(u => u.IdUser == _userManager.GetUserId(User)).FirstOrDefaultAsync();
             var model = new UserManagerIndexView();
 
-            model.Username = user.UserName;
-            model.Email = user.Email;
-            model.Phone = user.PhoneNumber;
+            model.NameUser = currentUser.UserName;
+            model.EmailUser = currentUser.Email;
+            model.PhoneUser = currentUser.PhoneNumber;
+            model.ErrorMessage = errorMessage;
+            model.SuccessMessage = successMessage;
 
             if (info != null)
             {
@@ -50,10 +53,12 @@ namespace Moment.Controllers
         }
 
 
-        [HttpPost, Authorize, Route("Conta")]
-        public async Task<IActionResult> Index(UserManagerIndexView user, IFormFile profilePicture)
+        [HttpPost, Authorize, Route("/Conta/AtualizaInfos")]
+        public async Task<IActionResult> UpdateUser(UserManagerIndexView user, IFormFile profilePicture)
         {
-            var StatusMessage = "";
+            var model = user;
+            var successMessage = "";
+            var errorMessage = "";
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null)
             {
@@ -62,35 +67,45 @@ namespace Moment.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View(user);
+                return BadRequest(new { Message = "Faltou Informações na requisição" });
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(currentUser);
-            if (user.Phone != phoneNumber)
+            if (model.PhoneUser != phoneNumber)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(currentUser, user.Phone);
+                successMessage += "Numero diferente Telefone,";
+                var setPhoneResult = await _userManager.SetPhoneNumberAsync(currentUser, model.PhoneUser);
+
                 if (!setPhoneResult.Succeeded)
                 {
-                    StatusMessage = "Erro inesperado ao tentar definir o número de telefone.";
-                    return View(user);
+                    errorMessage += "Erro inesperado ao tentar definir o número de telefone,";
+                    return RedirectToAction("Index",model);
+                }
+                else
+                {
+                    successMessage += "Atualizou Telefone,";
                 }
             }
 
             await _signInManager.RefreshSignInAsync(currentUser);
 
-            if (!String.IsNullOrEmpty(user.FirstName))
+            if (!String.IsNullOrEmpty(model.FirstName))
             {
                 var userInfo = new UserInfo();
+                userInfo.IdUser = currentUser.Id;
                 userInfo.Promoter = true;
-                _mapper.Map(user, userInfo);
-                
+                _mapper.Map(model, userInfo);
+
                 _dbContext.Update(userInfo);
                 await _dbContext.SaveChangesAsync();
             }
-            StatusMessage = "Seu perfil foi atualizado";
 
-            ModelState.AddModelError("", StatusMessage);
-            return View(user);
+            successMessage += "  Seu perfil foi atualizado";
+
+            var temp = new UserManagerIndexView();
+            temp.SuccessMessage = successMessage;
+            temp.ErrorMessage = errorMessage;
+            return RedirectToAction("Index", new {errorMessage = errorMessage, successMessage = successMessage});
         }
 
         [HttpGet, Authorize, Route("Conta/MeusEventos")]

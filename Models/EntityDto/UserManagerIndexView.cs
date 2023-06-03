@@ -1,22 +1,25 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace Moment.Models.EntityDto;
 
 public class UserManagerIndexView
 {
-    [Required(ErrorMessage = "{1} é obrigatorio")]
+    public string? ErrorMessage { get; set; }
+    public string? SuccessMessage { get; set; }
+
+    [Required(ErrorMessage = "Este campo é obrigatorio")]
     [Display(Name = "Nome de Usuario")]
-    public string? Username;
+    public string? NameUser;
 
-    [Required(ErrorMessage = "{1} é obrigatorio")]
-    [Display(Name = "Email")]
-    public string? Email;
+    [Display(Name = "Chama")]
+    [Required(ErrorMessage = "Este campo é obrigatorio")]
+    public string? EmailUser;
 
-    [Required(ErrorMessage = "{1} é obrigatorio")]
     [Display(Name = "Telefone")]
-    public string? Phone;
+    public string? PhoneUser;
 
-     [Display(Name = "Primeiro Nome")]
+    [Display(Name = "Primeiro Nome")]
     [Required(ErrorMessage = "Este Campo é Obrigátorio.")]
     [StringLength(25, MinimumLength = 3, ErrorMessage = "Deve ter ao minimo 3 e no máximo 25 caracteres")]
     public string? FirstName { get; set; }
@@ -59,7 +62,6 @@ public class UserManagerIndexView
     public string? StateAddress { get; set; }
 
     [Display(Name = "Complemento")]
-    [Required(ErrorMessage = "Este Campo é Obrigátorio.")]
     [MaxLength(25, ErrorMessage = "O Campo ultrapassou seu limite (25 Caracteres).")]
     public string? ComplementAddress { get; set; }
 

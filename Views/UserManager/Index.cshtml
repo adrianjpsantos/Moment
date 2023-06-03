@@ -3,23 +3,26 @@
 <div class="d-flex gap-4 text-white">
     <partial name="_UserManagerNavPartial" />
     <div class="w-100">
-        <form class="p-4" enctype="multipart/form-data" method="post" asp-controller="UserManager" asp-action="Index">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form class="p-4" enctype="multipart/form-data" method="post" asp-controller="UserManager"
+            asp-action="UpdateUser">
+<div class="badge text-bg-success">@Model.SuccessMessage</div>
+<div class="badge text-bg-danger">@Model.ErrorMessage</div>
+
             <div class="row">
                 <div class="col-4 form-group">
-                    <label asp-for="Username" class="form-label"></label>
-                    <input asp-for="Username" class="form-control">
-                    <span asp-validation-for="Username" class="text-danger"></span>
+                    <label asp-for="NameUser" class="form-label"></label>
+                    <input asp-for="NameUser" class="form-control">
+                    <span asp-validation-for="NameUser" class="text-danger"></span>
                 </div>
                 <div class="col-4 form-group">
-                    <label asp-for="Email" class="form-label"></label>
-                    <input asp-for="Email" class="form-control">
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <label asp-for="EmailUser" class="form-label"></label>
+                    <input asp-for="EmailUser" class="form-control">
+                    <span asp-validation-for="EmailUser" class="text-danger"></span>
                 </div>
                 <div class="col-4 form-group">
-                    <label asp-for="Phone" class="form-label"></label>
-                    <input asp-for="Phone" class="form-control">
-                    <span asp-validation-for="Phone" class="text-danger"></span>
+                    <label asp-for="PhoneUser" class="form-label"></label>
+                    <input asp-for="PhoneUser" class="form-control">
+                    <span asp-validation-for="PhoneUser" class="text-danger"></span>
                 </div>
             </div>
             <div class="row">
@@ -29,6 +32,7 @@
                 <div class="col-12 form-group">
                     <label asp-for="ProfilePicture" class="form-label"></label>
                     <input type="file" asp-for="ProfilePicture" class="form-control">
+                    <input asp-for="ProfilePicture" class="form-control">
                     <span asp-validation-for="ProfilePicture" class="text-danger"></span>
                 </div>
                 <div class="col-6 form-group">

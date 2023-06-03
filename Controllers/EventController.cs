@@ -59,9 +59,8 @@ public class EventController : Controller
 
         var searchView = new EventSearchView(texto, local != null ? local : "", categoria, valor);
         searchView.CreateEventCards(conventions);
-
-        ViewData["Cities"] = cities;
-        ViewData["CategoryList"] = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(),"Name","Name", searchView.Categoria);
+        searchView.Cities = cities;
+        searchView.Categories = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(),"Name","Name", searchView.Categoria);
 
         return View(searchView);
     }
