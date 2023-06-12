@@ -73,7 +73,7 @@ namespace Moment.Areas.Identity.Pages.Account
             [Required(ErrorMessage = "Nome é Obrigatorio")]
             [DataType(DataType.Text)]
             [MinLength(4, ErrorMessage = "Nome tem que ter no minimo 4 Caracteres")]
-            [Display(Prompt = "Seu Nome")]
+            [Display(Name = "Seu Nome")]
             public string Name { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -81,7 +81,7 @@ namespace Moment.Areas.Identity.Pages.Account
             /// </summary>
             [Required(ErrorMessage = "Email é obrigatorio")]
             [EmailAddress]
-            [Display(Prompt = "Email")]
+            [Display(Name = "Email")]
             public string Email { get; set; }
 
             /// <summary>
@@ -91,7 +91,7 @@ namespace Moment.Areas.Identity.Pages.Account
             [Required(ErrorMessage = "Senha é obrigatoria")]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Prompt = "Senha")]
+            [Display(Name = "Senha")]
             public string Password { get; set; }
 
             /// <summary>
@@ -99,7 +99,7 @@ namespace Moment.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Prompt = "Confirme a senha")]
+            [Display(Name = "Confirme a senha")]
             [Compare("Password", ErrorMessage = "As senhas não são iguais.")]
             public string ConfirmPassword { get; set; }
         }

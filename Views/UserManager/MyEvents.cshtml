@@ -16,17 +16,24 @@
                             {
                                 @foreach (var eventCard in ViewBag.Conventions)
                                 {
-                                    <a class="col-4 event-thumb-list" asp-controller="Event" asp-action="EventPage"
-                            asp-route-id="@eventCard.Id">
+                                    <div class="col-4 event-thumb-list">
                                         <img class="event-thumb-img" src="@eventCard.ThumbnailPath" />
                                         <content class="event-thumb-info">
                                             <span class="event-thumb-info-title">@eventCard.Name</span>
                                             <span class="event-thumb-info-local">@eventCard.Address</span>
                                             <span class="event-thumb-info-date">@eventCard.Date</span>
                                         </content>
-                                    </a>
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <a class="btn btn-primary mb-1" asp-controller="Event" asp-action="EventPage"
+                                    asp-route-id="@eventCard.Id">Ver</a>
+                                            <a class="btn btn-black" asp-controller="Event" asp-action="EditEvent"
+                                    asp-route-id="@eventCard.Id">Editar</a>
+                                        </div>
+                                    </div>
                                 }
-                            }else{
+                            }
+                            else
+                            {
                                 <h4>Voce ainda não tem eventos</h4>
                                 <a asp-controller="Event" asp-action="CreateEvent">Adicionar Evento</a>
                             }

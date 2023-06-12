@@ -46,6 +46,7 @@ namespace Moment.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [EmailAddress]
+            [Display(Prompt = "E-mail")]
             public string Email { get; set; }
         }
 

@@ -27,22 +27,16 @@
     <content class="container event-info d-block">
         <h6 class="mt-3">Descrição</h6>
         <div class="d-flex py-2 align-items-start">
-            <div class="event-description col-8">
+            <div class="event-description col-12">
                 <div class="m-0">
                     @Html.Raw(Model.Description)
                 </div>
-            </div>
-            <div class="col-4">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3686.397409149802!2d-48.54836028561401!3d-22.48926802875831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c7459baabaa92b%3A0xd1b954a115160672!2sEtec%20Comendador%20Jo%C3%A3o%20Rays!5e0!3m2!1spt-BR!2sbr!4v1676387736567!5m2!1spt-BR!2sbr"
-                    width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </content>
     <footer>
         <div class="container py-3 d-flex gap-4">
-            <a class="event-service-link" href="#">Denunciar Evento</a>
+            <a hidden class="event-service-link" href="#">Denunciar Evento</a>
             <a class="event-service-link" data-bs-toggle="modal" data-bs-target="#terms-modal">Termos do Evento</a>
         </div>
         <div class="bg-primary">

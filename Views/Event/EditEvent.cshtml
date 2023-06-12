@@ -5,7 +5,7 @@
 
 <div>
     <form class="m-4" enctype="multipart/form-data" asp-controller="Event" asp-action="EditEvent">
-        <div class="px-4 pt-4 pb-2 bg-light">
+        <div class="px-4 pt-4 pb-2 bg-dark text-white">
             <h1 class="title-identity mb-4">@ViewData["Title"]</h1>
 
             <div class="form-group" hidden>
@@ -14,31 +14,31 @@
                 </label>
             </div>
 
-            <div class="form-check">
+            <div class="form-check mb-2">
                 <input class="form-check-input" type="checkbox" value="" asp-for="IsFree">
                 <label class="form-check-label" asp-for="IsFree">
                 </label>
             </div>
 
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label asp-for="Name" class="form-label"></label>
                 <input asp-for="Name" class="form-control">
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label asp-for="Resume" class="form-label"></label>
                 <input asp-for="Resume" class="form-control">
                 <span asp-validation-for="Resume" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="IdCategory" class="control-label"></label>
+            <div class="form-group mb-2">
+                <label asp-for="IdCategory" class="form-label mb-2"></label>
                 <select asp-for="IdCategory" class="form-control" asp-items="ViewBag.CategoryList">
                 </select>
             </div>
 
-            <div class="row">
+            <div class="row mb-2">
 
                 <div class="col form-group">
                     <label asp-for="StartDate" class="form-label"></label>
@@ -54,7 +54,7 @@
 
             </div>
 
-            <div class="form-group">
+            <div class="form-group mb-2">
 
                 <label asp-for="Description" class="form-label"></label>
                 <textarea asp-for="Description" class="form-control"></textarea>
@@ -62,7 +62,7 @@
 
             </div>
 
-            <div class="row">
+            <div class="row mb-2">
                 <div class="col-3 form-group">
                     <label asp-for="ZipCodeAddress" class="form-label"></label>
                     <input asp-for="ZipCodeAddress" class="form-control cep"></input>
@@ -80,14 +80,14 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row mb-2">
                 <div class="col form-group">
                     <label asp-for="DistrictAddress" class="form-label"></label>
                     <input asp-for="DistrictAddress" class="form-control"></input>
                     <span asp-validation-for="DistrictAddress" class="text-danger"></span>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mb-2">
                 <div class="col form-group">
                     <label asp-for="CityAddress" class="form-label"></label>
                     <input asp-for="CityAddress" class="form-control"></input>
@@ -99,13 +99,13 @@
                     <span asp-validation-for="StateAddress" class="text-danger"></span>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label asp-for="ComplementAddress" class="form-label"></label>
                 <input asp-for="ComplementAddress" class="form-control"></input>
                 <span asp-validation-for="ComplementAddress" class="text-danger"></span>
             </div>
 
-            <div class="row">
+            <div class="row mb-2">
                 <div class="col form-group">
                     <label asp-for="ThumbnailPath" class="form-label"></label>
                     <input class="form-control" type="file" asp-for="ThumbnailPath"
@@ -121,7 +121,7 @@
             </div>
 
 
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label asp-for="Terms" class="form-label"></label>
                 <textarea asp-for="Terms" class="form-control"></textarea>
                 <span asp-validation-for="Terms" class="text-danger"></span>
@@ -148,61 +148,61 @@
 </div>
 
 @section Scripts {
-    <script src="~/lib/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
-    <partial name="_ValidationScriptsPartial" />
-    <script>
-        $('input#ZipCodeAddress').blur(() => {
-            let cep = $('input#ZipCodeAddress').val().replace('-', '');
-            console.log(cep);
-            if (cep != '') {
+<script src="~/lib/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+<partial name="_ValidationScriptsPartial" />
+<script>
+    $('input#ZipCodeAddress').blur(() => {
+        let cep = $('input#ZipCodeAddress').val().replace('-', '');
+        console.log(cep);
+        if (cep != '') {
 
-                $('#loading-modal').modal('show');
+            $('#loading-modal').modal('show');
 
-                $.getJSON(`https://viacep.com.br/ws/${cep}/json/?callback=?`, dados => {
+            $.getJSON(`https://viacep.com.br/ws/${cep}/json/?callback=?`, dados => {
 
-                    if (!('erro' in dados)) {
+                if (!('erro' in dados)) {
 
-                        setTimeout(() => {
-                            $('#StreetAddress').val(dados.logradouro);
-                            $('#DistrictAddress').val(dados.bairro);
-                            $('#CityAddress').val(dados.localidade);
-                            $('#StateAddress').val(dados.uf);
-                            $('#loading-modal').modal('hide');
-                        }, 1000);
+                    setTimeout(() => {
+                        $('#StreetAddress').val(dados.logradouro);
+                        $('#DistrictAddress').val(dados.bairro);
+                        $('#CityAddress').val(dados.localidade);
+                        $('#StateAddress').val(dados.uf);
+                        $('#loading-modal').modal('hide');
+                    }, 1000);
 
-                    }
-                    else {
-                        alert('CEP não encontrado.');
-                    }
-                });
-            }
-            else {
-
-                $('#StreetAddress').val('');
-                $('#DistrictAddress').val('');
-                $('#CityAddress').val('');
-                $('#StateAdress').val('');
-            }
-        });
-
-        function readImg(input, id) {
-            if (input.files && input.files[0]) {
-                let reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $(id)
-                        .attr('src', e.target.result);
-                };
-
-                reader.readAsDataURL(input.files[0]);
-            }
+                }
+                else {
+                    alert('CEP não encontrado.');
+                }
+            });
         }
+        else {
 
-        tinymce.init({
-            selector: 'textarea',
-            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-            language: 'pt_BR',
-        });
-    </script>
+            $('#StreetAddress').val('');
+            $('#DistrictAddress').val('');
+            $('#CityAddress').val('');
+            $('#StateAdress').val('');
+        }
+    });
+
+    function readImg(input, id) {
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+
+            reader.onload = function (e) {
+                $(id)
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    tinymce.init({
+        selector: 'textarea',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+        language: 'pt_BR',
+    });
+</script>
 }
