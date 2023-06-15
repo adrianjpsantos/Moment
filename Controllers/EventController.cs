@@ -234,13 +234,14 @@ public class EventController : Controller
         return View();
     }
 
-    [HttpPost, ValidateAntiForgeryToken, Route("Evento/{id}/ConfirmarDeletar")]
+    [HttpGet, Authorize, Route("Evento/{id}/ConfirmarDeletar")]
     public async Task<IActionResult> Delete(string id)
     {
-        var convention = _context.Conventions.FirstOrDefault(c => c.Id.ToString() == id);
+        var convention = await _context.Conventions.FirstOrDefaultAsync(c => c.Id.ToString() == id);
 
         if (convention == null)
             return BadRequest();
+
 
         _context.Remove(convention);
 
