@@ -24,10 +24,12 @@
                                             <span class="event-thumb-info-date">@eventCard.Date</span>
                                         </content>
                                         <div class="d-flex flex-column justify-content-center">
-                                            <a class="btn btn-primary mb-1" asp-controller="Event" asp-action="EventPage"
+                                            <a class="btn btn-primary mb-1 btn-sm" asp-controller="Event" asp-action="EventPage"
                                     asp-route-id="@eventCard.Id">Ver</a>
-                                            <a class="btn btn-black" asp-controller="Event" asp-action="EditEvent"
+                                            <a class="btn btn-secondary mb-1 btn-sm" asp-controller="Event" asp-action="EditEvent"
                                     asp-route-id="@eventCard.Id">Editar</a>
+                                            <a class="btn btn-danger btn-sm" asp-controller="Event" asp-action="DeleteEvent" method="Get"
+                                    asp-route-id="@eventCard.Id">Excluir</a>
                                         </div>
                                     </div>
                                 }

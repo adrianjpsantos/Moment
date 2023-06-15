@@ -60,7 +60,7 @@ public class EventController : Controller
         var searchView = new EventSearchView(texto, local != null ? local : "", categoria, valor);
         searchView.CreateEventCards(conventions);
         searchView.Cities = cities;
-        searchView.Categories = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(),"Name","Name", searchView.Categoria);
+        searchView.Categories = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(), "Name", "Name", searchView.Categoria);
 
         return View(searchView);
     }
@@ -218,6 +218,37 @@ public class EventController : Controller
         return View();
     }
 
+
+    [HttpGet, Authorize, Route("Evento/{id}/Deletar")]
+    public IActionResult DeleteEvent(string id)
+    {
+        var convention = _context.Conventions.FirstOrDefault(c => c.Id.ToString() == id);
+
+        if (convention == null)
+            return BadRequest();
+
+        ViewData["Title"] = $"Deletar Evento - {convention.Name}";
+        ViewData["Name"] = convention.Name;
+        ViewData["Id"] = convention.Id;
+        ViewData["thumbPath"] = convention.ThumbnailPath;
+        return View();
+    }
+
+    [HttpPost, ValidateAntiForgeryToken, Route("Evento/{id}/ConfirmarDeletar")]
+    public async Task<IActionResult> Delete(string id)
+    {
+        var convention = _context.Conventions.FirstOrDefault(c => c.Id.ToString() == id);
+
+        if (convention == null)
+            return BadRequest();
+
+        _context.Remove(convention);
+
+        await _context.SaveChangesAsync();
+        return RedirectToAction("MyEvents", "UserManager");
+
+    }
+
     public bool UserIsPromoter()
     {
         var id = _userManager.GetUserId(User);
@@ -231,15 +262,15 @@ public class EventController : Controller
 
 
     [HttpGet, Route("Categoria/{category}")]
-    public async Task<IActionResult> SearchCategory(string category,string cidade)
+    public async Task<IActionResult> SearchCategory(string category, string cidade)
     {
         ConventionCategory? conventionCategory = await _context.ConventionCategories.Where(cc => cc.Name.ToLower() == category.ToLower()).FirstOrDefaultAsync();
-        ViewData["Cities"] = cidade != null ? new SelectList(_context.Cities.ToList(), "CityAndState", "CityAndState",cidade) : new SelectList(_context.Cities.ToList(), "CityAndState", "CityAndState");
+        ViewData["Cities"] = cidade != null ? new SelectList(_context.Cities.ToList(), "CityAndState", "CityAndState", cidade) : new SelectList(_context.Cities.ToList(), "CityAndState", "CityAndState");
         if (conventionCategory != null)
         {
             var conventions = await _context.Conventions.Where(c => c.IdCategory == conventionCategory.Id).ToListAsync();
-            if(cidade != null)
-                conventions = conventions.Where(c=> c.CityAndState.Contains(cidade)).ToList();
+            if (cidade != null)
+                conventions = conventions.Where(c => c.CityAndState.Contains(cidade)).ToList();
             var eventCards = new List<EventCard>();
 
             foreach (var convention in conventions)
@@ -270,7 +301,8 @@ public class EventController : Controller
         _mapper.Map(convention, eventPage);
 
 
-        if(convention != null){
+        if (convention != null)
+        {
             eventPage.UserInfo = await _context.UserInfos.Where(ui => ui.IdUser == convention.IdUserPromoter).FirstOrDefaultAsync();
             eventPage.Conventions = await _context.Conventions.Where(c => c.IdUserPromoter == convention.IdUserPromoter).OrderByDescending(c => c.StartDate).Take(10).ToListAsync();
         }

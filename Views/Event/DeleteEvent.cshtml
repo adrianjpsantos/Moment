@@ -1,0 +1,16 @@
+@{
+
+}
+<div class="w-100 vh-100 d-flex align-items-center justify-content-center">
+    <div class="mt-5 d-flex flex-column align-items-center text-white">
+        <h4>Tem certeza que voce deseja excluir?</h4>
+        <h2 class="text-primary">@ViewData["Name"]</h2>
+        <div class="col">
+            <a class="btn btn-secondary mb-1 btn-sm" asp-controller="UserManager" asp-action="MyEvents">Voltar</a>
+            <a class="btn btn-secondary mb-1 btn-sm" asp-controller="Event" asp-action="Delete" method="post"
+                asp-route-id="@ViewData["Id"]">Excluir</a>
+
+        </div>
+    </div>
+
+</div>
