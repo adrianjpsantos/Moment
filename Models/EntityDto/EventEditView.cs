@@ -84,5 +84,5 @@ public class EventEditView
     [Display(Name = "Evento é Gratuito?")]
     public bool IsFree { get; set; }
 
-    List<SelectListItem> Categories { get; set; }
+    List<SelectListItem>? Categories { get; set; }
 }

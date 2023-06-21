@@ -1,3 +1,4 @@
+@model Moment.Models.EntityDto.EventCreatedView
 @{
     ViewData["Title"] = "Evento Criado";
 }
@@ -10,14 +11,14 @@
             </div>
             <div>
                 <h1 class="m-0">Parabéns</h1>
-                <p class="m-0">@ViewBag.NameEvent foi criado com sucesso</p>
+                <p class="m-0">@Model.NameEvent foi criado com sucesso</p>
             </div>
         </div>
         
         <div class="alert alert-success" role="alert">
             Foi enviado ao seu e-mail , e mais algumas dicas pra voce bombar essa festa!!
         </div>
-        <a class="btn btn-secondary bottom-0" asp-controller="Event" asp-action="EventPage" asp-route-id="@ViewBag.IdEvent">Ver Evento</a>
+        <a class="btn btn-secondary bottom-0" asp-controller="Event" asp-action="EventPage" asp-route-id="@Model.IdEvent">Ver Evento</a>
     </div>
     <div class="col-4">
         <img class="img-fluid" style="opacity: 0.5; !important" src="~/assets/imgs/Congrations.jpg" alt="" srcset="">

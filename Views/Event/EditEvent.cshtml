@@ -4,7 +4,7 @@
 }
 
 <div>
-    <form class="m-4" enctype="multipart/form-data" asp-controller="Event" asp-action="EditEvent">
+    <form class="m-4" enctype="multipart/form-data" asp-controller="Event" asp-action="EditEvent" method="post">
         <div class="px-4 pt-4 pb-2 bg-dark text-white">
             <h1 class="title-identity mb-4">@ViewData["Title"]</h1>
 
@@ -62,7 +62,13 @@
 
             </div>
 
+
             <div class="row mb-2">
+                <div class="col-12 form-group">
+                    <label asp-for="LocalNameAddress" class="form-label"></label>
+                    <input asp-for="LocalNameAddress" class="form-control"></input>
+                    <span asp-validation-for="LocalNameAddress" class="text-danger"></span>
+                </div>
                 <div class="col-3 form-group">
                     <label asp-for="ZipCodeAddress" class="form-label"></label>
                     <input asp-for="ZipCodeAddress" class="form-control cep"></input>
@@ -130,7 +136,7 @@
 
         </div>
 
-        <input class="col-10 btn btn-primary btn-lg btn-block w-100 rounded-0" type="submit" value="Criar Evento">
+        <input class="col-10 btn btn-primary btn-lg btn-block w-100 rounded-0" type="submit" value="Salvar Evento">
 
     </form>
 </div>

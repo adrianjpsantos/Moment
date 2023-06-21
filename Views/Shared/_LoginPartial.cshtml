@@ -16,10 +16,13 @@
 }
 
 <ul class="navbar-nav align-items-center gap-2">
-    @if (ViewBag.Title != "Seja Produtor")
+    @if (ViewBag.Title != "Seja Produtor" && !user.Promoter)
     {
+        
         <li class="nav-item"><a class="nav-link text-light" asp-controller="Event" asp-action="BecomeAProducer">Seja
                 Produtor</a></li>
+    }else if(user.Promoter){
+        <li class="nav-item"><a class="nav-link text-primary" asp-controller="Event" asp-action="CreateEvent">Criar Evento</a></li>
     }
     @if (SignInManager.IsSignedIn(User))
     {

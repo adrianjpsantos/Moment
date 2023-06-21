@@ -67,7 +67,7 @@ public class EventController : Controller
 
 
 
-    [Authorize, Route("Evento/CriarEvento")]
+    [HttpGet,Authorize, Route("Evento/CriarEvento")]
     public IActionResult CreateEvent()
     {
         if (!UserIsPromoter())
@@ -128,9 +128,11 @@ public class EventController : Controller
     [HttpGet, Authorize, Route("Evento/CriadoComSucesso")]
     public IActionResult CreatedEvent(Convention convention)
     {
-        ViewData["NameEvent"] = convention.Name;
-        ViewData["IdEvent"] = convention.Id;
-        return View();
+        EventCreatedView view = new EventCreatedView();
+
+        view.NameEvent = convention.Name;
+        view.IdEvent = convention.Id.ToString();
+        return View(view);
     }
 
     [HttpGet, Authorize, Route("Evento/{id}/Editar")]
@@ -181,9 +183,9 @@ public class EventController : Controller
                 string wwwRootPath = _hostEnvironment.WebRootPath;
 
 
-                if (eventEdit.ThumbnailPath != null)
+                if (eventEdit.BackgroundPath != null)
                 {
-                    string oldFile = Path.Combine(wwwRootPath, eventEdit.ThumbnailPath.TrimStart('\\'));
+                    string oldFile = Path.Combine(wwwRootPath, eventEdit.BackgroundPath.TrimStart('\\'));
                     if (System.IO.File.Exists(oldFile))
                     {
                         System.IO.File.Delete(oldFile);
@@ -199,12 +201,12 @@ public class EventController : Controller
                 eventEdit.BackgroundPath = @"\img\eventBack\" + fileName;
             }
 
-            var convention = new Convention();
+            var convention = await _context.Conventions.Where(c => c.Id.ToString() == eventEdit.Id).FirstAsync();
             convention.IdUserPromoter = _userManager.GetUserId(User);
             convention.CreateDate = DateTime.Now;
 
             _mapper.Map(eventEdit, convention);
-            _context.Add(convention);
+            _context.Update(convention);
 
             var ct = new City(convention.CityAddress, convention.StateAddress);
             if (!_context.Cities.ToList().Contains(ct))
@@ -212,7 +214,7 @@ public class EventController : Controller
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("CreatedEvent", convention);
+            return RedirectToAction("EventPage", convention.Id);
         }
         ViewData["CategoryList"] = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(), "Id", "Name", eventEdit.IdCategory);
         return View();
