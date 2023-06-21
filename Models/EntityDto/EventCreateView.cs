@@ -9,17 +9,17 @@ namespace Moment.Models.EntityDto;
 
 public class EventCreateView
 {
-    [Required(ErrorMessage = "Nome do Evento é Obrigátorio.")]
+    [Required(ErrorMessage = "Nome do Evento é Obrigatório.")]
     [Display(Name = "Nome")]
-    [StringLength(60, MinimumLength = 10, ErrorMessage = "Nome do Evento deve ter no minimo 10 e no Máximo 60 Caracteres.")]
+    [StringLength(60, MinimumLength = 10, ErrorMessage = "Nome do Evento deve ter no mínimo 10 e no máximo 60 caracteres.")]
     public string? Name { get; set; }
 
-    [Required(ErrorMessage = "Resumo é Obrigátorio.")]
+    [Required(ErrorMessage = "Resumo é Obrigatório.")]
     [Display(Name = "Resumo")]
-    [StringLength(60, MinimumLength = 10, ErrorMessage = "Nome do Evento deve ter no minimo 10 e no Máximo 60 Caracteres.")]
+    [StringLength(60, MinimumLength = 10, ErrorMessage = "Nome do Evento deve ter no mínimo 10 e no máximo 60 caracteres.")]
     public string? Resume { get; set; }
 
-    [Required(ErrorMessage = "Descrição é Obrigátoria.")]
+    [Required(ErrorMessage = "Descrição é Obrigatória.")]
     [Display(Name = "Descrição")]
     public string? Description { get; set; }
 
@@ -37,7 +37,7 @@ public class EventCreateView
 
     [Required]
     [Display(Name = "CEP")]
-    [RegularExpression(@"^\d{5}-\d{3}$", ErrorMessage = "O Cep não é válido.")]
+    [RegularExpression(@"^\d{5}-\d{3}$", ErrorMessage = "O CEP não é válido.")]
     public string? ZipCodeAddress { get; set; }
 
     [Required]
@@ -45,7 +45,7 @@ public class EventCreateView
     [Display(Name = "Rua")]
     public string? StreetAddress { get; set; }
 
-    [Required(ErrorMessage = "Digite o Numero do Endereço")]
+    [Required(ErrorMessage = "Digite o Número do Endereço.")]
     [Display(Name = "Número")]
     public int NumberAddress { get; set; }
 
@@ -68,11 +68,11 @@ public class EventCreateView
     [Display(Name = "UF")]
     public string? StateAddress { get; set; }
 
-    [Required(ErrorMessage = "Início do Evento é Obrigátorio.")]
+    [Required(ErrorMessage = "Início do Evento é Obrigatório.")]
     [Display(Name = "Início do Evento")]
     public DateTime StartDate { get; set; }
 
-    [Required(ErrorMessage = "Fim do Evento é Obrigátorio.")]
+    [Required(ErrorMessage = "Fim do Evento é Obrigatório.")]
     [Display(Name = "Fim do Evento")]
     public DateTime EndDate { get; set; }
 
