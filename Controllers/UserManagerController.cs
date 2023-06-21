@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Moment.Data;
 using Moment.Models.Entity;
 using Moment.Models.EntityDto;
+using System.Text.Json;
 
 namespace Moment.Controllers
 {
@@ -31,7 +32,7 @@ namespace Moment.Controllers
             this._mapper = mapper;
         }
         [HttpGet, Authorize, Route("Conta")]
-        public async Task<IActionResult> Index(string successMessage,string errorMessage)
+        public async Task<IActionResult> Index(string successMessage, string errorMessage)
         {
             ViewData["Title"] = "Preferências";
             var currentUser = await _userManager.GetUserAsync(User);
@@ -79,7 +80,7 @@ namespace Moment.Controllers
                 if (!setPhoneResult.Succeeded)
                 {
                     errorMessage += "Erro inesperado ao tentar definir o número de telefone,";
-                    return RedirectToAction("Index",model);
+                    return RedirectToAction("Index", model);
                 }
                 else
                 {
@@ -105,7 +106,7 @@ namespace Moment.Controllers
             var temp = new UserManagerIndexView();
             temp.SuccessMessage = successMessage;
             temp.ErrorMessage = errorMessage;
-            return RedirectToAction("Index", new {errorMessage = errorMessage, successMessage = successMessage});
+            return RedirectToAction("Index", new { errorMessage = errorMessage, successMessage = successMessage });
         }
 
         [HttpGet, Authorize, Route("Conta/MeusEventos")]
@@ -130,6 +131,12 @@ namespace Moment.Controllers
 
         [HttpGet, Authorize, Route("/Conta/CompletarRegistro")]
         public IActionResult CompleteRegister()
+        {
+            return View();
+        }
+
+        [HttpGet, Authorize, Route("/Conta/Dados")]
+        public IActionResult UserData()
         {
             return View();
         }
@@ -172,5 +179,36 @@ namespace Moment.Controllers
 
         }
 
+        [HttpPost, Authorize, Route("Conta/BaixarDados")]
+        public async Task<IActionResult> DownloadPersonalData()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            // Only include personal data for download
+            var personalData = new Dictionary<string, string>();
+            var personalDataProps = typeof(IdentityUser).GetProperties().Where(
+                            prop => Attribute.IsDefined(prop, typeof(PersonalDataAttribute)));
+            foreach (var p in personalDataProps)
+            {
+                personalData.Add(p.Name, p.GetValue(user)?.ToString() ?? "null");
+            }
+
+            var logins = await _userManager.GetLoginsAsync(user);
+            foreach (var l in logins)
+            {
+                personalData.Add($"{l.LoginProvider} external login provider key", l.ProviderKey);
+            }
+
+            personalData.Add($"Authenticator Key", await _userManager.GetAuthenticatorKeyAsync(user));
+
+            Response.Headers.Add("Content-Disposition", "attachment; filename=PersonalData.json");
+            return new FileContentResult(JsonSerializer.SerializeToUtf8Bytes(personalData), "application/json");
+        }
     }
+
+   
 }

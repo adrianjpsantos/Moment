@@ -214,7 +214,7 @@ public class EventController : Controller
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("EventPage", convention.Id);
+            return RedirectToAction("EventPage", new {id =convention.Id});
         }
         ViewData["CategoryList"] = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(), "Id", "Name", eventEdit.IdCategory);
         return View();

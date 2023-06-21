@@ -1,0 +1,35 @@
+
+@{
+    ViewData["Title"] = "Preferencias";
+    ViewData["Subtitle"] = "Seus Dados";
+}
+<h1 class="ms-2 text-primary">@ViewData["Title"]</h1>
+<div class="d-flex gap-4 text-white">
+    <partial name="_UserManagerNavPartial" />
+    <div class="w-100 text-white py-3">
+        <div class="container ">
+            <div class="row w-100 p-0 m-0 pb-sm-5">
+                <div class="col-12 p-0 m-0">
+                    <form class="p-4 " id="download-data" asp-controller="UserManager" asp-action="DownloadPersonalData"  method="post">
+                        <h1 class="title-identity mb-4">@ViewData["SubTitle"]</h1>
+                        <p>Sua conta contém dados pessoais que você nos forneceu. Esta página permite que você baixe ou
+                            exclua esses dados.</p>
+                        <p>
+                            <strong>A exclusão desses dados removerá permanentemente sua conta, e isso não poderá ser
+                                recuperado.</strong>
+                        </p>
+                        <div>
+                            <button class="btn btn-primary" type="submit">Baixar Dados</button>
+                            <a id="delete" asp-controller="UserManager" asp-action="DeletePersonalData"  class="btn btn-danger">Deletar Dados</a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}
