@@ -80,7 +80,6 @@ public class EventCreateView
     [Display(Name = "Categoria")]
     public string? IdCategory { get; set; }
 
-    [Required]
     [Display(Name = "Evento é Gratuito?")]
     public bool IsFree { get; set; }
 
