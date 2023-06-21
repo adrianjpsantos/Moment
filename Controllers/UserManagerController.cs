@@ -74,17 +74,12 @@ namespace Moment.Controllers
             var phoneNumber = await _userManager.GetPhoneNumberAsync(currentUser);
             if (model.PhoneUser != phoneNumber)
             {
-                successMessage += "Numero diferente Telefone,";
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(currentUser, model.PhoneUser);
 
                 if (!setPhoneResult.Succeeded)
                 {
-                    errorMessage += "Erro inesperado ao tentar definir o número de telefone,";
+                    errorMessage = "Erro inesperado ao tentar definir o número de telefone,";
                     return RedirectToAction("Index", model);
-                }
-                else
-                {
-                    successMessage += "Atualizou Telefone,";
                 }
             }
 
@@ -97,11 +92,33 @@ namespace Moment.Controllers
                 userInfo.Promoter = true;
                 _mapper.Map(model, userInfo);
 
+                if (profilePicture != null)
+                {
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+
+                    if (userInfo.ProfilePicture != null)
+                    {
+                        string oldFile = Path.Combine(wwwRootPath, userInfo.ProfilePicture.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldFile))
+                        {
+                            System.IO.File.Delete(oldFile);
+                        }
+                    }
+                    string fileName = userInfo.IdUser + Path.GetExtension(profilePicture.FileName);
+                    string uploads = Path.Combine(wwwRootPath, @"img\usersPictures");
+                    string newFile = Path.Combine(uploads, fileName);
+                    using (var stream = new FileStream(newFile, FileMode.Create))
+                    {
+                        profilePicture.CopyTo(stream);
+                    }
+                    userInfo.ProfilePicture = @"\img\usersPictures\" + fileName;
+                }
+
                 _dbContext.Update(userInfo);
                 await _dbContext.SaveChangesAsync();
             }
 
-            successMessage += "  Seu perfil foi atualizado";
+            successMessage = "Seu perfil foi atualizado";
 
             var temp = new UserManagerIndexView();
             temp.SuccessMessage = successMessage;
@@ -174,7 +191,7 @@ namespace Moment.Controllers
             }
             else
             {
-                return Json(info);
+                return BadRequest();
             }
 
         }
@@ -208,7 +225,34 @@ namespace Moment.Controllers
             Response.Headers.Add("Content-Disposition", "attachment; filename=PersonalData.json");
             return new FileContentResult(JsonSerializer.SerializeToUtf8Bytes(personalData), "application/json");
         }
+
+        [HttpGet, Authorize, Route("Conta/DeletarDados")]
+        public IActionResult DeletePersonalData(string id)
+        {
+            return View();
+        }
+
+        [HttpDelete, Authorize, Route("Conta/DeletarDados")]
+        public async Task<IActionResult> DeletePersonalData()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            var result = await _userManager.DeleteAsync(user);
+            var userId = await _userManager.GetUserIdAsync(user);
+            if (!result.Succeeded)
+            {
+                throw new InvalidOperationException($"Unexpected error occurred deleting user.");
+            }
+
+            await _signInManager.SignOutAsync();
+
+            return Redirect("~/");
+        }
     }
 
-   
+
 }
