@@ -10,14 +10,14 @@ public class UserManagerIndexView
 
     [Required(ErrorMessage = "Este Campo é Obrigatório.")]
     [Display(Name = "Nome de Usuário")]
-    public string? NameUser;
+    public string? NameUser { get; set; }
 
-    [Display(Name = "Chama")]
+    [Display(Name = "Email")]
     [Required(ErrorMessage = "Este Campo é Obrigatório.")]
-    public string? EmailUser;
+    public string? EmailUser { get; set; }
 
     [Display(Name = "Telefone")]
-    public string? PhoneUser;
+    public string? PhoneUser { get; set; }
 
     [Display(Name = "Primeiro Nome")]
     [Required(ErrorMessage = "Este Campo é Obrigatório.")]

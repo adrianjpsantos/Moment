@@ -50,7 +50,7 @@
                     </a>
                 </article>
                 <article class="event-card col-10">
-                    <h6>Mais eventos na cidade</h6>
+                    <h6>Mais eventos de @Model.UserInfo.GetFullName()</h6>
                     <content class="d-flex ">
                         @foreach (var convention in Model.Conventions)
                         {
@@ -76,7 +76,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                @Model.Terms
+                @Html.Raw(Model.Terms)
             </div>
         </div>
     </div>

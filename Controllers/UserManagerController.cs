@@ -87,9 +87,8 @@ namespace Moment.Controllers
 
             if (!String.IsNullOrEmpty(model.FirstName))
             {
-                var userInfo = new UserInfo();
-                userInfo.IdUser = currentUser.Id;
-                userInfo.Promoter = true;
+                var userInfo = await _dbContext.UserInfos.FirstOrDefaultAsync(ui => ui.IdUser == currentUser.Id);
+                
                 _mapper.Map(model, userInfo);
 
                 if (profilePicture != null)
@@ -232,8 +231,8 @@ namespace Moment.Controllers
             return View();
         }
 
-        [HttpDelete, Authorize, Route("Conta/DeletarDados")]
-        public async Task<IActionResult> DeletePersonalData()
+        [HttpGet, Authorize, Route("Conta/ConfirmarDeletarDados")]
+        public async Task<IActionResult> ConfirmDeletePersonalData()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
