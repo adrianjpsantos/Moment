@@ -40,12 +40,12 @@ public class EventCreateView
     [RegularExpression(@"^\d{5}-\d{3}$", ErrorMessage = "O CEP não é válido.")]
     public string? ZipCodeAddress { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Digite uma Rua válida.")]
     [StringLength(50)]
     [Display(Name = "Rua")]
     public string? StreetAddress { get; set; }
 
-    [Required(ErrorMessage = "Digite o Número do Endereço.")]
+    [Required(ErrorMessage = "Digite o Número do Endereço válido.")]
     [Display(Name = "Número")]
     public int NumberAddress { get; set; }
 
@@ -53,17 +53,17 @@ public class EventCreateView
     [Display(Name = "Complemento")]
     public string? ComplementAddress { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Digite um Bairro válido.")]
     [StringLength(50)]
     [Display(Name = "Bairro")]
     public string? DistrictAddress { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Digite uma Cidade válida.")]
     [StringLength(50)]
     [Display(Name = "Cidade")]
     public string? CityAddress { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Digite um UF válido.")]
     [StringLength(2)]
     [Display(Name = "UF")]
     public string? StateAddress { get; set; }
