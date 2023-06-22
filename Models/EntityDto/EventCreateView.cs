@@ -35,7 +35,7 @@ public class EventCreateView
     [Display(Name = "Nome do Local")]
     public string? LocalNameAddress { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "O CEP é Obrigatório.")]
     [Display(Name = "CEP")]
     [RegularExpression(@"^\d{5}-\d{3}$", ErrorMessage = "O CEP não é válido.")]
     public string? ZipCodeAddress { get; set; }
