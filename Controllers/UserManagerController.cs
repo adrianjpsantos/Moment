@@ -128,6 +128,7 @@ namespace Moment.Controllers
         [HttpGet, Authorize, Route("Conta/MeusEventos")]
         public async Task<IActionResult> MyEvents()
         {
+            UserManagerMyEventsView viewModel = new();
             ViewData["Title"] = "Preferências";
 
             var conventions = new List<EventCard>();
@@ -139,10 +140,10 @@ namespace Moment.Controllers
             {
                 conventions.Add(new EventCard(convention));
             }
-
-            ViewBag.IsPromoter = isPromoter;
-            ViewData["Conventions"] = conventions;
-            return View();
+  
+            viewModel.IsPromoter = isPromoter;
+            viewModel.Conventions = conventions;
+            return View(viewModel);
         }
 
         [HttpGet, Authorize, Route("/Conta/CompletarRegistro")]
