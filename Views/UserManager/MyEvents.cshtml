@@ -1,3 +1,5 @@
+@model Moment.Models.EntityDto.UserManagerMyEventsView
+
 <h1 class="ms-2 text-primary">@ViewData["Title"]</h1>
 <div class="d-flex gap-4 text-white">
     <partial name="_UserManagerNavPartial" />
@@ -10,11 +12,11 @@
                         <h6 class="text-primary fs-3 m-0 p-0">Meus Eventos</h6>
                     </header>
                     <div class="row p-3">
-                        @if (ViewBag.IsPromoter == true)
+                        @if (Model.IsPromoter == true)
                         {
-                            if (ViewBag.Conventions.Count > 0)
+                            if (Model.Conventions.Count > 0)
                             {
-                                @foreach (var eventCard in ViewBag.Conventions)
+                                @foreach (var eventCard in Model.Conventions)
                                 {
                                     <div class="col-4 event-thumb-list">
                                         <img class="event-thumb-img" src="@eventCard.ThumbnailPath" />
@@ -37,13 +39,13 @@
                             else
                             {
                                 <h4>Voce ainda não tem eventos</h4>
-                                <a asp-controller="Event" asp-action="CreateEvent">Adicionar Evento</a>
+                                <a class="btn btn-primary btn-sm" asp-controller="Event" asp-action="CreateEvent">Adicionar Evento</a>
                             }
                         }
                         else
                         {
                             <h4>Voce ainda não é um promoter, precisamos de mais informações suas.</h4>
-                            <a asp-controller="UserManager" asp-action="CompleteRegister">Virar Promoter</a>
+                            <a class="btn btn-primary btn-sm" asp-controller="UserManager" asp-action="CompleteRegister">Virar Promoter</a>
                         }
                     </div>
                 </div>

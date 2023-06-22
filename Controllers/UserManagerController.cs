@@ -88,7 +88,7 @@ namespace Moment.Controllers
             if (!String.IsNullOrEmpty(model.FirstName))
             {
                 var userInfo = await _dbContext.UserInfos.FirstOrDefaultAsync(ui => ui.IdUser == currentUser.Id);
-                
+
                 _mapper.Map(model, userInfo);
 
                 if (profilePicture != null)
@@ -128,6 +128,7 @@ namespace Moment.Controllers
         [HttpGet, Authorize, Route("Conta/MeusEventos")]
         public async Task<IActionResult> MyEvents()
         {
+            UserManagerMyEventsView viewModel = new();
             ViewData["Title"] = "Preferências";
 
             var conventions = new List<EventCard>();
@@ -139,10 +140,10 @@ namespace Moment.Controllers
             {
                 conventions.Add(new EventCard(convention));
             }
-
-            ViewBag.IsPromoter = isPromoter;
-            ViewData["Conventions"] = conventions;
-            return View();
+  
+            viewModel.IsPromoter = isPromoter;
+            viewModel.Conventions = conventions;
+            return View(viewModel);
         }
 
         [HttpGet, Authorize, Route("/Conta/CompletarRegistro")]
@@ -205,7 +206,7 @@ namespace Moment.Controllers
             }
 
             // Only include personal data for download
-            var personalData = new Dictionary<string, string>();
+            var personalData = new Dictionary<string, object>();
             var personalDataProps = typeof(IdentityUser).GetProperties().Where(
                             prop => Attribute.IsDefined(prop, typeof(PersonalDataAttribute)));
             foreach (var p in personalDataProps)
@@ -217,6 +218,13 @@ namespace Moment.Controllers
             foreach (var l in logins)
             {
                 personalData.Add($"{l.LoginProvider} external login provider key", l.ProviderKey);
+            }
+
+            var userInfo = await _dbContext.UserInfos.FirstOrDefaultAsync(ui => ui.IdUser == user.Id);
+            if(userInfo != null){
+                var infos = new UserInfoDto();
+                _mapper.Map(userInfo,infos);
+                personalData.Add("MoreInfos", infos);
             }
 
             personalData.Add($"Authenticator Key", await _userManager.GetAuthenticatorKeyAsync(user));

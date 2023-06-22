@@ -67,20 +67,21 @@ public class EventController : Controller
 
 
 
-    [HttpGet,Authorize, Route("Evento/CriarEvento")]
+    [HttpGet, Authorize, Route("Evento/CriarEvento")]
     public IActionResult CreateEvent()
     {
         if (!UserIsPromoter())
             return RedirectToAction("CompleteRegister", "UserManager");
 
-        ViewData["CategoryList"] = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(), "Id", "Name");
-        return View();
+        var eventCreate = new EventCreateView();
+        eventCreate.Categories = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(), "Id", "Name");
+        return View(eventCreate);
     }
 
     [HttpPost, ValidateAntiForgeryToken, Route("Evento/CriarEvento")]
     public async Task<IActionResult> CreateEvent(EventCreateView eventCreate, IFormFile thumbnailPath, IFormFile backgroundPath)
     {
-        ViewData["CategoryList"] = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(), "Id", "Name");
+
         if (ModelState.IsValid)
         {
             Console.WriteLine(eventCreate);
@@ -122,6 +123,7 @@ public class EventController : Controller
 
             return RedirectToAction("CreatedEvent", convention);
         }
+        eventCreate.Categories = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(), "Id", "Name");
         return View(eventCreate);
     }
 
@@ -144,7 +146,7 @@ public class EventController : Controller
         EventEditView viewModel = new();
         _mapper.Map(convention, viewModel);
 
-        ViewData["CategoryList"] = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(), "Id", "Name", convention.IdCategory);
+        viewModel.Categories = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(), "Id", "Name", convention.IdCategory);
 
         return View(viewModel);
     }
@@ -214,10 +216,10 @@ public class EventController : Controller
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("EventPage", new {id =convention.Id});
+            return RedirectToAction("EventPage", new { id = convention.Id });
         }
-        ViewData["CategoryList"] = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(), "Id", "Name", eventEdit.IdCategory);
-        return View();
+        eventEdit.Categories = new SelectList(_context.ConventionCategories.OrderBy(g => g.Id).ToList(), "Id", "Name", eventEdit.IdCategory);
+        return View(eventEdit);
     }
 
 
