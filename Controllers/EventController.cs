@@ -51,7 +51,7 @@ public class EventController : Controller
             conventions = conventions.Where(c => c.IdCategory == cat.Id).ToList();
         }
 
-        if (valor > 0)
+        if (valor == 1 || valor == 2)
         {
             var isFree = valor == 1 ? true : false;
             conventions = conventions.Where(c => c.IsFree == isFree).ToList();
@@ -64,8 +64,6 @@ public class EventController : Controller
 
         return View(searchView);
     }
-
-
 
     [HttpGet, Authorize, Route("Evento/CriarEvento")]
     public IActionResult CreateEvent()
